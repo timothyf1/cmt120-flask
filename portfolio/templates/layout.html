@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <!-- <link rel=stylesheet type=text/css href="{{ url_for('static',filename='style.css') }}"> -->
+    <title>Digital portfolio - D1323632</title>
+</head>
+<body>
+    <div id="header">
+        <a href="{{ url_for('home') }}">Home</a> &nbsp
+    </div>
+    <div>
+    </div>
+    <div id="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>
