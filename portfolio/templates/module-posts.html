@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
 {% block content %}
-<h1>Posts for {{ module }}</h1>
+<h1>Posts for {{ module.name }}</h1>
+<p>{{ module.description }}</p>
 <ul>
     {% for post in posts %}
     <li>{{ post.title }}</li>
