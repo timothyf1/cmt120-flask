@@ -11,10 +11,10 @@ db = SQLAlchemy(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 
-from portfolio.home.home import home_bp
-from portfolio.modules.modules import modules_bp
+from portfolio.home.home import bp_home
+from portfolio.modules.modules import bp_modules
 from portfolio.auth.auth import bp_auth
 
-app.register_blueprint(home_bp)
-app.register_blueprint(modules_bp)
+app.register_blueprint(bp_home)
+app.register_blueprint(bp_modules)
 app.register_blueprint(bp_auth)

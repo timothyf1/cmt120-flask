@@ -9,13 +9,13 @@ bp_auth = Blueprint('bp_auth', __name__, template_folder='templates')
 @bp_auth.route('/auth/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('home_bp.home'))
+        return redirect(url_for('bp_home.home'))
     form = Login_form()
     if form.validate_on_submit():
         user = User.query.filter_by(username = form.username.data).first()
         if user and user.verify_password(password = form.password.data):
             login_user(user)
-            return redirect(url_for('home_bp.home'))
+            return redirect(url_for('bp_home.home'))
         return redirect(url_for('bp_auth.login'))
     return render_template('login.html', title='Login', form=form)
 
@@ -33,14 +33,14 @@ def signup():
             db.session.add(user)
             db.session.commit()
             login_user(user)
-            return redirect(url_for('home_bp.home'))
+            return redirect(url_for('bp_home.home'))
 
     return render_template('signup.html', title='Signup', form=form)
 
 @bp_auth.route('/auth/logout')
 def logout():
     logout_user()
-    return redirect(url_for('home_bp.home'))
+    return redirect(url_for('bp_home.home'))
 
 
 @login_manager.user_loader
