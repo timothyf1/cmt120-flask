@@ -9,9 +9,13 @@
     <div id="header">
         <a href="{{ url_for('home_bp.home') }}">Home</a> &nbsp
         <a href="{{ url_for('modules_bp.module_list') }}">Module List</a> &nbsp
-        <a href="{{ url_for('bp_auth.signup') }}">Sign Up</a> &nbsp
-        <a href="{{ url_for('bp_auth.login') }}">Login</a> &nbsp
-        <a href="{{ url_for('bp_auth.logout') }}">Logout</a> &nbsp
+        {% if current_user.is_authenticated %}
+            Hello {{ current_user.username }}
+            <a href="{{ url_for('bp_auth.logout') }}">Logout</a> &nbsp
+        {% else %}
+            <a href="{{ url_for('bp_auth.signup') }}">Sign Up</a> &nbsp
+            <a href="{{ url_for('bp_auth.login') }}">Login</a> &nbsp
+        {% endif %}
     </div>
     <div>
     </div>
