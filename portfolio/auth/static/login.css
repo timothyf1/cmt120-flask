@@ -26,15 +26,21 @@ form > input {
     padding-left: 1rem;
     padding-right: 1rem;
     background-color: #333333;
-    color: aliceblue;
+    color: white;
     border: 1px solid #444444;
     border-radius: 1rem;
+    font: Helvetica;
+    font-size: large;
+}
+
+form > input[type=submit] {
+    background-color: #999999;
+    color: black;
+    font-weight: bolder;
+    cursor:pointer;
 }
 
 form > input[type=submit]:hover {
-    background-color: #888888;
+    background-color: aliceblue;
 }
 
-form > input[type=text]:focus {
-    border-color: aliceblue;
-}
