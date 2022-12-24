@@ -4,9 +4,9 @@ from portfolio import db, login_manager
 from portfolio.auth.forms import Login_form, Signup_form
 from portfolio.models import User
 
-bp_auth = Blueprint('bp_auth', __name__, template_folder='templates')
+bp_auth = Blueprint('bp_auth', __name__, template_folder='templates', static_folder='static')
 
-@bp_auth.route('/auth/login', methods=['GET', 'POST'])
+@bp_auth.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
         return redirect(url_for('bp_home.home'))
@@ -20,7 +20,7 @@ def login():
     return render_template('login.html', title='Login', form=form)
 
 
-@bp_auth.route('/auth/signup', methods=['GET', 'POST'])
+@bp_auth.route('/signup', methods=['GET', 'POST'])
 def signup():
     form = Signup_form()
     if form.validate_on_submit():

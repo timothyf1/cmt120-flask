@@ -17,4 +17,4 @@ from portfolio.auth.auth import bp_auth
 
 app.register_blueprint(bp_home)
 app.register_blueprint(bp_modules)
-app.register_blueprint(bp_auth)
+app.register_blueprint(bp_auth, url_prefix='/auth')

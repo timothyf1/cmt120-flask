@@ -2,33 +2,10 @@ body {
     margin: 0;
     padding: 0;
     font-family: franklin_gothic_fs_bookRg,Arial,Helvetica Neue,sans-serif;
-    background-color: lightgrey;
-}
-
-header {
-    background-color: black;
+    background-color: #333333;
     color: white;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
 }
 
-.nav-bar {
-    display: flex;
-    flex-direction: row;
-}
-
-.user-nav {
-    margin-left: auto;
-    margin-right: 0;
-}
-
-nav > a {
-    color: white;
-    padding: 1rem;
-    text-decoration: none;
-}
-
-nav > a:hover {
-    background-color: aliceblue;
-    color: black;
+.messages {
+    margin-top: 4rem;
 }
