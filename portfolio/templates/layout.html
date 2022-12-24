@@ -4,11 +4,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    
+    <link rel=stylesheet type=text/css href="{{ url_for('static',filename='style.css') }}">
+    <link rel=stylesheet type=text/css href="{{ url_for('static',filename='nav.css') }}">
+    
     {% block head %}
     {% endblock %}
 
-    <link rel=stylesheet type=text/css href="{{ url_for('static',filename='style.css') }}">
-    <link rel=stylesheet type=text/css href="{{ url_for('static',filename='nav.css') }}">
     <title>{{ title }} - Digital portfolio - D1323632</title>
 </head>
 <body>
@@ -31,7 +33,7 @@
     </header>
     <div class="messages">
     </div>
-    <div id="content">
+    <div class="content">
         {% block content %}
         {% endblock %}
     </div>

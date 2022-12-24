@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+
+{% block head %}
+<link rel=stylesheet type=text/css href="{{ url_for('bp_auth.static',filename='login.css') }}">
+{% endblock head %}
+
+{% block content %}
+<div class="auth-form">
+{% block authform %}
+{% endblock %}
+</div>
+{% endblock content %}

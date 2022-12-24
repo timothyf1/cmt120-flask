@@ -9,3 +9,19 @@ body {
 .messages {
     margin-top: 4rem;
 }
+
+.content {
+    background-color: #111111;
+    max-width: 1000px;
+    box-sizing: border-box; 
+    margin: auto;
+    padding: 1rem;
+}
+
+h1 {
+    margin-top: 0;
+}
+
+a {
+    color: #ffff77;
+}
