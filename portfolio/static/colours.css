@@ -1,0 +1,55 @@
+body {
+    --background-color: lightgray;
+    --text-color: #000000;
+}
+
+div {
+    --content-bg-color: aliceblue;
+}
+
+input {
+    --inp-bg-color: #fffff0;
+    --inp-border-color: lightgray;
+    --inp-text-color: #000000;
+}
+
+input[type=submit] {
+    --sub-bg-color: #f0f0f0;
+    --sub-text-color: #000000;
+}
+
+input:hover {
+    --inp-hover-border-color: black;
+    --sub-hover-bg-color: #fffff0;
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        --background-color: #333333;
+        --text-color: #FFFFFF;
+    }
+
+    div {
+        --content-bg-color: #111111;
+    }
+
+    a {
+        --link-color: #ffff77;
+    }
+
+    input {
+        --inp-bg-color: #333333;
+        --inp-border-color: aliceblue;
+        --inp-text-color: #FFFFFF;
+    }
+
+    input[type=submit] {
+        --sub-bg-color: #999999;
+        --sub-text-color: #000000;
+    }
+
+    input:hover {
+        --inp-hover-border-color: # ffff77;
+        --sub-hover-bg-color: aliceblue;
+    }
+}

@@ -1,9 +1,10 @@
 .auth-form {
     margin-left: auto;
     margin-right: auto;
-    background-color: #111111;
+    background-color: var(--content-bg-color);
     max-width: 400px;
     padding: 1rem;
+    border-radius: 1rem;
 }
 
 h1 {
@@ -25,22 +26,26 @@ form > input {
     padding: 0.5rem;
     padding-left: 1rem;
     padding-right: 1rem;
-    background-color: #333333;
-    color: white;
-    border: 1px solid #444444;
+    background-color: var(--inp-bg-color);
+    color: var(--inp-text-color);
+    border: 1px solid var(--inp-border-color);
     border-radius: 1rem;
     font: Helvetica;
     font-size: large;
 }
 
+form > input:hover {
+    border: 1px solid var(--inp-hover-border-color);
+}
+
 form > input[type=submit] {
-    background-color: #999999;
-    color: black;
-    font-weight: bolder;
+    background-color: var(--sub-bg-color);
+    color: var(--sub-text-color);
+    /* font-weight: bold; */
     cursor:pointer;
 }
 
 form > input[type=submit]:hover {
-    background-color: aliceblue;
+    background-color: var(--sub-hover-bg-color);
 }
 
