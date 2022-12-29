@@ -24,7 +24,8 @@
             </nav>
             <nav class="user-nav">
                 {% if current_user.is_authenticated %}
-                <a href="#">Hello {{ current_user.username }}</a>
+                <span>Hello {{ current_user.username }}</span>
+                <a href="{{ url_for('bp_auth.change_password') }}">Change Password</a>
                 <a href="{{ url_for('bp_auth.logout') }}">Logout</a>
                 {% else %}
                 <!-- <a href="{{ url_for('bp_auth.signup') }}">Sign Up</a> -->

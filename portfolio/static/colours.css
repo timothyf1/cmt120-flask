@@ -23,6 +23,11 @@ input:hover {
     --sub-hover-bg-color: #fffff0;
 }
 
+.alert {
+    --alert-bg-color: #ffd1d1;
+    --alert-text-color: #6e0000;
+}
+
 @media (prefers-color-scheme: dark) {
     body {
         --background-color: #333333;
@@ -49,7 +54,12 @@ input:hover {
     }
 
     input:hover {
-        --inp-hover-border-color: # ffff77;
+        --inp-hover-border-color: #ffff77;
         --sub-hover-bg-color: aliceblue;
+    }
+
+    .alert {
+        --alert-bg-color: #6e0000;
+        --alert-text-color: #FFFFFF;
     }
 }

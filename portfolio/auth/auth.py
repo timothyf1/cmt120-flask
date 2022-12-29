@@ -1,7 +1,7 @@
-from flask import Blueprint, render_template, request, url_for, redirect
+from flask import Blueprint, render_template, request, url_for, redirect, flash
 from flask_login import login_required, logout_user, current_user, login_user
 from portfolio import db, login_manager
-from portfolio.auth.forms import Login_form, Signup_form
+from portfolio.auth.forms import Login_form, Signup_form, Change_password
 from portfolio.models import User
 
 bp_auth = Blueprint('bp_auth', __name__, template_folder='templates', static_folder='static')
@@ -16,12 +16,15 @@ def login():
         if user and user.verify_password(password = form.password.data):
             login_user(user)
             return redirect(url_for('bp_home.home'))
-        return redirect(url_for('bp_auth.login'))
+        flash('Invalid username and password combination')
+        # return redirect(url_for('bp_auth.login'))
     return render_template('login.html', title='Login', form=form)
 
 
 @bp_auth.route('/signup', methods=['GET', 'POST'])
 def signup():
+    if current_user.is_authenticated:
+        return redirect(url_for('bp_home.home'))
     form = Signup_form()
     if form.validate_on_submit():
         existing_user = User.query.filter_by(username = form.username.data).first()
@@ -33,15 +36,29 @@ def signup():
             db.session.add(user)
             db.session.commit()
             login_user(user)
+            flash('Login Successful')
             return redirect(url_for('bp_home.home'))
-
+        flash('Username already used')
     return render_template('signup.html', title='Signup', form=form)
 
-@bp_auth.route('/auth/logout')
+@bp_auth.route('/logout')
+@login_required
 def logout():
     logout_user()
+    flash('Logout Successful')
     return redirect(url_for('bp_home.home'))
 
+@bp_auth.route('/changepassword', methods=['GET', 'POST'])
+@login_required
+def change_password():
+    form = Change_password()
+    if form.validate_on_submit():
+        if current_user.verify_password(form.current_password.data):
+            current_user.set_password(form.new_password.data)
+            db.session.commit()
+            return redirect(url_for('bp_home.home'))
+        form.current_password.errors = ['Password Incorrect']
+    return render_template('changepassword.html', title='Change Password', form=form)
 
 @login_manager.user_loader
 def load_user(user_id):

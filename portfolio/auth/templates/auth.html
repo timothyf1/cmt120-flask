@@ -6,7 +6,15 @@
 
 {% block content_div %}
 <div class="auth-form">
-{% block authform %}
-{% endblock %}
+    <h1>{% block heading %}{% endblock %}</h1>
+
+    {% for message in get_flashed_messages() %}
+    <div class="alert">
+        {{ message }}
+    </div>
+    {% endfor %}
+
+    {% block authform %}
+    {% endblock %}
 </div>
 {% endblock content_div %}

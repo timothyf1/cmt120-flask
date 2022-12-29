@@ -49,3 +49,10 @@ form > input[type=submit]:hover {
     background-color: var(--sub-hover-bg-color);
 }
 
+.alert {
+    background-color: var(--alert-bg-color);
+    color: var(--alert-text-color);
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 1rem;
+}

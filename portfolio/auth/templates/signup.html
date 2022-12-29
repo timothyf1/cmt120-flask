@@ -1,19 +1,43 @@
 {% extends "auth.html" %}
 
+{% block heading %}
+Register
+{% endblock heading %}
+
 {% block authform %}
-<h1>Register</h1>
 <form method="POST" action="">
     {{ form.csrf_token }}
 
     {{ form.username.label }}
     {{ form.username }}
-    
+    {% if form.username.errors %}
+    <div class="alert">
+    {% for error in form.username.errors %}
+        {{ error }}
+    {% endfor %}
+    </div>
+    {% endif %}
+
     {{ form.password.label }}
     {{ form.password }}
-    
+    {% if form.password.errors %}
+    <div class="alert">
+    {% for error in form.password.errors %}
+        {{ error }}
+    {% endfor %}
+    </div>
+    {% endif %}
+
     {{ form.confirm_password.label }}
     {{ form.confirm_password }}
-    
+    {% if form.confirm_password.errors %}
+    <div class="alert">
+    {% for error in form.confirm_password.errors %}
+        {{ error }}
+    {% endfor %}
+    </div>
+    {% endif %}
+
     {{ form.submit }}
 </form>
 
