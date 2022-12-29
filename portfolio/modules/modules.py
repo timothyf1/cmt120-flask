@@ -3,7 +3,7 @@ from portfolio.models import Module, Post
 
 bp_modules = Blueprint('bp_modules', __name__, template_folder='templates')
 
-@bp_modules.route("/module")
+@bp_modules.route("/modules")
 def module_list():
     modules = Module.query.all()
     return render_template('module-list.html',title='Modules', modules=modules)

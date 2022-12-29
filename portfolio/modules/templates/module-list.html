@@ -1,6 +1,7 @@
 {% extends "content.html" %}
 {% block content %}
 <h1>Module List</h1>
+<p>This page lists all the modules I have completed across all the different courses.</p>
 <ul>
     {% for module in modules %}
     <li><a href="{{ url_for('bp_modules.module_page', name=module.name) }}">{{ module.name }}</a></li>
