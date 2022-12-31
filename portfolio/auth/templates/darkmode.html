@@ -1,0 +1,24 @@
+{% extends "auth.html" %}
+
+{% block heading %}
+Dark Mode Setting
+{% endblock heading %}
+
+{% block authform %}
+<form method="POST" action="">
+    {{ form.csrf_token }}
+
+    {{ form.pref.label }}
+    {{ form.pref }}
+
+    {% if form.pref.errors %}
+    <div class="alert">
+    {% for error in form.pref.errors %}
+        {{ error }}
+    {% endfor %}
+    </div>
+    {% endif %}
+
+    {{ form.submit }}
+</form>
+{% endblock authform %}

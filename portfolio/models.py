@@ -13,6 +13,7 @@ class User(UserMixin, db.Model):
     last_login = db.Column(db.DateTime)
 
     is_active = db.Column(db.Boolean, default=True)
+    dark_mode = db.Column(db.Integer, default=0)
 
     def set_password(self, password):
         self.password = generate_password_hash(password)

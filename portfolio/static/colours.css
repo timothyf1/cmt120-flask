@@ -1,65 +1,10 @@
-body {
-    --background-color: lightgray;
-    --text-color: #000000;
-}
+@import url("light.css");
 
-div {
-    --content-bg-color: aliceblue;
-}
-
-input {
-    --inp-bg-color: #fffff0;
-    --inp-border-color: lightgray;
-    --inp-text-color: #000000;
-}
-
-input[type=submit] {
-    --sub-bg-color: #f0f0f0;
-    --sub-text-color: #000000;
-}
-
-input:hover {
-    --inp-hover-border-color: black;
-    --sub-hover-bg-color: #fffff0;
-}
-
-.alert {
-    --alert-bg-color: #ffd1d1;
-    --alert-text-color: #6e0000;
-}
-
-@media (prefers-color-scheme: dark) {
-    body {
-        --background-color: #333333;
-        --text-color: #FFFFFF;
-    }
-
-    div {
-        --content-bg-color: #111111;
-    }
-
-    a {
-        --link-color: #ffff77;
-    }
-
-    input {
-        --inp-bg-color: #333333;
-        --inp-border-color: aliceblue;
-        --inp-text-color: #FFFFFF;
-    }
-
-    input[type=submit] {
-        --sub-bg-color: #999999;
-        --sub-text-color: #000000;
-    }
-
-    input:hover {
-        --inp-hover-border-color: #ffff77;
-        --sub-hover-bg-color: aliceblue;
-    }
-
-    .alert {
-        --alert-bg-color: #6e0000;
-        --alert-text-color: #FFFFFF;
-    }
-}
+/*
+Import a file depending on media query
+This code was adapted from Stack Overflow post by Drew Altukhov 2013-09-05
+accessed on 2022-12-31
+https://stackoverflow.com/a/18636027/
+*/
+@import url("dark.css") (prefers-color-scheme: dark)
+/* end of referenced code */

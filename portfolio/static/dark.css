@@ -1,0 +1,33 @@
+body {
+    --background-color: #333333;
+    --text-color: #FFFFFF;
+}
+
+div {
+    --content-bg-color: #111111;
+}
+
+a {
+    --link-color: #ffff77;
+}
+
+input {
+    --inp-bg-color: #333333;
+    --inp-border-color: aliceblue;
+    --inp-text-color: #FFFFFF;
+}
+
+input[type=submit] {
+    --sub-bg-color: #999999;
+    --sub-text-color: #000000;
+}
+
+input:hover {
+    --inp-hover-border-color: #ffff77;
+    --sub-hover-bg-color: aliceblue;
+}
+
+.alert {
+    --alert-bg-color: #6e0000;
+    --alert-text-color: #FFFFFF;
+}

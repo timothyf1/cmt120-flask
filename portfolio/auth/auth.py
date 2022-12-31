@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, url_for, redirect, flash
 from flask_login import login_required, logout_user, current_user, login_user
 from portfolio import db, login_manager
-from portfolio.auth.forms import Login_form, Signup_form, Change_password
+from portfolio.auth.forms import Login_form, Signup_form, Change_password, Dark_mode
 from portfolio.models import User
 
 bp_auth = Blueprint('bp_auth', __name__, template_folder='templates', static_folder='static')
@@ -59,6 +59,21 @@ def change_password():
             return redirect(url_for('bp_home.home'))
         form.current_password.errors = ['Password Incorrect']
     return render_template('changepassword.html', title='Change Password', form=form)
+
+@bp_auth.route('/darkmode', methods=['GET', 'POST'])
+@login_required
+def dark_mode_setting():
+    form = Dark_mode()
+    if form.validate_on_submit():
+        current_user.dark_mode = form.pref.data
+        db.session.commit()
+        return redirect(url_for('bp_auth.user_profile'))
+    return render_template('darkmode.html', title='Change Dark Mode Setting', form=form)
+
+@bp_auth.route('/profile')
+@login_required
+def user_profile():
+    return render_template('profile.html', title='Profile')
 
 @login_manager.user_loader
 def load_user(user_id):

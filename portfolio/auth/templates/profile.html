@@ -1,0 +1,10 @@
+{% extends "content.html" %}
+{% block content %}
+<h1>{{ current_user.username }} profile</h1>
+
+<p>Hello and welcome to your profile, from here you will be able to change your user settings</p>
+
+<a href="{{ url_for('bp_auth.change_password') }}">Change Password</a>
+<a href="{{ url_for('bp_auth.dark_mode_setting') }}">Dark Mode Settings</a>
+
+{% endblock content %}
