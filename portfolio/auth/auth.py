@@ -1,3 +1,4 @@
+from datetime import datetime
 from flask import Blueprint, render_template, request, url_for, redirect, flash
 from flask_login import login_required, logout_user, current_user, login_user
 from portfolio import db, login_manager
@@ -15,6 +16,8 @@ def login():
         user = User.query.filter_by(username = form.username.data).first()
         if user and user.verify_password(password = form.password.data):
             login_user(user)
+            current_user.last_login = datetime.utcnow()
+            db.session.commit()
             return redirect(url_for('bp_home.home'))
         flash('Invalid username and password combination')
         # return redirect(url_for('bp_auth.login'))
@@ -36,6 +39,8 @@ def signup():
             db.session.add(user)
             db.session.commit()
             login_user(user)
+            current_user.last_login = datetime.utcnow
+            db.session.commit()
             flash('Login Successful')
             return redirect(url_for('bp_home.home'))
         flash('Username already used')
