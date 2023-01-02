@@ -3,7 +3,7 @@ from flask_login import login_required
 from .. import db
 from ..models import Course, Module
 
-from .form import New_Course, Edit_Course
+from .form import New_Course, Edit_Course, Delete_Course
 
 bp_education = Blueprint('bp_education', __name__, template_folder='templates')
 
@@ -55,3 +55,15 @@ def edit_course(name):
     form.year.data = course.year
     form.description.data = course.description
     return render_template('edit-course.html', title='Edit a course', form=form, course=course)
+
+@bp_education.route("/course/<string:name>/delete", methods=['GET', 'POST'])
+@login_required
+def delete_course(name):
+    course = Course.query.filter_by(name=name).first_or_404()
+    form = Delete_Course()
+    if form.validate_on_submit():
+        db.session.delete(course)
+        db.session.commit()
+        return redirect(url_for('bp_education.course_list'))
+
+    return render_template('delete-course.html', title='Edit a course', form=form, course=course)

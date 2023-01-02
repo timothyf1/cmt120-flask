@@ -4,6 +4,7 @@
     <h1>{{ course.name }}</h1>
     {% if current_user.is_authenticated %}
     <a href="{{ url_for('bp_education.edit_course', name=course.name) }}" class="button">Edit Course</a>
+    <a href="{{ url_for('bp_education.delete_course', name=course.name) }}" class="button">Delete Course</a>
     {% endif %}
 </div>
 <p>{{ course.description }}</p>

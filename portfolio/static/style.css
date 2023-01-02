@@ -99,7 +99,7 @@ form {
 }
 
 .right-link > a.button {
-    margin-right: 0;
+    margin-left: 1rem;
     background-color: var(--bg-color);
     color: var(--text-color);
     padding: 0.5rem;
