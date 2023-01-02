@@ -3,12 +3,12 @@ from ..models import Module, Post
 
 bp_modules = Blueprint('bp_modules', __name__, template_folder='templates')
 
-@bp_modules.route("/modules")
+@bp_modules.route("/")
 def module_list():
     modules = Module.query.all()
     return render_template('module-list.html',title='Modules', modules=modules)
 
-@bp_modules.route("/module/<string:name>")
+@bp_modules.route("/<string:name>")
 def module_page(name):
     module = Module.query.filter_by(name=name).first_or_404()
     print(module.id)

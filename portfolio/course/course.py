@@ -7,12 +7,12 @@ from .form import New_Course, Edit_Course, Delete_Course
 
 bp_education = Blueprint('bp_education', __name__, template_folder='templates')
 
-@bp_education.route("/education")
+@bp_education.route("/")
 def course_list():
     courses = Course.query.all()
     return render_template('course-list.html',title='Education', courses=courses)
 
-@bp_education.route("/course/<string:name>")
+@bp_education.route("/<string:name>")
 def course_page(name):
     course = Course.query.filter_by(name=name).first_or_404()
     # print(module.id)
@@ -36,7 +36,7 @@ def new_course():
 
     return render_template('new-course.html', title='Add a course', form=form)
 
-@bp_education.route("/course/<string:name>/edit", methods=['GET', 'POST'])
+@bp_education.route("/<string:name>/edit", methods=['GET', 'POST'])
 @login_required
 def edit_course(name):
     course = Course.query.filter_by(name=name).first_or_404()
@@ -56,7 +56,7 @@ def edit_course(name):
     form.description.data = course.description
     return render_template('edit-course.html', title='Edit a course', form=form, course=course)
 
-@bp_education.route("/course/<string:name>/delete", methods=['GET', 'POST'])
+@bp_education.route("/<string:name>/delete", methods=['GET', 'POST'])
 @login_required
 def delete_course(name):
     course = Course.query.filter_by(name=name).first_or_404()
