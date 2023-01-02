@@ -8,6 +8,7 @@ greenlet==2.0.1
 gunicorn==20.1.0
 itsdangerous==2.1.2
 Jinja2==3.1.2
+Markdown==3.4.1
 MarkupSafe==2.1.1
 PyMySQL==1.0.2
 SQLAlchemy==1.4.45
