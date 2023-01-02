@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, url_for
-from portfolio.models import Course, Module
+from ..models import Course, Module
 
 bp_education = Blueprint('bp_education', __name__, template_folder='templates')
 

@@ -1,9 +1,9 @@
 from datetime import datetime
 from flask import Blueprint, render_template, request, url_for, redirect, flash
 from flask_login import login_required, logout_user, current_user, login_user
-from portfolio import db, login_manager
-from portfolio.auth.forms import Login_form, Signup_form, Change_password, Dark_mode
-from portfolio.models import User
+from .. import db, login_manager
+from ..models import User
+from .forms import Login_form, Signup_form, Change_password, Dark_mode
 
 bp_auth = Blueprint('bp_auth', __name__, template_folder='templates', static_folder='static')
 
