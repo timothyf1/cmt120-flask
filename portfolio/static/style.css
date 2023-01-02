@@ -81,6 +81,16 @@ form {
     background-color: var(--sub-hover-bg-color);
 }
 
+.form-element > textarea {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    outline-color: var(--inp-border-color);
+    padding: 1rem;
+    border-radius: 1rem;
+    margin-bottom: 1rem;
+    min-height: 20rem;
+}
+
 .alert {
     background-color: var(--alert-bg-color);
     color: var(--alert-text-color);
