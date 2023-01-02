@@ -3,7 +3,7 @@ from flask_login import login_required
 from .. import db
 from ..models import Course, Module, Post
 
-from .forms import New_Module, Edit_Module
+from .forms import New_Module, Edit_Module, Delete_Module
 
 bp_modules = Blueprint('bp_modules', __name__, template_folder='templates')
 
@@ -55,4 +55,16 @@ def edit_module(code):
     form.year.data = module.year
     form.description.data = module.description
 
-    return render_template('edit-module.html', title='Add a module', form=form)
+    return render_template('edit-module.html', title='Add a module', form=form, module=module)
+
+@bp_modules.route("/<string:code>/delete", methods=['GET', 'POST'])
+@login_required
+def delete_module(code):
+    module = Module.query.filter_by(code=code).first_or_404()
+    form = Delete_Module()
+    if form.validate_on_submit():
+        db.session.delete(module)
+        db.session.commit()
+        return redirect(url_for('bp_modules.module_list'))
+
+    return render_template('delete-module.html', title='Delete a module', form=form, module=module)

@@ -15,3 +15,7 @@ class Edit_Module(FlaskForm):
     year = StringField('Year', validators=[DataRequired()])
     description = StringField('Description', validators=[DataRequired()])
     submit = SubmitField('Apply Changes')
+
+class Delete_Module(FlaskForm):
+    confirm = BooleanField('The action of deleting a module is non reversible. Please tick this box to confirm', validators=[DataRequired()])
+    submit = SubmitField('Delete')
