@@ -96,6 +96,7 @@ form {
 
 .right-link > :first-child {
     margin-right: auto;
+    margin-bottom: auto;
 }
 
 .right-link > a.button {
