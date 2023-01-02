@@ -9,6 +9,9 @@ div {
 
 a {
     --link-color: #ffff77;
+    --bg-color: #555555;
+    --bg-hov-color: aliceblue;
+    --text-hov-color: #000000;
 }
 
 input {

@@ -26,3 +26,89 @@ h1 {
 a {
     color: var(--link-color);
 }
+
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.form-element {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.form-row > .form-element:not(:first-child) {
+    margin-left: 1rem;
+}
+
+.form-element > label {
+    margin-bottom: 0.1rem;
+    margin-left: 1rem;
+}
+
+.form-element > input {
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    background-color: var(--inp-bg-color);
+    color: var(--inp-text-color);
+    border: 1px solid var(--inp-border-color);
+    border-radius: 1rem;
+    font: Helvetica;
+    font-size: large;
+}
+
+.form-element > input:hover {
+    border: 1px solid var(--inp-hover-border-color);
+}
+
+.form-element > input[type=submit] {
+    background-color: var(--sub-bg-color);
+    color: var(--sub-text-color);
+    /* font-weight: bold; */
+    cursor:pointer;
+}
+
+.form-element > input[type=submit]:hover {
+    background-color: var(--sub-hover-bg-color);
+}
+
+.alert {
+    background-color: var(--alert-bg-color);
+    color: var(--alert-text-color);
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 1rem;
+}
+
+.right-link {
+    display: flex;
+    flex-direction: row;
+}
+
+.right-link > :first-child {
+    margin-right: auto;
+}
+
+.right-link > a.button {
+    margin-right: 0;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    padding: 0.5rem;
+    height: fit-content;
+    border-radius: .5rem;
+    text-decoration: none;
+}
+
+.right-link > a.button:hover {
+    background-color: var(--bg-hov-color);
+    color: var(--text-hov-color);
+}
