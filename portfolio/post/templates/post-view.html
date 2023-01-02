@@ -1,5 +1,10 @@
 {% extends "content.html" %}
 {% block content %}
-<h1>{{ post.title }}</h1>
+<div class="heading right-link">
+    <h1>{{ post.title }}</h1>
+    {% if current_user.is_authenticated %}
+    <a href="{{ url_for('bp_posts.edit_post', title=post.title) }}" class="button">Edit Post</a>
+    {% endif %}
+</div>
 {{ content|safe }}
 {% endblock content %}

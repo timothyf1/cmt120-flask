@@ -3,7 +3,7 @@ from flask_login import login_required, current_user
 from .. import db
 from ..models import Course, Module, Post
 
-from .forms import New_post
+from .forms import New_post, Edit_post
 
 import markdown
 
@@ -22,6 +22,7 @@ def view_post(title):
     return render_template('post-view.html', title=post.title, post=post, content=content)
 
 @bp_posts.route("/<string:module_code>/new-post", methods=['GET', 'POST'])
+@login_required
 def new_post(module_code):
     module = Module.query.filter_by(code=module_code).first_or_404()
     form = New_post()
@@ -37,3 +38,21 @@ def new_post(module_code):
         db.session.commit()
         return redirect(url_for('bp_posts.view_post', title=post.title))
     return render_template('new-post.html', title='New post', form=form, module=module)
+
+@bp_posts.route("/<string:title>/edit", methods=['GET', 'POST'])
+@login_required
+def edit_post(title):
+    post = Post.query.filter_by(title=title).first_or_404()
+
+    form = Edit_post()
+
+    if form.validate_on_submit():
+        post.title = form.title.data
+        post.content = form.content.data
+        db.session.commit()
+        return redirect(url_for('bp_posts.view_post', title=post.title))
+
+    form.title.data = post.title
+    form.content.data = post.content
+
+    return render_template('edit-post.html', title='Edit post', form=form, post=post)

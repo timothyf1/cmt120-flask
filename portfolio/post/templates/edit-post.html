@@ -1,0 +1,37 @@
+{% extends "content.html" %}
+
+{% block content %}
+<h1>Edit Post {{ post.title }}</h1>
+
+<form method="POST" action="">
+    {{ form.csrf_token }}
+
+    <div class="form-element">
+        {{ form.title.label }}
+        {{ form.title }}
+        {% if form.title.errors %}
+        <div class="alert">
+        {% for error in form.title.errors %}
+            {{ error }}
+        {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="form-element">
+        {{ form.content.label }}
+        {{ form.content }}
+        {% if form.content.errors %}
+        <div class="alert">
+        {% for error in form.content.errors %}
+            {{ error }}
+        {% endfor %}
+        </div>
+        {% endif %}
+        </div>
+
+        <div class="form-element">
+            {{ form.submit }}
+        </div>
+    </form>
+{% endblock content %}
