@@ -14,9 +14,11 @@ login_manager.init_app(app)
 from portfolio.home.home import bp_home
 from portfolio.course.course import bp_education
 from portfolio.modules.modules import bp_modules
+from portfolio.post.posts import bp_posts
 from portfolio.auth.auth import bp_auth
 
 app.register_blueprint(bp_home)
 app.register_blueprint(bp_education, url_prefix='/education')
 app.register_blueprint(bp_modules, url_prefix='/module')
+app.register_blueprint(bp_posts, url_prefix='/post')
 app.register_blueprint(bp_auth, url_prefix='/auth')

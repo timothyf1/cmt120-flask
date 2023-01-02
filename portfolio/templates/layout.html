@@ -28,6 +28,7 @@
                 <a href="{{ url_for('bp_home.home') }}">Home</a>
                 <a href="{{ url_for('bp_education.course_list') }}">Education</a>
                 <a href="{{ url_for('bp_modules.module_list') }}">Module List</a>
+                <a href="{{ url_for('bp_posts.posts_list') }}">Post List</a>
             </nav>
             <nav class="user-nav">
                 {% if current_user.is_authenticated %}
