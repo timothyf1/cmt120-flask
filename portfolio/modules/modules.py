@@ -17,12 +17,12 @@ def module_page(code):
     module = Module.query.filter_by(code=code).first_or_404()
     return render_template('module-posts.html', title='module.name', module=module)
 
-@bp_modules.route("/new-module/<int:course_id>", methods=['GET', 'POST'])
+@bp_modules.route("/<string:course>/new-module", methods=['GET', 'POST'])
 @login_required
-def new_module(course_id):
+def new_module(course):
+    course = Course.query.filter_by(name=course).first_or_404()
     form = New_Module()
     if form.validate_on_submit():
-        course = Course.query.filter_by(id=course_id).first_or_404()
         module = Module(
             name = form.name.data,
             code = form.code.data,
@@ -34,4 +34,4 @@ def new_module(course_id):
         db.session.add(module)
         db.session.commit()
         return redirect(url_for('bp_modules.module_page', code=module.code))
-    return render_template('new-module.html', title='Add a module', form=form)
+    return render_template('new-module.html', title='Add a module', form=form, course=course)
