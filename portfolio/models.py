@@ -42,6 +42,7 @@ class Module(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     course_id = db.Column(db.Integer, db.ForeignKey('course.id'))
     name = db.Column(db.String(40), nullable=False)
+    year = db.Column(db.Integer, nullable=False)
     code = db.Column(db.String(20), nullable=False, unique=True)
     description = db.Column(db.String(200))
 
