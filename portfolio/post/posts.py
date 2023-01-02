@@ -3,7 +3,7 @@ from flask_login import login_required, current_user
 from .. import db
 from ..models import Course, Module, Post
 
-from .forms import New_post, Edit_post
+from .forms import New_post, Edit_post, Delete_Post
 
 import markdown
 
@@ -56,3 +56,15 @@ def edit_post(title):
     form.content.data = post.content
 
     return render_template('edit-post.html', title='Edit post', form=form, post=post)
+
+@bp_posts.route("/<string:title>/delete", methods=['GET', 'POST'])
+@login_required
+def delete_post(title):
+    post = Post.query.filter_by(title=title).first_or_404()
+    form = Delete_Post()
+    if form.validate_on_submit():
+        db.session.delete(post)
+        db.session.commit()
+        return redirect(url_for('bp_posts.posts_list'))
+
+    return render_template('delete-post.html', title='Delete a post', form=form, post=post)
