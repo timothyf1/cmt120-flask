@@ -11,7 +11,7 @@
 <p>{{ module.description }}</p>
 <ul>
     {% for post in module.posts %}
-    <li>{{ post.title }}</li>
+    <li><a href="{{ url_for('bp_posts.view_post', title=post.title) }}">{{ post.title }}</a></li>
     {% endfor %}
 </ul>
 {% endblock content %}
