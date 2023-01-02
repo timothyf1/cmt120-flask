@@ -9,10 +9,12 @@ class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(10), nullable=False, unique=True)
     password = db.Column(db.String(128), nullable=False)
+
     created_on = db.Column(db.DateTime, default=datetime.utcnow)
     last_login = db.Column(db.DateTime)
-
     is_active = db.Column(db.Boolean, default=True)
+
+    # User Settings
     dark_mode = db.Column(db.Integer, default=0)
 
     def set_password(self, password):
@@ -23,16 +25,21 @@ class User(UserMixin, db.Model):
 
 class Course(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(20), nullable=False)
+    name = db.Column(db.String(40), nullable=False, unique=True)
     location = db.Column(db.String(40), nullable=False)
     year = db.Column(db.Integer, nullable=False)
     description = db.Column(db.String(200), nullable=False)
 
+    modules = db.relationship('Module', back_populates='course')
+
 class Module(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     course_id = db.Column(db.Integer, db.ForeignKey('course.id'))
-    name = db.Column(db.String(20), nullable=False)
+    name = db.Column(db.String(40), nullable=False)
+    code = db.Column(db.String(20), nullable=False, unique=True)
     description = db.Column(db.String(200))
+
+    course = db.relationship('Course', back_populates='modules')
 
     def __repr__(self):
         return f"Module('{self.id}', '{self.name}', '{self.description}')"

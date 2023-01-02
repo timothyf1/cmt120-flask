@@ -15,9 +15,7 @@ def course_list():
 @bp_education.route("/<string:name>")
 def course_page(name):
     course = Course.query.filter_by(name=name).first_or_404()
-    # print(module.id)
-    modules = Module.query.filter_by(course_id=course.id)
-    return render_template('course-modules.html', title=name, course=course, modules=modules)
+    return render_template('course-modules.html', title=name, course=course)
 
 @bp_education.route("/new-course", methods=['GET', 'POST'])
 @login_required
