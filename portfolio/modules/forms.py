@@ -8,3 +8,10 @@ class New_Module(FlaskForm):
     year = StringField('Year', validators=[DataRequired()])
     description = StringField('Description', validators=[DataRequired()])
     submit = SubmitField('Add Module')
+
+class Edit_Module(FlaskForm):
+    name = StringField('Module Name', validators=[DataRequired()])
+    code = StringField('Module Code', validators=[DataRequired()])
+    year = StringField('Year', validators=[DataRequired()])
+    description = StringField('Description', validators=[DataRequired()])
+    submit = SubmitField('Apply Changes')

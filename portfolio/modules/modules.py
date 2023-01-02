@@ -3,7 +3,7 @@ from flask_login import login_required
 from .. import db
 from ..models import Course, Module, Post
 
-from .forms import New_Module
+from .forms import New_Module, Edit_Module
 
 bp_modules = Blueprint('bp_modules', __name__, template_folder='templates')
 
@@ -35,3 +35,24 @@ def new_module(course):
         db.session.commit()
         return redirect(url_for('bp_modules.module_page', code=module.code))
     return render_template('new-module.html', title='Add a module', form=form, course=course)
+
+@bp_modules.route("/<string:code>/edit-module", methods=['GET', 'POST'])
+@login_required
+def edit_module(code):
+    module = Module.query.filter_by(code=code).first_or_404()
+    form = Edit_Module()
+    if form.validate_on_submit():
+        module.name = form.name.data,
+        module.code = form.code.data,
+        module.year = form.year.data,
+        module.description = form.description.data,
+
+        db.session.commit()
+        return redirect(url_for('bp_modules.module_page', code=module.code))
+
+    form.name.data = module.name
+    form.code.data = module.code
+    form.year.data = module.year
+    form.description.data = module.description
+
+    return render_template('edit-module.html', title='Add a module', form=form)
