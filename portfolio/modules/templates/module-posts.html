@@ -3,7 +3,7 @@
 <h1>Posts for {{ module.name }}</h1>
 <p>{{ module.description }}</p>
 <ul>
-    {% for post in posts %}
+    {% for post in module.posts %}
     <li>{{ post.title }}</li>
     {% endfor %}
 </ul>
