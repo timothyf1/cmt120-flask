@@ -79,6 +79,7 @@ form {
 
 .form-element > input[type=submit]:hover {
     background-color: var(--sub-hover-bg-color);
+    color: var(--text-hov-color);
 }
 
 .form-element > textarea {

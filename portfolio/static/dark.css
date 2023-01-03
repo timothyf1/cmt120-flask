@@ -21,13 +21,14 @@ input {
 }
 
 input[type=submit] {
-    --sub-bg-color: #999999;
-    --sub-text-color: #000000;
+    --sub-bg-color: #555555;
+    --sub-text-color: #FFFFFF;
 }
 
 input:hover {
     --inp-hover-border-color: #ffff77;
     --sub-hover-bg-color: aliceblue;
+    --text-hov-color: #000000;
 }
 
 .alert {
