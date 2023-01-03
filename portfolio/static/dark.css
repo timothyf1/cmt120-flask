@@ -25,6 +25,11 @@ input[type=submit] {
     --sub-text-color: #FFFFFF;
 }
 
+input[type=button] {
+    --sub-bg-color: #555555;
+    --sub-text-color: #FFFFFF;
+}
+
 input:hover {
     --inp-hover-border-color: #ffff77;
     --sub-hover-bg-color: aliceblue;

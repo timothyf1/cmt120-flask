@@ -14,7 +14,9 @@ body {
     background-color: var(--content-bg-color);
     max-width: 1000px;
     box-sizing: border-box;
-    margin: auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 1rem;
     padding: 1rem;
     border-radius: 1rem;
 }
@@ -78,6 +80,18 @@ form {
 }
 
 .form-element > input[type=submit]:hover {
+    background-color: var(--sub-hover-bg-color);
+    color: var(--text-hov-color);
+}
+
+.form-element > input[type=button] {
+    background-color: var(--sub-bg-color);
+    color: var(--sub-text-color);
+    /* font-weight: bold; */
+    cursor:pointer;
+}
+
+.form-element > input[type=button]:hover {
     background-color: var(--sub-hover-bg-color);
     color: var(--text-hov-color);
 }

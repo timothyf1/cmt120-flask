@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, url_for, redirect
+from flask import Blueprint, render_template, url_for, redirect, request
 from flask_login import login_required, current_user
 from .. import db
 from ..models import Course, Module, Post
@@ -7,7 +7,7 @@ from .forms import New_post, Edit_post, Delete_Post
 
 import markdown
 
-bp_posts = Blueprint('bp_posts', __name__, template_folder='templates')
+bp_posts = Blueprint('bp_posts', __name__, template_folder='templates', static_folder='static')
 
 @bp_posts.route("/")
 def posts_list():
@@ -68,3 +68,9 @@ def delete_post(title):
         return redirect(url_for('bp_posts.posts_list'))
 
     return render_template('delete-post.html', title='Delete a post', form=form, post=post)
+
+@bp_posts.route("/<string:title>/preview", methods=['GET', 'POST'])
+def preview(title):
+    mkd = request.json['markdown']
+    html = markdown.markdown(mkd)
+    return {"html": html}
