@@ -56,7 +56,7 @@ class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     module_id = db.Column(db.Integer, db.ForeignKey('module.id'))
     author_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    title = db.Column(db.Text)
+    title = db.Column(db.Text, unique=True)
     content = db.Column(db.Text)
 
     module = db.relationship('Module', back_populates='posts')
