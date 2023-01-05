@@ -6,6 +6,7 @@ from ..models import Course, Module, Post
 from .forms import New_post, Edit_post, Delete_Post
 
 import markdown
+import bleach
 
 bp_posts = Blueprint('bp_posts', __name__, template_folder='templates', static_folder='static')
 
@@ -17,8 +18,8 @@ def posts_list():
 @bp_posts.route("/<string:title>")
 def view_post(title):
     post = Post.query.filter_by(title=title).first_or_404()
-    content = markdown.markdown(post.content)
-    print(content)
+    allowed_tags = ['a', 'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ol', 'ul', 'li']
+    content = bleach.clean(markdown.markdown(post.content), tags=allowed_tags)
     return render_template('post-view.html', title=post.title, post=post, content=content)
 
 @bp_posts.route("/<string:module_code>/new-post", methods=['GET', 'POST'])
@@ -83,5 +84,6 @@ def delete_post(title):
 def preview(title):
     mkd = request.json['markdown']
     title = f"<h1>{request.json['title']}</h1>"
-    html = title + markdown.markdown(mkd)
+    allowed_tags = ['a', 'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ol', 'ul', 'li']
+    html = title + bleach.clean(markdown.markdown(mkd), tags=allowed_tags)
     return {"html": html}
