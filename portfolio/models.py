@@ -28,7 +28,7 @@ class User(UserMixin, db.Model):
 
 class Course(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(40), nullable=False, unique=True)
+    name = db.Column(db.String(50), nullable=False, unique=True)
     location = db.Column(db.String(40), nullable=False)
     year = db.Column(db.Integer, nullable=False)
     description = db.Column(db.String(200), nullable=False)
@@ -41,7 +41,7 @@ class Course(db.Model):
 class Module(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     course_id = db.Column(db.Integer, db.ForeignKey('course.id'))
-    name = db.Column(db.String(40), nullable=False)
+    name = db.Column(db.String(50), nullable=False)
     year = db.Column(db.Integer, nullable=False)
     code = db.Column(db.String(20), nullable=False, unique=True)
     description = db.Column(db.String(200))
@@ -56,7 +56,7 @@ class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     module_id = db.Column(db.Integer, db.ForeignKey('module.id'))
     author_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    title = db.Column(db.Text, unique=True)
+    title = db.Column(db.String(50), unique=True)
     content = db.Column(db.Text)
 
     module = db.relationship('Module', back_populates='posts')
