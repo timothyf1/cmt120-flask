@@ -1,10 +1,16 @@
 header {
     background-color: black;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
+    padding: 1rem;
+    box-sizing: border-box;
     position: fixed;
-    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 1rem;
     width: 100%;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 1rem;
 }
 
 .nav-bar {
