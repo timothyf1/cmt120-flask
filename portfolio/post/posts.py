@@ -28,15 +28,18 @@ def new_post(module_code):
     form = New_post()
 
     if form.validate_on_submit():
-        post = Post(
-            title = form.title.data,
-            content = form.content.data,
-            author_id = current_user.id,
-            module = module
-        )
-        db.session.add(post)
-        db.session.commit()
-        return redirect(url_for('bp_posts.view_post', title=post.title))
+        check_title = Post.query.filter_by(title=form.title.data).first()
+        if check_title is None:
+            post = Post(
+                title = form.title.data,
+                content = form.content.data,
+                author_id = current_user.id,
+                module = module
+            )
+            db.session.add(post)
+            db.session.commit()
+            return redirect(url_for('bp_posts.view_post', title=post.title))
+        form.title.errors = ["This title has been used, please enter a different title"]
     return render_template('new-post.html', title='New post', form=form, module=module)
 
 @bp_posts.route("/<string:title>/edit", methods=['GET', 'POST'])
@@ -47,13 +50,19 @@ def edit_post(title):
     form = Edit_post()
 
     if form.validate_on_submit():
-        post.title = form.title.data
-        post.content = form.content.data
-        db.session.commit()
-        return redirect(url_for('bp_posts.view_post', title=post.title))
-
-    form.title.data = post.title
-    form.content.data = post.content
+        if post.title != form.title.data:
+            check_title = Post.query.filter_by(title=form.title.data).first()
+        else:
+            check_title = None
+        if check_title is None:
+            post.title = form.title.data
+            post.content = form.content.data
+            db.session.commit()
+            return redirect(url_for('bp_posts.view_post', title=post.title))
+        form.title.errors = ["This title has been used, please enter a different title"]
+    else:
+        form.title.data = post.title
+        form.content.data = post.content
 
     return render_template('edit-post.html', title='Edit post', form=form, post=post)
 
