@@ -73,6 +73,8 @@ def dark_mode_setting():
         current_user.dark_mode = form.pref.data
         db.session.commit()
         return redirect(url_for('bp_auth.user_profile'))
+    form.pref.default = current_user.dark_mode
+    form.process()
     return render_template('darkmode.html', title='Change Dark Mode Setting', form=form)
 
 @bp_auth.route('/profile')
