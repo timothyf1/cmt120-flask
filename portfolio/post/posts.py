@@ -69,7 +69,7 @@ def delete_post(title):
 
     return render_template('delete-post.html', title='Delete a post', form=form, post=post)
 
-@bp_posts.route("/<string:title>/preview", methods=['GET', 'POST'])
+@bp_posts.route("/<string:title>/preview", methods=['POST'])
 def preview(title):
     mkd = request.json['markdown']
     html = markdown.markdown(mkd)
