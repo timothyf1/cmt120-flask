@@ -1,6 +1,5 @@
 .auth-form {
-    margin-left: auto;
-    margin-right: auto;
+    margin: 7rem auto;
     background-color: var(--content-bg-color);
     max-width: 400px;
     padding: 1rem;
