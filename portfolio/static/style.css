@@ -6,8 +6,7 @@ body {
     color: var(--text-color);
 }
 
-.messages {
-    /* spacing due to nav bar */
+.sticky-pad {
     margin-top: 5rem;
 }
 

@@ -42,7 +42,10 @@
     </header>
     <div class="messages">
     </div>
+
     {% block content_div %}
     {% endblock %}
+
+    <script src="{{ url_for('static',filename='nav.js') }}"></script>
 </body>
 </html>
