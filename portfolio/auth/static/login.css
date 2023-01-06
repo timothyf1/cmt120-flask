@@ -1,7 +1,13 @@
+header {
+    max-width: 450px;
+    visibility: hidden;
+}
+
 .auth-form {
-    margin: 7rem auto;
+    margin: auto auto;
     background-color: var(--content-bg-color);
-    max-width: 400px;
+    max-width: 450px;
+    box-sizing: border-box;
     padding: 1rem;
     border-radius: 1rem;
 }
