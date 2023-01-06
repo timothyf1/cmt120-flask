@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+{% block head %}
+<link rel=stylesheet type=text/css href="{{ url_for('bp_profile.static',filename='profile.css') }}">
+{% endblock head %}
+
+{% block content_div %}
+<div class="profile-form">
+    <h1>{% block heading %}{% endblock %}</h1>
+
+    {% for message in get_flashed_messages() %}
+    <div class="alert">
+        {{ message }}
+    </div>
+    {% endfor %}
+
+    {% block profileform %}
+    {% endblock %}
+</div>
+{% endblock content_div %}
