@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, url_for, redirect
 from flask_login import login_required, current_user
+from .. import db
 from ..models import User
 from .forms import Change_password, Dark_mode
 
