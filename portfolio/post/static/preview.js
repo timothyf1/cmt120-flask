@@ -1,6 +1,7 @@
 let btnPreview = document.getElementById('preview');
 
 btnPreview.addEventListener('click', function(){
+    let title = document.getElementById('title').value;
     let markdown = document.getElementById('content').value;
     let previewDiv = document.getElementById('preview-area');
 
@@ -9,7 +10,10 @@ btnPreview.addEventListener('click', function(){
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({'markdown': markdown})
+        body: JSON.stringify({
+            'title': title,
+            'markdown': markdown
+        })
     })
     .then(function(response) {
         return response.json()

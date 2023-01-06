@@ -33,5 +33,14 @@
         <div class="form-element">
             {{ form.submit }}
         </div>
+
+        <div class="form-element">
+            <input type="button" id="preview" value="Preview">
+        </div>
     </form>
+    <script src="{{ url_for('bp_posts.static',filename='preview.js') }}"></script>
 {% endblock content %}
+
+{% block preview %}
+<div id="preview-area"></div>
+{% endblock preview %}
