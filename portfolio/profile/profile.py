@@ -30,7 +30,7 @@ def dark_mode_setting():
     form.process()
     return render_template('darkmode.html', title='Change Dark Mode Setting', form=form)
 
-@bp_profile.route('/profile')
+@bp_profile.route('/')
 @login_required
 def user_profile():
     return render_template('profile.html', title='Profile')
