@@ -1,13 +1,11 @@
-.auth-form {
-    margin: 7rem auto;
+.profile-form {
+    margin-left: auto;
+    margin-right: auto;
     background-color: var(--content-bg-color);
-    max-width: 400px;
+    max-width: 1000px;
+    box-sizing: border-box;
     padding: 1rem;
     border-radius: 1rem;
-}
-
-h1 {
-    text-align: center;
 }
 
 form {
@@ -40,7 +38,6 @@ form > input:hover {
 form > input[type=submit] {
     background-color: var(--sub-bg-color);
     color: var(--sub-text-color);
-    /* font-weight: bold; */
     cursor:pointer;
 }
 

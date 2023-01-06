@@ -23,6 +23,7 @@
 </head>
 <body>
     <header>
+        {% block nav %}
         <div class="nav-bar">
             <nav class="main-nav">
                 <a href="{{ url_for('bp_home.home') }}">Home</a>
@@ -32,13 +33,14 @@
             </nav>
             <nav class="user-nav">
                 {% if current_user.is_authenticated %}
-                <a href="{{ url_for('bp_auth.user_profile') }}">Hello {{ current_user.username }}</a>
+                <a href="{{ url_for('bp_profile.user_profile') }}">Hello {{ current_user.username }}</a>
                 <a href="{{ url_for('bp_auth.logout') }}">Logout</a>
                 {% else %}
                 <a href="{{ url_for('bp_auth.login') }}">Login</a>
                 {% endif %}
             </nav>
         </div>
+        {% endblock nav %}
     </header>
     <div class="messages">
     </div>

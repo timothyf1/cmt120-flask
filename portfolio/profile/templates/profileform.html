@@ -1,0 +1,12 @@
+{% extends "content.html" %}
+
+{% block head %}
+<link rel=stylesheet type=text/css href="{{ url_for('bp_profile.static',filename='profile.css') }}">
+{% endblock head %}
+
+{% block content %}
+<h1>{% block heading %}{% endblock %}</h1>
+
+{% block profileform %}
+{% endblock %}
+{% endblock content %}

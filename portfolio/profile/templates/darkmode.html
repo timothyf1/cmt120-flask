@@ -1,10 +1,10 @@
-{% extends "auth.html" %}
+{% extends "profileform.html" %}
 
 {% block heading %}
 Dark Mode Setting
 {% endblock heading %}
 
-{% block authform %}
+{% block profileform %}
 <form method="POST" action="">
     {{ form.csrf_token }}
 
@@ -21,4 +21,4 @@ Dark Mode Setting
 
     {{ form.submit }}
 </form>
-{% endblock authform %}
+{% endblock profileform %}
