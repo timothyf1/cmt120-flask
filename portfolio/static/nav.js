@@ -5,7 +5,7 @@
 
 let header = document.getElementsByTagName("header")[0];
 let headerStyle = getComputedStyle(header)
-let resetHeight = headerStyle.marginTop.replace(/[^0-9]/g, '');
+let resetHeight = headerStyle.marginTop.replace(/[^0-9.]/g, '');
 let stickyHeight = header.offsetTop;
 let message = document.getElementsByClassName("messages")[0];
 
