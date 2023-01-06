@@ -26,8 +26,15 @@ def dark_mode_setting():
         current_user.dark_mode = form.pref.data
         db.session.commit()
         return redirect(url_for('bp_profile.user_profile'))
+
+    # Change radio button default dynamically
+    # This code was adapted from Stack Overflow post by jeinarsson 2015-01-15
+    # accessed on 2023-01-05
+    # https://stackoverflow.com/a/34820107/
     form.pref.default = current_user.dark_mode
     form.process()
+    # end of referenced code
+
     return render_template('darkmode.html', title='Change Dark Mode Setting', form=form)
 
 @bp_profile.route('/')
