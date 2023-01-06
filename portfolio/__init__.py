@@ -11,6 +11,7 @@ db = SQLAlchemy(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 
+from portfolio import errors
 from portfolio.home.home import bp_home
 from portfolio.course.course import bp_education
 from portfolio.modules.modules import bp_modules
