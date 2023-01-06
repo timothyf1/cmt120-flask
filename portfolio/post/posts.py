@@ -9,6 +9,8 @@ import markdown
 import bleach
 
 bp_posts = Blueprint('bp_posts', __name__, template_folder='templates', static_folder='static')
+allowed_tags = ['a', 'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ol', 'ul', 'li',
+                'code', 'strong', 'blockquote', 'em']
 
 @bp_posts.route("/")
 def posts_list():
@@ -18,7 +20,6 @@ def posts_list():
 @bp_posts.route("/<string:title>")
 def view_post(title):
     post = Post.query.filter_by(title=title).first_or_404()
-    allowed_tags = ['a', 'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ol', 'ul', 'li']
     content = bleach.clean(markdown.markdown(post.content), tags=allowed_tags)
     return render_template('post-view.html', title=post.title, post=post, content=content)
 
@@ -84,6 +85,5 @@ def delete_post(title):
 def preview(title):
     mkd = request.json['markdown']
     title = f"<h1>{request.json['title']}</h1>"
-    allowed_tags = ['a', 'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ol', 'ul', 'li']
     html = title + bleach.clean(markdown.markdown(mkd), tags=allowed_tags)
     return {"html": html}
