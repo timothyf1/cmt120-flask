@@ -7,7 +7,7 @@ from portfolio import db, app
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(10), nullable=False, unique=True)
+    username = db.Column(db.String(20), nullable=False, unique=True)
     password = db.Column(db.String(128), nullable=False)
 
     created_on = db.Column(db.DateTime, default=datetime.utcnow)
@@ -28,10 +28,10 @@ class User(UserMixin, db.Model):
 
 class Course(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(50), nullable=False, unique=True)
-    location = db.Column(db.String(40), nullable=False)
+    name = db.Column(db.String(100), nullable=False, unique=True)
+    location = db.Column(db.String(50), nullable=False)
     year = db.Column(db.Integer, nullable=False)
-    description = db.Column(db.String(200), nullable=False)
+    description = db.Column(db.Text, nullable=False)
 
     modules = db.relationship('Module', back_populates='course')
 
@@ -41,10 +41,10 @@ class Course(db.Model):
 class Module(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     course_id = db.Column(db.Integer, db.ForeignKey('course.id'))
-    name = db.Column(db.String(50), nullable=False)
+    name = db.Column(db.String(100), nullable=False)
     year = db.Column(db.Integer, nullable=False)
     code = db.Column(db.String(20), nullable=False, unique=True)
-    description = db.Column(db.String(200))
+    description = db.Column(db.Text)
 
     course = db.relationship('Course', back_populates='modules')
     posts = db.relationship('Post', back_populates='module')
@@ -56,7 +56,7 @@ class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     module_id = db.Column(db.Integer, db.ForeignKey('module.id'))
     author_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    title = db.Column(db.String(50), unique=True)
+    title = db.Column(db.String(100), unique=True)
     content = db.Column(db.Text)
 
     module = db.relationship('Module', back_populates='posts')

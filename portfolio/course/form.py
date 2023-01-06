@@ -1,18 +1,18 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, BooleanField
-from wtforms.validators import DataRequired
+from wtforms import StringField, SubmitField, BooleanField, IntegerField
+from wtforms.validators import DataRequired, Length
 
 class New_Course(FlaskForm):
-    name = StringField('Name', validators=[DataRequired()])
-    location = StringField('Location', validators=[DataRequired()])
-    year = StringField('Year', validators=[DataRequired()])
+    name = StringField('Name', validators=[DataRequired(), Length(max=100)])
+    location = StringField('Location', validators=[DataRequired(), Length(max=50)])
+    year = IntegerField('Year', validators=[DataRequired()])
     description = StringField('Description', validators=[DataRequired()])
     submit = SubmitField('Add Course')
 
 class Edit_Course(FlaskForm):
-    name = StringField('Name', validators=[DataRequired()])
-    location = StringField('Location', validators=[DataRequired()])
-    year = StringField('Year', validators=[DataRequired()])
+    name = StringField('Name', validators=[DataRequired(), Length(max=100)])
+    location = StringField('Location', validators=[DataRequired(), Length(max=50)])
+    year = IntegerField('Year', validators=[DataRequired()])
     description = StringField('Description', validators=[DataRequired()])
     submit = SubmitField('Apply Changes')
 
