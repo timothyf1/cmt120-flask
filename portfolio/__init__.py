@@ -11,13 +11,13 @@ db = SQLAlchemy(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 
-from portfolio import errors
-from portfolio.home.home import bp_home
-from portfolio.course.course import bp_education
-from portfolio.modules.modules import bp_modules
-from portfolio.post.posts import bp_posts
-from portfolio.auth.auth import bp_auth
-from portfolio.profile.profile import bp_profile
+from . import errors
+from .home.home import bp_home
+from .course.course import bp_education
+from .modules.modules import bp_modules
+from .post.posts import bp_posts
+from .auth.auth import bp_auth
+from .profile.profile import bp_profile
 
 app.register_blueprint(bp_home)
 app.register_blueprint(bp_education, url_prefix='/education')
