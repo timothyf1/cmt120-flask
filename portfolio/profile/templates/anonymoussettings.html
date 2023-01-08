@@ -1,6 +1,10 @@
-{% extends "content.html" %}
+{% extends "profileform.html" %}
 
-{% block content %}
+{% block heading %}
+Display Settings
+{% endblock heading %}
+
+{% block profileform %}
 <form>
     <fieldset id="darkmode">
         <legend>Dark Mode setting</legend>
@@ -11,4 +15,4 @@
 </form>
 
 <script src="{{ url_for('bp_profile.static',filename='set-darkmode.js') }}"></script>
-{% endblock content %}
+{% endblock profileform %}
