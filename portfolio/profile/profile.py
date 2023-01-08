@@ -41,3 +41,7 @@ def dark_mode_setting():
 @login_required
 def user_profile():
     return render_template('profile.html', title='Profile')
+
+@bp_profile.route('/settings')
+def anonymous_settings():
+    return render_template('anonymoussettings.html', title='Profile')

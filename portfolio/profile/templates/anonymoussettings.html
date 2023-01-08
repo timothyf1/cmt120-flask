@@ -1,0 +1,14 @@
+{% extends "content.html" %}
+
+{% block content %}
+<form>
+    <fieldset id="darkmode">
+        <legend>Dark Mode setting</legend>
+        <input checked id="dark-0" name="dark" type="radio" onchange="setDarkMode(0)"> <label for="dark-0">System</label>
+        <input checked id="dark-1" name="dark" type="radio" onchange="setDarkMode(1)"> <label for="dark-1">Light</label>
+        <input checked id="dark-2" name="dark" type="radio" onchange="setDarkMode(2)"> <label for="dark-2">Dark</label>
+    </fieldset>
+</form>
+
+<script src="{{ url_for('bp_profile.static',filename='set-darkmode.js') }}"></script>
+{% endblock content %}
