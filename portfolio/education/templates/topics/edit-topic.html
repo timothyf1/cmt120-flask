@@ -1,7 +1,10 @@
 {% extends "content.html" %}
 
 {% block content %}
-<h1>Add a New Post for {{ module.name }}</h1>
+<div class="heading right-link">
+    <h1>Edit Post {{ post.title }}</h1>
+    <a href="{{ url_for('bp_education.delete_post', title=post.title) }}" class="button">Delete Post</a>
+</div>
 
 <form method="POST" action="">
     {{ form.csrf_token }}
@@ -38,7 +41,8 @@
             <input type="button" id="preview" value="Preview">
         </div>
     </form>
-    <script src="{{ url_for('bp_posts.static',filename='preview.js') }}"></script>
+    <script src="{{ url_for('bp_education.static',filename='preview.js') }}"></script>
+
 {% endblock content %}
 
 {% block preview %}
