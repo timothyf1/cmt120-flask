@@ -20,6 +20,7 @@ def posts_list():
 @bp_posts.route("/<string:title>")
 def view_post(title):
     post = Post.query.filter_by(title=title).first_or_404()
+    print(post.module.course)
     content = bleach.clean(markdown.markdown(post.content), tags=allowed_tags)
     return render_template('post-view.html', title=post.title, post=post, content=content)
 

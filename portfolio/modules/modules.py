@@ -1,6 +1,8 @@
-from flask import Blueprint, render_template, url_for, redirect
+from flask import Blueprint, render_template, url_for, redirect, request
 from flask_login import login_required
-from .. import db
+from flask_breadcrumbs import register_breadcrumb
+
+from .. import db, app
 from ..models import Course, Module, Post
 
 from .forms import New_Module, Edit_Module, Delete_Module
@@ -8,11 +10,22 @@ from .forms import New_Module, Edit_Module, Delete_Module
 bp_modules = Blueprint('bp_modules', __name__, template_folder='templates')
 
 @bp_modules.route("/")
+@register_breadcrumb(bp_modules, '.', 'Modules')
 def module_list():
     modules = Module.query.all()
     return render_template('module-list.html',title='Modules', modules=modules)
 
+def module_breadcrumb(*args, **kwargs):
+    try:
+        module_code = request.view_args['code']
+        module = Module.query.filter_by(code=module_code).first()
+        return [{'text': module.course.name, 'url': url_for("bp_education.course_page", name=module.course.name)},
+                {'text': module.code, 'url': url_for("bp_modules.module_page", code=module.code)}]
+    except:
+        return []
+
 @bp_modules.route("/<string:code>")
+@register_breadcrumb(app, '.module', '', dynamic_list_constructor=module_breadcrumb)
 def module_page(code):
     module = Module.query.filter_by(code=code).first_or_404()
     return render_template('module-posts.html', title='module.name', module=module)
