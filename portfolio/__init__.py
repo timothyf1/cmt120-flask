@@ -13,7 +13,7 @@ login_manager.init_app(app)
 
 from . import errors
 from .home.home import bp_home
-from .course.course import bp_education
+from .education.education import bp_education
 from .modules.modules import bp_modules
 from .post.posts import bp_posts
 from .auth.auth import bp_auth
