@@ -1,10 +1,10 @@
 import markdown
 import bleach
 
-from flask import Blueprint, render_template, url_for, redirect
+from flask import Blueprint, render_template, url_for, redirect, request
 from flask_login import login_required
 from .. import db
-from ..models import Course, Module, Post
+from ..models import Course, Module, Topic
 
 from .form import *
 
@@ -12,7 +12,7 @@ bp_education = Blueprint('bp_education', __name__, template_folder='templates', 
 allowed_tags = ['a', 'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ol', 'ul', 'li',
                 'code', 'strong', 'blockquote', 'em']
 
-@bp_education.route("/")
+@bp_education.route("/courses")
 def course_list():
     courses = Course.query.all()
     return render_template('courses/course-list.html',title='Education', courses=courses)
@@ -79,7 +79,7 @@ def module_list():
 @bp_education.route("/module/<string:code>")
 def module_page(code):
     module = Module.query.filter_by(code=code).first_or_404()
-    return render_template('modules/module-posts.html', title='module.name', module=module)
+    return render_template('modules/module-topics.html', title='module.name', module=module)
 
 @bp_education.route("/course/<string:course>/new-module", methods=['GET', 'POST'])
 @login_required
@@ -134,75 +134,75 @@ def delete_module(code):
     return render_template('modules/delete-module.html', title='Delete a module', form=form, module=module)
 
 @bp_education.route("/topics")
-def posts_list():
-    posts = Post.query.all()
-    return render_template('topics/topic-list.html',title='Topics', posts=posts)
+def topics_list():
+    topics = Topic.query.all()
+    return render_template('topics/topic-list.html',title='Topics', topics=topics)
 
 @bp_education.route("/topic/<string:title>")
-def view_post(title):
-    post = Post.query.filter_by(title=title).first_or_404()
-    content = bleach.clean(markdown.markdown(post.content), tags=allowed_tags)
-    return render_template('topics/topic-view.html', title=post.title, post=post, content=content)
+def view_topic(title):
+    topic = Topic.query.filter_by(title=title).first_or_404()
+    content = bleach.clean(markdown.markdown(topic.content), tags=allowed_tags)
+    return render_template('topics/topic-view.html', title=topic.title, topic=topic, content=content)
 
-@bp_education.route("/module/<string:module_code>/new-post", methods=['GET', 'POST'])
+@bp_education.route("/module/<string:module_code>/new-topic", methods=['GET', 'POST'])
 @login_required
-def new_post(module_code):
+def new_topic(module_code):
     module = Module.query.filter_by(code=module_code).first_or_404()
-    form = New_post()
+    form = New_Topic()
 
     if form.validate_on_submit():
-        check_title = Post.query.filter_by(title=form.title.data).first()
+        check_title = Topic.query.filter_by(title=form.title.data).first()
         if check_title is None:
-            post = Post(
+            topic = Topic(
                 title = form.title.data,
                 content = form.content.data,
                 author_id = current_user.id,
                 module = module
             )
-            db.session.add(post)
+            db.session.add(topic)
             db.session.commit()
-            return redirect(url_for('bp_education.view_post', title=post.title))
+            return redirect(url_for('bp_education.view_topic', title=topic.title))
         form.title.errors = ["This title has been used, please enter a different title"]
     return render_template('topics/new-topic.html', title='New topic', form=form, module=module)
 
 @bp_education.route("/topic/<string:title>/edit", methods=['GET', 'POST'])
 @login_required
-def edit_post(title):
-    post = Post.query.filter_by(title=title).first_or_404()
+def edit_topic(title):
+    topic = Topic.query.filter_by(title=title).first_or_404()
 
-    form = Edit_post()
+    form = Edit_Topic()
 
     if form.validate_on_submit():
-        if post.title != form.title.data:
-            check_title = Post.query.filter_by(title=form.title.data).first()
+        if topic.title != form.title.data:
+            check_title = Topic.query.filter_by(title=form.title.data).first()
         else:
             check_title = None
         if check_title is None:
-            post.title = form.title.data
-            post.content = form.content.data
+            topic.title = form.title.data
+            topic.content = form.content.data
             db.session.commit()
-            return redirect(url_for('bp_education.view_post', title=post.title))
+            return redirect(url_for('bp_education.view_topic', title=topic.title))
         form.title.errors = ["This title has been used, please enter a different title"]
     else:
-        form.title.data = post.title
-        form.content.data = post.content
+        form.title.data = topic.title
+        form.content.data = topic.content
 
-    return render_template('topics/edit-topic.html', title='Edit topic', form=form, post=post)
+    return render_template('topics/edit-topic.html', title='Edit topic', form=form, topic=topic)
 
 @bp_education.route("/topic/<string:title>/delete", methods=['GET', 'POST'])
 @login_required
-def delete_post(title):
-    post = Post.query.filter_by(title=title).first_or_404()
-    form = Delete_Post()
+def delete_topic(title):
+    topic = Topic.query.filter_by(title=title).first_or_404()
+    form = Delete_Topic()
     if form.validate_on_submit():
-        db.session.delete(post)
+        db.session.delete(topic)
         db.session.commit()
-        return redirect(url_for('bp_education.posts_list'))
+        return redirect(url_for('bp_education.topics_list'))
 
-    return render_template('topics/delete-topic.html', title='Delete topic', form=form, post=post)
+    return render_template('topics/delete-topic.html', title='Delete topic', form=form, topic=topic)
 
 @bp_education.route("/topics/preview", methods=['POST'])
-@bp_education.route("/topic/<string:title>/preview", methods=['POST'])
+@bp_education.route("/module/<string:title>/preview", methods=['POST'])
 def preview(title):
     mkd = request.json['markdown']
     title = f"<h1>{request.json['title']}</h1>"

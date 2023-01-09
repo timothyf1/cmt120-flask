@@ -2,8 +2,8 @@
 
 {% block content %}
 <div class="heading right-link">
-    <h1>Edit Post {{ post.title }}</h1>
-    <a href="{{ url_for('bp_education.delete_post', title=post.title) }}" class="button">Delete Post</a>
+    <h1>Edit {{ topic.title }}</h1>
+    <a href="{{ url_for('bp_education.delete_topic', title=topic.title) }}" class="button">Delete Topic</a>
 </div>
 
 <form method="POST" action="">
@@ -41,7 +41,7 @@
             <input type="button" id="preview" value="Preview">
         </div>
     </form>
-    <script src="{{ url_for('bp_education.static',filename='preview.js') }}"></script>
+    <script src="{{ url_for('bp_education.static',filename='topics/preview.js') }}"></script>
 
 {% endblock content %}
 
