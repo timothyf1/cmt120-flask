@@ -1,7 +1,10 @@
 {% extends "content.html" %}
 
 {% block content %}
-<h1>Add a New Module for {{ course.name }}</h1>
+<div class="heading right-link">
+    <h1>Edit {{ course.name }}</h1>
+    <a href="{{ url_for('bp_education.delete_course', name=course.name) }}" class="button">Delete Course</a>
+</div>
 
 <form method="POST" action="">
     {{ form.csrf_token }}
@@ -20,11 +23,11 @@
 
     <div class="form-row">
         <div class="form-element">
-        {{ form.code.label }}
-        {{ form.code }}
-        {% if form.code.errors %}
+        {{ form.location.label }}
+        {{ form.location }}
+        {% if form.location.errors %}
         <div class="alert">
-        {% for error in form.code.errors %}
+        {% for error in form.location.errors %}
             {{ error }}
         {% endfor %}
         </div>

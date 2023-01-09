@@ -47,19 +47,19 @@ class Module(db.Model):
     description = db.Column(db.Text)
 
     course = db.relationship('Course', back_populates='modules')
-    posts = db.relationship('Post', back_populates='module')
+    topics = db.relationship('Topic', back_populates='module')
 
     def __repr__(self):
         return f"Module('{self.id}', '{self.name}', '{self.description}')"
 
-class Post(db.Model):
+class Topic(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     module_id = db.Column(db.Integer, db.ForeignKey('module.id'))
     author_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     title = db.Column(db.String(100), unique=True)
     content = db.Column(db.Text)
 
-    module = db.relationship('Module', back_populates='posts')
+    module = db.relationship('Module', back_populates='topics')
 
     def __repr__(self):
-        return f"Post('{self.id}', '{self.title}')"
+        return f"topic('{self.id}', '{self.title}')"
