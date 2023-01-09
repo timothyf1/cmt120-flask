@@ -5,7 +5,7 @@
     <h1>{{ module.code }} - {{ module.name }}</h1>
     {% if current_user.is_authenticated %}
     <a href="{{ url_for('bp_education.edit_module', code=module.code) }}" class="button">Edit Module</a>
-    <a href="{{ url_for('bp_education.new_topic', module_code=module.code) }}" class="button">New Topic</a>
+    <a href="{{ url_for('bp_education.new_topic', code=module.code) }}" class="button">New Topic</a>
     {% endif %}
 </div>
 

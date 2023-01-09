@@ -50,12 +50,14 @@
     <div class="messages">
     </div>
 
+    {% block breadcrumbs %}
     <div class="content">
         {%- for breadcrumb in breadcrumbs -%}
             <a href="{{ breadcrumb.url }}">{{ breadcrumb.text }}</a>
-            {{ '/' if not loop.last }}
+            {{ '/ ' if not loop.last }}
         {%- endfor -%}
     </div>
+    {% endblock breadcrumbs %}
 
     {% block content_div %}
     {% endblock %}

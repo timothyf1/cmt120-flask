@@ -1,5 +1,7 @@
 from flask import Blueprint, render_template, url_for, redirect, flash
+from flask_breadcrumbs import register_breadcrumb
 from flask_login import login_required, current_user
+
 from .. import db
 from ..models import User
 from .forms import Change_password, Dark_mode
@@ -38,6 +40,7 @@ def dark_mode_setting():
     return render_template('darkmode.html', title='Change Dark Mode Setting', form=form)
 
 @bp_profile.route('/')
+@register_breadcrumb(bp_profile, '.', 'Profile')
 @login_required
 def user_profile():
     return render_template('profile.html', title='Profile')

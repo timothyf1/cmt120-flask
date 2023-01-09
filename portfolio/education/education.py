@@ -3,26 +3,32 @@ import bleach
 
 from flask import Blueprint, render_template, url_for, redirect, request
 from flask_login import login_required
+from flask_breadcrumbs import register_breadcrumb
+
 from .. import db
 from ..models import Course, Module, Topic
-
 from .form import *
+from.breadcrumbs import *
 
 bp_education = Blueprint('bp_education', __name__, template_folder='templates', static_folder='static')
+
 allowed_tags = ['a', 'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ol', 'ul', 'li',
                 'code', 'strong', 'blockquote', 'em']
 
 @bp_education.route("/courses")
+@register_breadcrumb(bp_education, '.', 'Education')
 def course_list():
     courses = Course.query.all()
     return render_template('courses/course-list.html',title='Education', courses=courses)
 
 @bp_education.route("/course/<string:name>")
+@register_breadcrumb(bp_education, '.course', '', dynamic_list_constructor=course_breadcrumb)
 def course_page(name):
     course = Course.query.filter_by(name=name).first_or_404()
     return render_template('courses/course-modules.html', title=name, course=course)
 
 @bp_education.route("/course/new-course", methods=['GET', 'POST'])
+@register_breadcrumb(bp_education, '.new', 'New Course')
 @login_required
 def new_course():
     form = New_Course()
@@ -40,6 +46,7 @@ def new_course():
     return render_template('courses/new-course.html', title='Add a course', form=form)
 
 @bp_education.route("/course/<string:name>/edit", methods=['GET', 'POST'])
+@register_breadcrumb(bp_education, '.course.edit', '', dynamic_list_constructor=course_edit_breadcrumb)
 @login_required
 def edit_course(name):
     course = Course.query.filter_by(name=name).first_or_404()
@@ -60,6 +67,7 @@ def edit_course(name):
     return render_template('courses/edit-course.html', title='Edit a course', form=form, course=course)
 
 @bp_education.route("/course/<string:name>/delete", methods=['GET', 'POST'])
+@register_breadcrumb(bp_education, '.course.delete', '', dynamic_list_constructor=course_delete_breadcrumb)
 @login_required
 def delete_course(name):
     course = Course.query.filter_by(name=name).first_or_404()
@@ -72,19 +80,22 @@ def delete_course(name):
     return render_template('courses/delete-course.html', title='Edit a course', form=form, course=course)
 
 @bp_education.route("/modules")
+@register_breadcrumb(bp_education, '.modules', 'Modules')
 def module_list():
     modules = Module.query.all()
     return render_template('modules/module-list.html',title='Modules', modules=modules)
 
 @bp_education.route("/module/<string:code>")
+@register_breadcrumb(bp_education, '.module', '', dynamic_list_constructor=module_breadcrumb)
 def module_page(code):
     module = Module.query.filter_by(code=code).first_or_404()
     return render_template('modules/module-topics.html', title='module.name', module=module)
 
-@bp_education.route("/course/<string:course>/new-module", methods=['GET', 'POST'])
+@bp_education.route("/course/<string:name>/new-module", methods=['GET', 'POST'])
+@register_breadcrumb(bp_education, '.course.new-mod', '', dynamic_list_constructor=module_new_breadcrumb)
 @login_required
-def new_module(course):
-    course = Course.query.filter_by(name=course).first_or_404()
+def new_module(name):
+    course = Course.query.filter_by(name=name).first_or_404()
     form = New_Module()
     if form.validate_on_submit():
         module = Module(
@@ -101,6 +112,7 @@ def new_module(course):
     return render_template('modules/new-module.html', title='Add a module', form=form, course=course)
 
 @bp_education.route("/module/<string:code>/edit-module", methods=['GET', 'POST'])
+@register_breadcrumb(bp_education, '.module.edit', 'Edit Module', dynamic_list_constructor=module_edit_breadcrumb)
 @login_required
 def edit_module(code):
     module = Module.query.filter_by(code=code).first_or_404()
@@ -122,6 +134,7 @@ def edit_module(code):
     return render_template('modules/edit-module.html', title='Add a module', form=form, module=module)
 
 @bp_education.route("/module/<string:code>/delete", methods=['GET', 'POST'])
+@register_breadcrumb(bp_education, '.module.delete', 'Delete Module', dynamic_list_constructor=module_delete_breadcrumb)
 @login_required
 def delete_module(code):
     module = Module.query.filter_by(code=code).first_or_404()
@@ -134,20 +147,23 @@ def delete_module(code):
     return render_template('modules/delete-module.html', title='Delete a module', form=form, module=module)
 
 @bp_education.route("/topics")
+@register_breadcrumb(bp_education, '.topics', 'Topic')
 def topics_list():
     topics = Topic.query.all()
     return render_template('topics/topic-list.html',title='Topics', topics=topics)
 
 @bp_education.route("/topic/<string:title>")
+@register_breadcrumb(bp_education, '.topic', '', dynamic_list_constructor=topic_breadcrumb)
 def view_topic(title):
     topic = Topic.query.filter_by(title=title).first_or_404()
     content = bleach.clean(markdown.markdown(topic.content), tags=allowed_tags)
     return render_template('topics/topic-view.html', title=topic.title, topic=topic, content=content)
 
-@bp_education.route("/module/<string:module_code>/new-topic", methods=['GET', 'POST'])
+@bp_education.route("/module/<string:code>/new-topic", methods=['GET', 'POST'])
+@register_breadcrumb(bp_education, '.module.new-topic', '', dynamic_list_constructor=topic_new_breadcrumb)
 @login_required
-def new_topic(module_code):
-    module = Module.query.filter_by(code=module_code).first_or_404()
+def new_topic(code):
+    module = Module.query.filter_by(code=code).first_or_404()
     form = New_Topic()
 
     if form.validate_on_submit():
@@ -166,6 +182,7 @@ def new_topic(module_code):
     return render_template('topics/new-topic.html', title='New topic', form=form, module=module)
 
 @bp_education.route("/topic/<string:title>/edit", methods=['GET', 'POST'])
+@register_breadcrumb(bp_education, '.topic.edit', '', dynamic_list_constructor=topic_edit_breadcrumb)
 @login_required
 def edit_topic(title):
     topic = Topic.query.filter_by(title=title).first_or_404()
@@ -190,6 +207,7 @@ def edit_topic(title):
     return render_template('topics/edit-topic.html', title='Edit topic', form=form, topic=topic)
 
 @bp_education.route("/topic/<string:title>/delete", methods=['GET', 'POST'])
+@register_breadcrumb(bp_education, '.topic.delete', '', dynamic_list_constructor=topic_delete_breadcrumb)
 @login_required
 def delete_topic(title):
     topic = Topic.query.filter_by(title=title).first_or_404()

@@ -1,6 +1,8 @@
 from datetime import datetime
+
 from flask import Blueprint, render_template, request, url_for, redirect, flash
 from flask_login import login_required, logout_user, current_user, login_user
+
 from .. import db
 from ..models import User
 from .forms import Login_form, Signup_form

@@ -57,6 +57,7 @@ class Topic(db.Model):
     module_id = db.Column(db.Integer, db.ForeignKey('module.id'))
     author_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     title = db.Column(db.String(100), unique=True)
+    date = db.Column(db.DateTime, default=datetime.utcnow)
     content = db.Column(db.Text)
 
     module = db.relationship('Module', back_populates='topics')

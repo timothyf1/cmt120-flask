@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template
-from flask_breadcrumbs import Breadcrumbs, register_breadcrumb
+from flask_breadcrumbs import register_breadcrumb
 
 bp_home = Blueprint('bp_home', __name__, template_folder='templates')
 
