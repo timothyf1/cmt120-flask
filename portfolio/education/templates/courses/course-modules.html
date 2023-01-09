@@ -4,14 +4,14 @@
     <h1>{{ course.name }}</h1>
     {% if current_user.is_authenticated %}
     <a href="{{ url_for('bp_education.edit_course', name=course.name) }}" class="button">Edit Course</a>
-    <a href="{{ url_for('bp_modules.new_module', course=course.name) }}" class="button">New Module</a>
+    <a href="{{ url_for('bp_education.new_module', course=course.name) }}" class="button">New Module</a>
     {% endif %}
 </div>
 <p>{{ course.description }}</p>
 <p>During this course I have taken the following modules:</p>
 <ul>
     {% for module in course.modules %}
-    <li><a href="{{ url_for('bp_modules.module_page', code=module.code) }}">{{ module.name }}</a></li>
+    <li><a href="{{ url_for('bp_education.module_page', code=module.code) }}">{{ module.code }} - {{ module.name }}</a></li>
     {% endfor %}
 </ul>
 {% endblock content %}

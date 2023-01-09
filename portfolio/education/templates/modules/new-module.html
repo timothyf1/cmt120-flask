@@ -1,10 +1,7 @@
 {% extends "content.html" %}
 
 {% block content %}
-<div class="heading right-link">
-    <h1>Edit module {{ module.name }}</h1>
-    <a href="{{ url_for('bp_modules.delete_module', code=module.code) }}" class="button">Delete Module</a>
-</div>
+<h1>New module for {{ course.name }}</h1>
 
 <form method="POST" action="">
     {{ form.csrf_token }}

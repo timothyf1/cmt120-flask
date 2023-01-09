@@ -1,0 +1,210 @@
+import markdown
+import bleach
+
+from flask import Blueprint, render_template, url_for, redirect, request
+from flask_login import login_required
+from .. import db
+from ..models import Course, Module, Topic
+
+from .form import *
+
+bp_education = Blueprint('bp_education', __name__, template_folder='templates', static_folder='static')
+allowed_tags = ['a', 'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ol', 'ul', 'li',
+                'code', 'strong', 'blockquote', 'em']
+
+@bp_education.route("/courses")
+def course_list():
+    courses = Course.query.all()
+    return render_template('courses/course-list.html',title='Education', courses=courses)
+
+@bp_education.route("/course/<string:name>")
+def course_page(name):
+    course = Course.query.filter_by(name=name).first_or_404()
+    return render_template('courses/course-modules.html', title=name, course=course)
+
+@bp_education.route("/course/new-course", methods=['GET', 'POST'])
+@login_required
+def new_course():
+    form = New_Course()
+    if form.validate_on_submit():
+        course = Course(
+            name = form.name.data,
+            location = form.location.data,
+            year = int(form.year.data),
+            description = form.description.data
+            )
+        db.session.add(course)
+        db.session.commit()
+        return redirect(url_for('bp_education.course_page', name=course.name))
+
+    return render_template('courses/new-course.html', title='Add a course', form=form)
+
+@bp_education.route("/course/<string:name>/edit", methods=['GET', 'POST'])
+@login_required
+def edit_course(name):
+    course = Course.query.filter_by(name=name).first_or_404()
+    form = Edit_Course()
+
+    if form.validate_on_submit():
+        course.name = form.name.data
+        course.location = form.location.data
+        course.year = form.year.data
+        course.description = form.description.data
+        db.session.commit()
+        return redirect(url_for('bp_education.course_page', name=course.name))
+
+    form.name.data = course.name
+    form.location.data = course.location
+    form.year.data = course.year
+    form.description.data = course.description
+    return render_template('courses/edit-course.html', title='Edit a course', form=form, course=course)
+
+@bp_education.route("/course/<string:name>/delete", methods=['GET', 'POST'])
+@login_required
+def delete_course(name):
+    course = Course.query.filter_by(name=name).first_or_404()
+    form = Delete_Course()
+    if form.validate_on_submit():
+        db.session.delete(course)
+        db.session.commit()
+        return redirect(url_for('bp_education.course_list'))
+
+    return render_template('courses/delete-course.html', title='Edit a course', form=form, course=course)
+
+@bp_education.route("/modules")
+def module_list():
+    modules = Module.query.all()
+    return render_template('modules/module-list.html',title='Modules', modules=modules)
+
+@bp_education.route("/module/<string:code>")
+def module_page(code):
+    module = Module.query.filter_by(code=code).first_or_404()
+    return render_template('modules/module-topics.html', title='module.name', module=module)
+
+@bp_education.route("/course/<string:course>/new-module", methods=['GET', 'POST'])
+@login_required
+def new_module(course):
+    course = Course.query.filter_by(name=course).first_or_404()
+    form = New_Module()
+    if form.validate_on_submit():
+        module = Module(
+            name = form.name.data,
+            code = form.code.data,
+            year = form.year.data,
+            description = form.description.data,
+            course_id = course.id,
+            course = course
+        )
+        db.session.add(module)
+        db.session.commit()
+        return redirect(url_for('bp_education.module_page', code=module.code))
+    return render_template('modules/new-module.html', title='Add a module', form=form, course=course)
+
+@bp_education.route("/module/<string:code>/edit-module", methods=['GET', 'POST'])
+@login_required
+def edit_module(code):
+    module = Module.query.filter_by(code=code).first_or_404()
+    form = Edit_Module()
+    if form.validate_on_submit():
+        module.name = form.name.data,
+        module.code = form.code.data,
+        module.year = form.year.data,
+        module.description = form.description.data,
+
+        db.session.commit()
+        return redirect(url_for('bp_education.module_page', code=module.code))
+
+    form.name.data = module.name
+    form.code.data = module.code
+    form.year.data = module.year
+    form.description.data = module.description
+
+    return render_template('modules/edit-module.html', title='Add a module', form=form, module=module)
+
+@bp_education.route("/module/<string:code>/delete", methods=['GET', 'POST'])
+@login_required
+def delete_module(code):
+    module = Module.query.filter_by(code=code).first_or_404()
+    form = Delete_Module()
+    if form.validate_on_submit():
+        db.session.delete(module)
+        db.session.commit()
+        return redirect(url_for('bp_education.module_list'))
+
+    return render_template('modules/delete-module.html', title='Delete a module', form=form, module=module)
+
+@bp_education.route("/topics")
+def topics_list():
+    topics = Topic.query.all()
+    return render_template('topics/topic-list.html',title='Topics', topics=topics)
+
+@bp_education.route("/topic/<string:title>")
+def view_topic(title):
+    topic = Topic.query.filter_by(title=title).first_or_404()
+    content = bleach.clean(markdown.markdown(topic.content), tags=allowed_tags)
+    return render_template('topics/topic-view.html', title=topic.title, topic=topic, content=content)
+
+@bp_education.route("/module/<string:module_code>/new-topic", methods=['GET', 'POST'])
+@login_required
+def new_topic(module_code):
+    module = Module.query.filter_by(code=module_code).first_or_404()
+    form = New_Topic()
+
+    if form.validate_on_submit():
+        check_title = Topic.query.filter_by(title=form.title.data).first()
+        if check_title is None:
+            topic = Topic(
+                title = form.title.data,
+                content = form.content.data,
+                author_id = current_user.id,
+                module = module
+            )
+            db.session.add(topic)
+            db.session.commit()
+            return redirect(url_for('bp_education.view_topic', title=topic.title))
+        form.title.errors = ["This title has been used, please enter a different title"]
+    return render_template('topics/new-topic.html', title='New topic', form=form, module=module)
+
+@bp_education.route("/topic/<string:title>/edit", methods=['GET', 'POST'])
+@login_required
+def edit_topic(title):
+    topic = Topic.query.filter_by(title=title).first_or_404()
+
+    form = Edit_Topic()
+
+    if form.validate_on_submit():
+        if topic.title != form.title.data:
+            check_title = Topic.query.filter_by(title=form.title.data).first()
+        else:
+            check_title = None
+        if check_title is None:
+            topic.title = form.title.data
+            topic.content = form.content.data
+            db.session.commit()
+            return redirect(url_for('bp_education.view_topic', title=topic.title))
+        form.title.errors = ["This title has been used, please enter a different title"]
+    else:
+        form.title.data = topic.title
+        form.content.data = topic.content
+
+    return render_template('topics/edit-topic.html', title='Edit topic', form=form, topic=topic)
+
+@bp_education.route("/topic/<string:title>/delete", methods=['GET', 'POST'])
+@login_required
+def delete_topic(title):
+    topic = Topic.query.filter_by(title=title).first_or_404()
+    form = Delete_Topic()
+    if form.validate_on_submit():
+        db.session.delete(topic)
+        db.session.commit()
+        return redirect(url_for('bp_education.topics_list'))
+
+    return render_template('topics/delete-topic.html', title='Delete topic', form=form, topic=topic)
+
+@bp_education.route("/topics/preview", methods=['POST'])
+@bp_education.route("/module/<string:title>/preview", methods=['POST'])
+def preview(title):
+    mkd = request.json['markdown']
+    title = f"<h1>{request.json['title']}</h1>"
+    html = title + bleach.clean(markdown.markdown(mkd), tags=allowed_tags)
+    return {"html": html}
