@@ -228,6 +228,14 @@ def preview(title):
     return {"html": html}
 
 @bp_education.route("/tags")
+@register_breadcrumb(bp_education, '.tags', 'Tags')
 def tag_list():
     tags = Tag.query.all()
-    return render_template('tags/tag-list.html', tags=tags)
+    return render_template('tags/tag-list.html', title='Tags', tags=tags)
+
+@bp_education.route("/tag/<string:tag>")
+@register_breadcrumb(bp_education, '.tags.tag', '', dynamic_list_constructor=tag_breadcrumb)
+def tag_topics(tag):
+    tag = Tag.query.filter_by(name=tag).first_or_404()
+    print(tag.topics)
+    return render_template('tags/tag-topics.html', title=f'{tag.name} - Tag', tag=tag)
