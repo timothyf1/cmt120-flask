@@ -220,7 +220,7 @@ def delete_topic(title):
     return render_template('topics/delete-topic.html', title='Delete topic', form=form, topic=topic)
 
 @bp_education.route("/topics/preview", methods=['POST'])
-@bp_education.route("/module/<string:title>/preview", methods=['POST'])
+@bp_education.route("/topic/<string:title>/preview", methods=['POST'])
 def preview(title):
     mkd = request.json['markdown']
     title = f"<h1>{request.json['title']}</h1>"
