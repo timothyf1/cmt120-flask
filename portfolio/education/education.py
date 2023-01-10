@@ -6,7 +6,7 @@ from flask_login import login_required, current_user
 from flask_breadcrumbs import register_breadcrumb
 
 from .. import db
-from ..models import Course, Module, Topic
+from ..models import Course, Module, Topic, Tag
 from .form import *
 from.breadcrumbs import *
 
@@ -226,3 +226,8 @@ def preview(title):
     title = f"<h1>{request.json['title']}</h1>"
     html = title + bleach.clean(markdown.markdown(mkd), tags=allowed_tags)
     return {"html": html}
+
+@bp_education.route("/tags")
+def tag_list():
+    tags = Tag.query.all()
+    return render_template('tags/tag-list.html', tags=tags)
