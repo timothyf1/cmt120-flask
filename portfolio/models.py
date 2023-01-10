@@ -53,6 +53,13 @@ class Module(db.Model):
     def __repr__(self):
         return f"Module('{self.id}', '{self.name}', '{self.description}')"
 
+tag_assignment = db.Table(
+    "tag_assignment",
+    db.Column("id", primary_key=True),
+    db.Column("topic_id", db.ForeignKey("topic.id")),
+    db.Column("tag_id", db.ForeignKey("tag.id")),
+)
+
 class Topic(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     module_id = db.Column(db.Integer, db.ForeignKey('module.id'))
@@ -62,6 +69,12 @@ class Topic(db.Model):
     content = db.Column(db.Text)
 
     module = db.relationship('Module', back_populates='topics')
+    tags = db.relationship('Tag', secondary=tag_assignment, back_populates='topics')
 
     def __repr__(self):
         return f"topic('{self.id}', '{self.title}')"
+
+class Tag(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(15), unique=True, nullable=False)
+    topics = db.relationship('Topic', secondary=tag_assignment, back_populates='tags')
