@@ -13,6 +13,7 @@ class User(UserMixin, db.Model):
     created_on = db.Column(db.DateTime, default=datetime.utcnow)
     last_login = db.Column(db.DateTime)
     is_active = db.Column(db.Boolean, default=True)
+    is_admin = db.Column(db.Boolean, nullable=False, default=False)
 
     # User Settings
     dark_mode = db.Column(db.Integer, default=0)

@@ -40,3 +40,8 @@ input:hover {
     --alert-bg-color: #6e0000;
     --alert-text-color: #FFFFFF;
 }
+
+.info {
+    --alert-bg-color: #006e00;
+    --alert-text-color: #FFFFFF;
+}

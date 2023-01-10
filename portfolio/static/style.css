@@ -106,9 +106,17 @@ form {
     min-height: 20rem;
 }
 
-.alert {
+.error {
     background-color: var(--alert-bg-color);
     color: var(--alert-text-color);
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 1rem;
+}
+
+.info {
+    background-color: var(--info-bg-color);
+    color: var(--info-text-color);
     padding: 1rem;
     margin-bottom: 1rem;
     border-radius: 1rem;

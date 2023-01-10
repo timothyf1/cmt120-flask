@@ -47,8 +47,6 @@
         </div>
         {% endblock nav %}
     </header>
-    <div class="messages">
-    </div>
 
     {% block breadcrumbs %}
     <div class="content">
@@ -58,6 +56,14 @@
         {%- endfor -%}
     </div>
     {% endblock breadcrumbs %}
+
+    <div class="messages">
+        {% for message in get_flashed_messages(with_categories=True) %}
+        <div class="content {{ message[0] }}">
+            {{ message[1] }}
+        </div>
+        {% endfor %}
+    </div>
 
     {% block content_div %}
     {% endblock %}

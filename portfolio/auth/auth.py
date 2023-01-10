@@ -20,8 +20,9 @@ def login():
             login_user(user)
             current_user.last_login = datetime.utcnow()
             db.session.commit()
+            flash('Login Successful', 'info')
             return redirect(url_for('bp_home.home'))
-        flash('Invalid username and password combination')
+        flash('Invalid username and password combination', 'error')
         # return redirect(url_for('bp_auth.login'))
     return render_template('login.html', title='Login', form=form)
 
@@ -42,14 +43,13 @@ def signup():
             login_user(user)
             current_user.last_login = datetime.utcnow
             db.session.commit()
-            flash('Login Successful')
             return redirect(url_for('bp_home.home'))
-        flash('Username already used')
+        flash('Username already used', 'error')
     return render_template('signup.html', title='Signup', form=form)
 
 @bp_auth.route('/logout')
 @login_required
 def logout():
     logout_user()
-    flash('Logout Successful')
+    flash('Logout Successful', 'info')
     return redirect(url_for('bp_home.home'))

@@ -89,7 +89,7 @@ def module_list():
 @register_breadcrumb(bp_education, '.module', '', dynamic_list_constructor=module_breadcrumb)
 def module_page(code):
     module = Module.query.filter_by(code=code).first_or_404()
-    return render_template('modules/module-topics.html', title='module.name', module=module)
+    return render_template('modules/module-topics.html', title=f'{module.code} - {module.name}', module=module)
 
 @bp_education.route("/course/<string:name>/new-module", methods=['GET', 'POST'])
 @register_breadcrumb(bp_education, '.course.new-mod', '', dynamic_list_constructor=module_new_breadcrumb)

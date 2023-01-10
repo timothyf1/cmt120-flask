@@ -1,11 +1,6 @@
 {% extends "layout.html" %}
 
 {% block content_div %}
-{% for message in get_flashed_messages() %}
-<div class="content alert">
-    {{ message }}
-</div>
-{% endfor %}
 
 <div class="content">
 {% block content %}
