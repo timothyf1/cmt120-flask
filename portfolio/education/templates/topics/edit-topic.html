@@ -22,6 +22,18 @@
     </div>
 
     <div class="form-element">
+        {{ form.tags.label }}
+        {{ form.tags }}
+        {% if form.tags.errors %}
+        <div class="alert">
+        {% for error in form.tags.errors %}
+            {{ error }}
+        {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="form-element">
         {{ form.content.label }}
         {{ form.content }}
         {% if form.content.errors %}

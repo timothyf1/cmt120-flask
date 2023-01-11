@@ -159,6 +159,19 @@ def view_topic(title):
     content = bleach.clean(markdown.markdown(topic.content), tags=allowed_tags)
     return render_template('topics/topic-view.html', title=topic.title, topic=topic, content=content)
 
+def create_tag_list(tags_string):
+    tags = tags_string.lower().split()
+    tag_list = []
+    for tag in tags:
+        tag_db = Tag.query.filter_by(name=tag).first()
+        if tag_db:
+            tag_list.append(tag_db)
+        else:
+            tag_db = Tag(name=tag)
+            tag_list.append(tag_db)
+            db.session.add(tag_db)
+    return tag_list
+
 @bp_education.route("/module/<string:code>/new-topic", methods=['GET', 'POST'])
 @register_breadcrumb(bp_education, '.module.new-topic', '', dynamic_list_constructor=topic_new_breadcrumb)
 @login_required
@@ -197,11 +210,13 @@ def edit_topic(title):
         if check_title is None:
             topic.title = form.title.data
             topic.content = form.content.data
+            topic.tags = create_tag_list(form.tags.data)
             db.session.commit()
             return redirect(url_for('bp_education.view_topic', title=topic.title))
         form.title.errors = ["This title has been used, please enter a different title"]
     else:
         form.title.data = topic.title
+        form.tags.data = " ".join([tag.name for tag in topic.tags])
         form.content.data = topic.content
 
     return render_template('topics/edit-topic.html', title='Edit topic', form=form, topic=topic)
