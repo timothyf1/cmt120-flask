@@ -2,7 +2,7 @@ import markdown
 import bleach
 from datetime import datetime
 
-from flask import Blueprint, render_template, url_for, redirect, request
+from flask import Blueprint, render_template, url_for, redirect, request, abort
 from flask_login import login_required, current_user
 from flask_breadcrumbs import register_breadcrumb
 
@@ -25,8 +25,10 @@ def course_list():
 @bp_education.route("/course/<string:name>")
 @register_breadcrumb(bp_education, '.course', '', dynamic_list_constructor=course_breadcrumb)
 def course_page(name):
-    course = Course.query.filter_by(name=name).first_or_404()
-    return render_template('courses/course-modules.html', title=name, course=course)
+    course = Course.query.filter_by(name=name).first()
+    if course:
+        return render_template('courses/course-modules.html', title=name, course=course)
+    abort(404, description=f"Course {name} does not exists. Please go to <a href='{url_for('bp_education.course_list')}'>courses list</a> to view available courses.")
 
 @bp_education.route("/course/new-course", methods=['GET', 'POST'])
 @register_breadcrumb(bp_education, '.new', 'New Course')
@@ -89,8 +91,10 @@ def module_list():
 @bp_education.route("/module/<string:code>")
 @register_breadcrumb(bp_education, '.module', '', dynamic_list_constructor=module_breadcrumb)
 def module_page(code):
-    module = Module.query.filter_by(code=code).first_or_404()
-    return render_template('modules/module-topics.html', title=f'{module.code} - {module.name}', module=module)
+    module = Module.query.filter_by(code=code).first()
+    if module:
+        return render_template('modules/module-topics.html', title=f'{module.code} - {module.name}', module=module)
+    abort(404, description=f"Module code '{code}' does not exists. Please go to <a href='{url_for('bp_education.module_list')}'>module list</a> to view available modules.")
 
 @bp_education.route("/course/<string:name>/new-module", methods=['GET', 'POST'])
 @register_breadcrumb(bp_education, '.course.new-mod', '', dynamic_list_constructor=module_new_breadcrumb)
@@ -156,9 +160,12 @@ def topics_list():
 @bp_education.route("/topic/<string:title>")
 @register_breadcrumb(bp_education, '.topic', '', dynamic_list_constructor=topic_breadcrumb)
 def view_topic(title):
-    topic = Topic.query.filter_by(title=title).first_or_404()
-    content = bleach.clean(markdown.markdown(topic.content), tags=allowed_tags)
-    return render_template('topics/topic-view.html', title=topic.title, topic=topic, content=content)
+    topic = Topic.query.filter_by(title=title).first()
+    if topic:
+        content = bleach.clean(markdown.markdown(topic.content), tags=allowed_tags)
+        return render_template('topics/topic-view.html', title=topic.title, topic=topic, content=content)
+    abort(404, description=f"Topic '{title}' does not exists. Please go to <a href='{url_for('bp_education.topics_list')}'>topics list</a> to view available topics.")
+
 
 def create_tag_list(tags_string):
     tags = tags_string.lower().split()
@@ -254,8 +261,10 @@ def tag_list():
 @bp_education.route("/tag/<string:tag>")
 @register_breadcrumb(bp_education, '.topics.tags.tag', '', dynamic_list_constructor=tag_breadcrumb)
 def tag_topics(tag):
-    tag = Tag.query.filter_by(name=tag).first_or_404()
-    return render_template('tags/tag-topics.html', title=f'{tag.name} - Tag', tag=tag)
+    tag_a = Tag.query.filter_by(name=tag).first()
+    if tag_a:
+        return render_template('tags/tag-topics.html', title=f'{tag_a.name} - Tag', tag=tag_a)
+    abort(404, description=f"Tag '{tag}' does not exists. Please go to <a href='{url_for('bp_education.tag_list')}'>tags list</a> to view available tags.")
 
 @bp_education.route("/tag/<string:tag>/delete", methods=['GET', 'POST'])
 @register_breadcrumb(bp_education, '.topics.tags.tag.delete', '', dynamic_list_constructor=tag_delete_breadcrumb)

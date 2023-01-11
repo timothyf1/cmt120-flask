@@ -2,5 +2,8 @@
 {% block content %}
 <h1>404 - Page not found</h1>
 
-<p>The page you were trying access has not been found.</p>
+<p>{{ error|safe }}</p>
+
+<!-- <p>The page you were trying access has not been found.</p> -->
+
 {% endblock content %}
