@@ -10,7 +10,7 @@
 {% if topic.tags %}
     <p>Tags:
     {% for tag in topic.tags %}
-        <a href="#">{{ tag.name }}</a>
+        <a href="{{ url_for('bp_education.tag_topics', tag=tag.name) }}">{{ tag.name }}</a>
         {{ ' / ' if not loop.last }}
     {% endfor %}
     </p>
