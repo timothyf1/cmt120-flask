@@ -28,24 +28,25 @@
 <body>
     <header>
         {% block nav %}
-        <div class="nav-bar">
-            <nav class="main-nav">
-                <a href="{{ url_for('bp_home.home') }}">Home</a>
-                <a href="{{ url_for('bp_education.course_list') }}">Courses List</a>
-                <a href="{{ url_for('bp_education.module_list') }}">Module List</a>
-                <a href="{{ url_for('bp_education.topics_list') }}">Topic List</a>
-                <a href="{{ url_for('bp_education.tag_list') }}">Tags List</a>
-            </nav>
-            <nav class="user-nav">
+        <nav class="nav-bar">
+            <a class="menu-item menu-button" id="menu-button" href="#">Menu</a>
+            <div class="main-nav">
+                <a class="menu-item" href="{{ url_for('bp_home.home') }}">Home</a>
+                <a class="menu-item" href="{{ url_for('bp_education.course_list') }}">Courses List</a>
+                <a class="menu-item" href="{{ url_for('bp_education.module_list') }}">Module List</a>
+                <a class="menu-item" href="{{ url_for('bp_education.topics_list') }}">Topic List</a>
+                <a class="menu-item" href="{{ url_for('bp_education.tag_list') }}">Tags List</a>
+            </div>
+            <div class="user-nav">
                 {% if current_user.is_authenticated %}
-                <a href="{{ url_for('bp_profile.user_profile') }}">Hello {{ current_user.username }}</a>
-                <a href="{{ url_for('bp_auth.logout') }}">Logout</a>
+                <a class="menu-item" href="{{ url_for('bp_profile.user_profile') }}">Hello {{ current_user.username }}</a>
+                <a class="menu-item" href="{{ url_for('bp_auth.logout') }}">Logout</a>
                 {% else %}
-                <a href="{{ url_for('bp_profile.anonymous_settings') }}">Display Settings</a>
-                <a href="{{ url_for('bp_auth.login') }}">Login</a>
+                <a class="menu-item" href="{{ url_for('bp_profile.anonymous_settings') }}">Display Settings</a>
+                <a class="menu-item" href="{{ url_for('bp_auth.login') }}">Login</a>
                 {% endif %}
-            </nav>
-        </div>
+            </div>
+        </nav>
         {% endblock nav %}
     </header>
 

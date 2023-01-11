@@ -1,10 +1,7 @@
 header {
-    background-color: black;
-    padding: 1rem;
-    box-sizing: border-box;
     max-width: 1000px;
+    box-sizing: border-box;
     margin: 1rem auto;
-    border-radius: 1rem;
 }
 
 .sticky {
@@ -20,24 +17,79 @@ header {
 .nav-bar {
     display: flex;
     flex-direction: row;
+    background-color: black;
+    border-radius: 1rem;
+}
+
+.main-nav {
+    display: flex;
+    flex-direction: row;
 }
 
 .user-nav {
+    display: flex;
+    flex-direction: row;
     margin-left: auto;
     margin-right: 0;
 }
 
-nav > a {
+.menu-item {
     color: white;
     padding: 1rem;
     text-decoration: none;
 }
 
-nav > a:hover {
+.menu-item:hover {
     background-color: aliceblue;
     color: black;
 }
 
-nav > span {
-    padding: 1rem;
+.main-nav > .menu-item:first-child:hover {
+    border-radius: 1rem 0 0 1rem;
+}
+
+.user-nav > .menu-item:last-child:hover {
+    border-radius: 0 1rem 1rem 0;
+}
+
+.menu-button {
+    display: none;
+}
+
+@media (max-width: 600px) {
+    header {
+        margin-top: 0;
+    }
+
+    .nav-bar {
+        flex-direction: column;
+        border-radius: 0;
+    }
+
+    .main-nav {
+        flex-direction: column;
+        display: none;
+    }
+
+    .user-nav {
+        margin: 0;
+        flex-direction: column;
+        display: none;
+    }
+
+    .main-nav > .menu-item:first-child:hover {
+        border-radius: 0;
+    }
+
+    .user-nav > .menu-item:last-child:hover {
+        border-radius: 0;
+    }
+
+    .menu-button {
+        display: flex;
+    }
+
+    .active {
+        display: flex;
+    }
 }

@@ -19,3 +19,20 @@ window.onscroll = () => {
     }
 }
 /* end of referenced code */
+
+let menuButton = document.getElementById("menu-button");
+let navDiv = document.getElementsByClassName("main-nav")[0];
+let userDiv = document.getElementsByClassName("user-nav")[0];
+let menuActive = false;
+
+menuButton.addEventListener('click', () => {
+    if (menuActive) {
+        menuActive = false;
+        navDiv.classList.remove("active")
+        userDiv.classList.remove("active")
+    } else {
+        menuActive = true;
+        navDiv.classList.add("active");
+        userDiv.classList.add("active");
+    }
+})
