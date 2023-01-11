@@ -1,5 +1,6 @@
 import markdown
 import bleach
+from datetime import datetime
 
 from flask import Blueprint, render_template, url_for, redirect, request
 from flask_login import login_required, current_user
@@ -212,6 +213,7 @@ def edit_topic(title):
             topic.title = form.title.data
             topic.content = form.content.data
             topic.tags = create_tag_list(form.tags.data)
+            topic.last_updated = datetime.utcnow()
             db.session.commit()
             return redirect(url_for('bp_education.view_topic', title=topic.title))
         form.title.errors = ["This title has been used, please enter a different title"]
