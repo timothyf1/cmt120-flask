@@ -49,7 +49,7 @@
     </header>
 
     {% block breadcrumbs %}
-    <div class="content">
+    <div class="content breadcrumb">
         {%- for breadcrumb in breadcrumbs -%}
             {% if not loop.last %}
             <a href="{{ breadcrumb.url }}">{{ breadcrumb.text }}</a> /
