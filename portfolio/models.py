@@ -55,7 +55,7 @@ class Module(db.Model):
 
 tag_assignment = db.Table(
     "tag_assignment",
-    db.Column("id", primary_key=True),
+    db.Column("id", db.Integer, primary_key=True),
     db.Column("topic_id", db.ForeignKey("topic.id")),
     db.Column("tag_id", db.ForeignKey("tag.id")),
 )
