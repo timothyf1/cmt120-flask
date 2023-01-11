@@ -34,7 +34,7 @@ class Course(db.Model):
     year = db.Column(db.Integer, nullable=False)
     description = db.Column(db.Text, nullable=False)
 
-    modules = db.relationship('Module', back_populates='course')
+    modules = db.relationship('Module', order_by="Module.year.desc()", back_populates='course')
 
     def __repr__(self):
         return f"Course('{self.id}', '{self.name}', '{self.description}')"
@@ -48,7 +48,7 @@ class Module(db.Model):
     description = db.Column(db.Text)
 
     course = db.relationship('Course', back_populates='modules')
-    topics = db.relationship('Topic', back_populates='module')
+    topics = db.relationship('Topic', order_by="Topic.date.desc()", back_populates='module')
 
     def __repr__(self):
         return f"Module('{self.id}', '{self.name}', '{self.description}')"
@@ -70,7 +70,7 @@ class Topic(db.Model):
     content = db.Column(db.Text)
 
     module = db.relationship('Module', back_populates='topics')
-    tags = db.relationship('Tag', secondary=tag_assignment, back_populates='topics')
+    tags = db.relationship('Tag', secondary=tag_assignment, order_by="Tag.name", back_populates='topics')
 
     def __repr__(self):
         return f"topic('{self.id}', '{self.title}')"

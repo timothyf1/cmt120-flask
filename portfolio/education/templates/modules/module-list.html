@@ -4,7 +4,7 @@
 <p>This page lists all the modules I have completed across all the different courses.</p>
 <ul>
     {% for module in modules %}
-    <li><a href="{{ url_for('bp_education.module_page', code=module.code) }}">{{ module.name }}</a></li>
+    <li><a href="{{ url_for('bp_education.module_page', code=module.code) }}">{{ module.code }} - {{ module.name }}</a></li>
     {% endfor %}
 </ul>
 {% endblock content %}

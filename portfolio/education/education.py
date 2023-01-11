@@ -19,7 +19,7 @@ allowed_tags = ['a', 'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ol', 'ul', 'li',
 @bp_education.route("/courses")
 @register_breadcrumb(bp_education, '.', 'Education')
 def course_list():
-    courses = Course.query.all()
+    courses = Course.query.order_by(Course.year.desc()).all()
     return render_template('courses/course-list.html',title='Education', courses=courses)
 
 @bp_education.route("/course/<string:name>")
@@ -83,7 +83,7 @@ def delete_course(name):
 @bp_education.route("/modules")
 @register_breadcrumb(bp_education, '.modules', 'Modules')
 def module_list():
-    modules = Module.query.all()
+    modules = Module.query.order_by(Module.year.desc()).all()
     return render_template('modules/module-list.html',title='Modules', modules=modules)
 
 @bp_education.route("/module/<string:code>")
@@ -150,7 +150,7 @@ def delete_module(code):
 @bp_education.route("/topics")
 @register_breadcrumb(bp_education, '.topics', 'Topic')
 def topics_list():
-    topics = Topic.query.all()
+    topics = Topic.query.order_by(Topic.date).all()
     return render_template('topics/topic-list.html',title='Topics', topics=topics)
 
 @bp_education.route("/topic/<string:title>")
@@ -248,7 +248,7 @@ def preview(title):
 @bp_education.route("/tags")
 @register_breadcrumb(bp_education, '.tags', 'Tags')
 def tag_list():
-    tags = Tag.query.all()
+    tags = Tag.query.order_by(Tag.name).all()
     return render_template('tags/tag-list.html', title='Tags', tags=tags)
 
 @bp_education.route("/tag/<string:tag>")
