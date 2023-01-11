@@ -12,3 +12,8 @@ class Login_form(FlaskForm):
     username = StringField('Username', validators=[DataRequired(message="Please enter a username")])
     password = PasswordField('Password', validators=[DataRequired(message="Please enter a password")])
     submit = SubmitField('Log In')
+
+class New_password(FlaskForm):
+    password = PasswordField('Password', validators=[DataRequired(message="Please enter a password")])
+    confirm_password = PasswordField('Confirm Password', validators=[DataRequired(message="Please enter a password")])
+    submit = SubmitField('Log In')
