@@ -7,6 +7,7 @@ from flask_breadcrumbs import Breadcrumbs, default_breadcrumb_root
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ['SECRET_KEY']
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URI']
+app.config['FILE_UPLOAD'] = os.path.join(os.path.dirname(__file__), "static", "upload")
 
 db = SQLAlchemy(app)
 login_manager = LoginManager()

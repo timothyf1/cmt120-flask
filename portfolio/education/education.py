@@ -1,3 +1,4 @@
+import os
 import markdown
 import bleach
 from datetime import datetime
@@ -5,8 +6,9 @@ from datetime import datetime
 from flask import Blueprint, render_template, url_for, redirect, request, abort
 from flask_login import login_required, current_user
 from flask_breadcrumbs import register_breadcrumb
+from werkzeug.utils import secure_filename
 
-from .. import db
+from .. import db, app
 from ..models import Course, Module, Topic, Tag
 from .form import *
 from.breadcrumbs import *
@@ -276,3 +278,14 @@ def delete_tag(tag):
         db.session.commit()
         return redirect(url_for('bp_education.tag_list'))
     return render_template('tags/delete-tag.html', title=f'Delete {tag.name}', form=form, tag=tag)
+
+@bp_education.route("/file-upload", methods=['GET', 'POST'])
+@login_required
+def file_upload():
+    form = Image_Upload()
+    if form.validate_on_submit():
+        file_up = form.file_up.data
+        print(type(file_up))
+        print(file_up)
+        file_up.save(os.path.join(app.config['FILE_UPLOAD'], secure_filename(file_up.filename)))
+    return render_template('image-upload.html', form=form)
