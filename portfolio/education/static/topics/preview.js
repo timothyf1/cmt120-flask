@@ -20,5 +20,6 @@ btnPreview.addEventListener('click', function(){
     })
     .then(function(html) {
         previewDiv.innerHTML = `<div class="content">${html.html} </div>`;
+        previewDiv.scrollIntoView({behavior: "smooth"});
     })
 })
