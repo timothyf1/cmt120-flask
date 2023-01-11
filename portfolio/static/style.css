@@ -106,7 +106,7 @@ form {
     min-height: 20rem;
 }
 
-.error {
+.alert, .error {
     background-color: var(--alert-bg-color);
     color: var(--alert-text-color);
     padding: 1rem;

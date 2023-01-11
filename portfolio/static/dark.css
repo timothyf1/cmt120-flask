@@ -36,7 +36,7 @@ input:hover {
     --text-hov-color: #000000;
 }
 
-.alert {
+.alert, .error {
     --alert-bg-color: #6e0000;
     --alert-text-color: #FFFFFF;
 }

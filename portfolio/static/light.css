@@ -28,7 +28,7 @@ input:hover {
     --sub-hover-bg-color: #fffff0;
 }
 
-.alert {
+.alert, .error {
     --alert-bg-color: #ffd1d1;
     --alert-text-color: #6e0000;
 }
