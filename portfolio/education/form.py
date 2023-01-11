@@ -41,6 +41,7 @@ class Delete_Module(FlaskForm):
 class New_Topic(FlaskForm):
     title = StringField('Title', validators=[DataRequired(), Length(max=100)])
     content = TextAreaField('Content', validators=[DataRequired()])
+    tags = StringField('Tags', validators=[Regexp('^([0-9a-zA-Z-]+ ?)*$', message='Tags can only contain letters, numbers or - and must be sepreated by a space.')])
     submit = SubmitField('Add Topic')
 
 class Edit_Topic(FlaskForm):

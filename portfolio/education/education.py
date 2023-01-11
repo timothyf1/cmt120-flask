@@ -185,6 +185,7 @@ def new_topic(code):
             topic = Topic(
                 title = form.title.data,
                 content = form.content.data,
+                tags = create_tag_list(form.tags.data),
                 author_id = current_user.id,
                 module = module
             )
