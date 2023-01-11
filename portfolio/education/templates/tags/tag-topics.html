@@ -2,6 +2,9 @@
 {% block content %}
 <div class="heading right-link">
     <h1>{{ tag.name }}</h1>
+    {% if current_user.is_authenticated %}
+    <a href="{{ url_for('bp_education.delete_tag', tag=tag.name) }}" class="button">Delete Tag</a>
+    {% endif %}
 </div>
 
 <p>Here are topics about {{ tag.name }}</p>

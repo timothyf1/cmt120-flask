@@ -53,3 +53,7 @@ class Edit_Topic(FlaskForm):
 class Delete_Topic(FlaskForm):
     confirm = BooleanField('The action of deleting a topic is non reversible. Please tick this box to confirm', validators=[DataRequired()])
     submit = SubmitField('Delete')
+
+class Delete_Tag(FlaskForm):
+    confirm = BooleanField('The action of deleting a tag is non reversible. Please tick this box to confirm', validators=[DataRequired()])
+    submit = SubmitField('Delete')

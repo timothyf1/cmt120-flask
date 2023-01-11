@@ -60,3 +60,7 @@ def topic_delete_breadcrumb(*args, **kwargs):
 def tag_breadcrumb(*args, **kwargs):
     tag_name = request.view_args['tag']
     return [{'text': tag_name, 'url': url_for("bp_education.tag_topics", tag=tag_name)}]
+
+def tag_delete_breadcrumb(*args, **kwargs):
+    tag_name = request.view_args['tag']
+    return [{'text': 'Delete Tag', 'url': url_for("bp_education.delete_tag", tag=tag_name)}]
