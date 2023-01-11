@@ -6,7 +6,7 @@ from flask_login import login_required, current_user
 from flask_breadcrumbs import register_breadcrumb
 
 from .. import db
-from ..models import Course, Module, Topic
+from ..models import Course, Module, Topic, Tag
 from .form import *
 from.breadcrumbs import *
 
@@ -159,6 +159,19 @@ def view_topic(title):
     content = bleach.clean(markdown.markdown(topic.content), tags=allowed_tags)
     return render_template('topics/topic-view.html', title=topic.title, topic=topic, content=content)
 
+def create_tag_list(tags_string):
+    tags = tags_string.lower().split()
+    tag_list = []
+    for tag in tags:
+        tag_db = Tag.query.filter_by(name=tag).first()
+        if tag_db:
+            tag_list.append(tag_db)
+        else:
+            tag_db = Tag(name=tag)
+            tag_list.append(tag_db)
+            db.session.add(tag_db)
+    return tag_list
+
 @bp_education.route("/module/<string:code>/new-topic", methods=['GET', 'POST'])
 @register_breadcrumb(bp_education, '.module.new-topic', '', dynamic_list_constructor=topic_new_breadcrumb)
 @login_required
@@ -172,6 +185,7 @@ def new_topic(code):
             topic = Topic(
                 title = form.title.data,
                 content = form.content.data,
+                tags = create_tag_list(form.tags.data),
                 author_id = current_user.id,
                 module = module
             )
@@ -197,11 +211,13 @@ def edit_topic(title):
         if check_title is None:
             topic.title = form.title.data
             topic.content = form.content.data
+            topic.tags = create_tag_list(form.tags.data)
             db.session.commit()
             return redirect(url_for('bp_education.view_topic', title=topic.title))
         form.title.errors = ["This title has been used, please enter a different title"]
     else:
         form.title.data = topic.title
+        form.tags.data = " ".join([tag.name for tag in topic.tags])
         form.content.data = topic.content
 
     return render_template('topics/edit-topic.html', title='Edit topic', form=form, topic=topic)
@@ -226,3 +242,26 @@ def preview(title):
     title = f"<h1>{request.json['title']}</h1>"
     html = title + bleach.clean(markdown.markdown(mkd), tags=allowed_tags)
     return {"html": html}
+
+@bp_education.route("/tags")
+@register_breadcrumb(bp_education, '.tags', 'Tags')
+def tag_list():
+    tags = Tag.query.all()
+    return render_template('tags/tag-list.html', title='Tags', tags=tags)
+
+@bp_education.route("/tag/<string:tag>")
+@register_breadcrumb(bp_education, '.tags.tag', '', dynamic_list_constructor=tag_breadcrumb)
+def tag_topics(tag):
+    tag = Tag.query.filter_by(name=tag).first_or_404()
+    return render_template('tags/tag-topics.html', title=f'{tag.name} - Tag', tag=tag)
+
+@bp_education.route("/tag/<string:tag>/delete", methods=['GET', 'POST'])
+@register_breadcrumb(bp_education, '.tags.tag.delete', '', dynamic_list_constructor=tag_delete_breadcrumb)
+def delete_tag(tag):
+    tag = Tag.query.filter_by(name=tag).first_or_404()
+    form = Delete_Tag()
+    if form.validate_on_submit():
+        db.session.delete(tag)
+        db.session.commit()
+        return redirect(url_for('bp_education.tag_list'))
+    return render_template('tags/delete-tag.html', title=f'Delete {tag.name}', form=form, tag=tag)

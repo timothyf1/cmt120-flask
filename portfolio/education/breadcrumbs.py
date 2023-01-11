@@ -4,7 +4,6 @@ from ..models import Module, Topic
 
 def course_breadcrumb(*args, **kwargs):
     course_name = request.view_args['name']
-    print(url_for("bp_education.course_page", name=course_name))
     return [{'text': course_name, 'url': url_for("bp_education.course_page", name=course_name)}]
 
 def course_edit_breadcrumb(*args, **kwargs):
@@ -57,3 +56,11 @@ def topic_edit_breadcrumb(*args, **kwargs):
 def topic_delete_breadcrumb(*args, **kwargs):
     title = request.view_args['title']
     return [{'text': 'Delete Topic', 'url': url_for("bp_education.delete_topic", title=title)}]
+
+def tag_breadcrumb(*args, **kwargs):
+    tag_name = request.view_args['tag']
+    return [{'text': tag_name, 'url': url_for("bp_education.tag_topics", tag=tag_name)}]
+
+def tag_delete_breadcrumb(*args, **kwargs):
+    tag_name = request.view_args['tag']
+    return [{'text': 'Delete Tag', 'url': url_for("bp_education.delete_tag", tag=tag_name)}]
