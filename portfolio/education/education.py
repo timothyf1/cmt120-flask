@@ -246,19 +246,19 @@ def preview(title):
     return {"html": html}
 
 @bp_education.route("/tags")
-@register_breadcrumb(bp_education, '.tags', 'Tags')
+@register_breadcrumb(bp_education, '.topics.tags', 'Tags')
 def tag_list():
     tags = Tag.query.order_by(Tag.name).all()
     return render_template('tags/tag-list.html', title='Tags', tags=tags)
 
 @bp_education.route("/tag/<string:tag>")
-@register_breadcrumb(bp_education, '.tags.tag', '', dynamic_list_constructor=tag_breadcrumb)
+@register_breadcrumb(bp_education, '.topics.tags.tag', '', dynamic_list_constructor=tag_breadcrumb)
 def tag_topics(tag):
     tag = Tag.query.filter_by(name=tag).first_or_404()
     return render_template('tags/tag-topics.html', title=f'{tag.name} - Tag', tag=tag)
 
 @bp_education.route("/tag/<string:tag>/delete", methods=['GET', 'POST'])
-@register_breadcrumb(bp_education, '.tags.tag.delete', '', dynamic_list_constructor=tag_delete_breadcrumb)
+@register_breadcrumb(bp_education, '.topics.tags.tag.delete', '', dynamic_list_constructor=tag_delete_breadcrumb)
 def delete_tag(tag):
     tag = Tag.query.filter_by(name=tag).first_or_404()
     form = Delete_Tag()
