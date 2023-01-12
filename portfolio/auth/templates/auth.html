@@ -1,20 +1,10 @@
-{% extends "layout.html" %}
+{% extends "base.html" %}
 
 {% block head %}
 <link rel=stylesheet type=text/css href="{{ url_for('bp_auth.static',filename='login.css') }}">
 {% endblock head %}
 
-{% block nav %}
-<nav class="main-nav">
-    <!-- <span>Digital Portfolio</span> -->
-    <a href="{{ url_for('bp_home.home') }}">Home</a>
-</nav>
-{% endblock nav %}
-
-{% block breadcrumbs %}
-{% endblock %}
-
-{% block content_div %}
+{% block layout %}
 <div class="auth-form">
     <h1>{% block heading %}{% endblock %}</h1>
 
@@ -26,5 +16,7 @@
 
     {% block authform %}
     {% endblock %}
+
+    <p><a href="{{ url_for('bp_home.home') }}">Home</a></p>
 </div>
-{% endblock content_div %}
+{% endblock layout %}
