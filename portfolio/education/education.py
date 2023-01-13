@@ -169,6 +169,8 @@ def topics_list():
 def view_topic(title):
     topic = Topic.query.filter_by(title=title).first()
     if topic:
+        if topic.draft and not current_user.is_authenticated:
+            abort(401)
         content = bleach.clean(markdown.markdown(topic.content), tags=allowed_tags, attributes=allowed_attributes)
         return render_template('topics/topic-view.html', title=topic.title, topic=topic, content=content)
     abort(404, description=f"Topic '{title}' does not exists. Please go to <a href='{url_for('bp_education.topics_list')}'>topics list</a> to view available topics.")
@@ -204,6 +206,8 @@ def new_topic(code):
                 author_id = current_user.id,
                 module = module
             )
+            if form.draft.data:
+                topic.draft = True
             db.session.add(topic)
             db.session.commit()
             return redirect(url_for('bp_education.view_topic', title=topic.title))
@@ -229,6 +233,10 @@ def edit_topic(title):
             topic.content = form.content.data
             topic.tags = create_tag_list(form.tags.data)
             topic.last_updated = datetime.utcnow()
+            if form.draft.data:
+                topic.draft = True
+            else:
+                topic.draft = False
             db.session.commit()
             return redirect(url_for('bp_education.view_topic', title=topic.title))
         form.title.errors = ["This title has been used, please enter a different title"]
@@ -252,10 +260,10 @@ def delete_topic(title):
 
     return render_template('topics/delete-topic.html', title='Delete topic', form=form, topic=topic)
 
-@bp_education.route("/topics/preview", methods=['POST'])
+@bp_education.route("/module/<string:code>/preview", methods=['POST'])
 @bp_education.route("/topic/<string:title>/preview", methods=['POST'])
 @login_required
-def preview(title):
+def preview(title=None, code=None):
     mkd = request.json['markdown']
     title = f"<h1>{request.json['title']}</h1>"
     html = title + bleach.clean(markdown.markdown(mkd), tags=allowed_tags, attributes=allowed_attributes)
@@ -299,37 +307,33 @@ def file_upload():
         file_up.save(os.path.join(app.config['FILE_UPLOAD'], secure_filename(file_up.filename)))
     return render_template('image-upload.html', form=form)
 
-@bp_education.route("/topic/<string:title>/image-upload", methods=['POST'])
-@login_required
-def image_upload_topic(title):
-    topic = Topic.query.filter_by(title=title).first_or_404()
-    file_up = request.files['image']
-
+def save_image(image, topic_id):
     # Check to see if the file is an image
-    if 'image' not in file_up.content_type:
+    if 'image' not in image.content_type:
         return {
             "status" : False,
             "message" : "File is not an image, allowed extensions are .png, .jpg, .jpeg and .gif"
         }
 
     # Check to see if topic directory exists
-    if not os.path.exists(os.path.join(app.config['FILE_UPLOAD'], str(topic.id))):
-        os.makedirs(os.path.join(app.config['FILE_UPLOAD'], str(topic.id)))
+    if not os.path.exists(os.path.join(app.config['FILE_UPLOAD'], str(topic_id))):
+        os.makedirs(os.path.join(app.config['FILE_UPLOAD'], str(topic_id)))
 
-    if os.path.exists(os.path.join(app.config['FILE_UPLOAD'], str(topic.id), secure_filename(file_up.filename))):
+    # Check to see if the filename exists
+    if os.path.exists(os.path.join(app.config['FILE_UPLOAD'], str(topic_id), secure_filename(image.filename))):
         return {
             "status" : False,
             "message" : "File name already in use, please check the uploaded images below to see if it has been already uploaded."
         }
 
     # Save the image
-    file_up.save(os.path.join(app.config['FILE_UPLOAD'], str(topic.id), secure_filename(file_up.filename)))
+    image.save(os.path.join(app.config['FILE_UPLOAD'], str(topic_id), secure_filename(image.filename)))
 
     # Add details to the db for the image
     image = ImageUpload(
         user_id = current_user.id,
-        topic_id = topic.id,
-        filename = secure_filename(file_up.filename)
+        topic_id = topic_id,
+        filename = secure_filename(image.filename)
     )
     db.session.add(image)
     db.session.commit()
@@ -337,6 +341,17 @@ def image_upload_topic(title):
     return {
         "status" : True,
         "message" : "Image uploaded successfully",
-        "name" : secure_filename(file_up.filename),
-        "path" : url_for('static',filename=f'upload/{topic.id}/{secure_filename(file_up.filename)}')
+        "name" : secure_filename(image.filename),
+        "path" : url_for('static',filename=f'upload/{topic_id}/{secure_filename(image.filename)}')
     }
+
+@bp_education.route("/module/<string:code>/image-upload", methods=['POST'])
+def image_upload_new_topic(code):
+    pass
+
+@bp_education.route("/topic/<string:title>/image-upload", methods=['POST'])
+@login_required
+def image_upload_topic(title):
+    topic = Topic.query.filter_by(title=title).first_or_404()
+    file_up = request.files['image']
+    return save_image(file_up, topic.id)

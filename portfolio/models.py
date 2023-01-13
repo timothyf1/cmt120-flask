@@ -69,6 +69,7 @@ class Topic(db.Model):
     date = db.Column(db.DateTime, default=datetime.utcnow)
     last_updated = db.Column(db.DateTime, default=datetime.utcnow)
     content = db.Column(db.Text)
+    draft = db.Column(db.Boolean, default=False)
 
     module = db.relationship('Module', back_populates='topics')
     tags = db.relationship('Tag', secondary=tag_assignment, order_by="Tag.name", back_populates='topics')

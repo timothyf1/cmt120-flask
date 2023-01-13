@@ -14,7 +14,13 @@
 <p>Below are a list of topics that were covered in this module:</p>
 <ul>
     {% for topic in module.topics %}
+    {% if not topic.draft %}
     <li><a href="{{ url_for('bp_education.view_topic', title=topic.title) }}">{{ topic.title }}</a></li>
+    {% else %}
+        {% if current_user.is_authenticated %}
+        <li><a href="{{ url_for('bp_education.view_topic', title=topic.title) }}">Draft - {{ topic.title }}</a></li>
+        {% endif %}
+    {% endif %}
     {% endfor %}
 </ul>
 {% endblock content %}
