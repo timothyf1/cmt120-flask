@@ -1,0 +1,40 @@
+.image-preview {
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
+}
+
+.image-preview > li > img {
+    max-height: 5rem;
+}
+
+#upload {
+    margin-top: 1.25rem;
+    height: 2.8rem;
+}
+
+p > img {
+    max-width: 100%;
+}
+
+.form-element > p {
+    margin-left: 1rem;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.image-preview {
+    background-color: var(--inp-bg-color);
+    border-radius: 1rem;
+    border: 1px solid var(--inp-border-color);
+    padding-left: 1rem;
+}
+
+.hidden {
+    display: none;
+}
+
+#upload-message-p {
+    margin-top: 0;
+    margin-bottom: 0;
+}

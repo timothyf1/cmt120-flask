@@ -9,14 +9,19 @@ from flask_breadcrumbs import register_breadcrumb
 from werkzeug.utils import secure_filename
 
 from .. import db, app
-from ..models import Course, Module, Topic, Tag
+from ..models import Course, Module, Topic, Tag, ImageUpload
 from .form import *
 from.breadcrumbs import *
 
 bp_education = Blueprint('bp_education', __name__, template_folder='templates', static_folder='static')
 
 allowed_tags = ['a', 'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ol', 'ul', 'li',
-                'code', 'strong', 'blockquote', 'em']
+                'code', 'strong', 'blockquote', 'em', 'img']
+allowed_attributes = {'a': ['href', 'title'],
+                      'abbr': ['title'],
+                      'acronym': ['title'],
+                      'img': ['alt', 'src']}
+allowed_img_extensions = ['.png', '.jpg', '.jpeg', '.gif']
 
 @bp_education.route("/courses")
 @register_breadcrumb(bp_education, '.', 'Education')
@@ -164,7 +169,7 @@ def topics_list():
 def view_topic(title):
     topic = Topic.query.filter_by(title=title).first()
     if topic:
-        content = bleach.clean(markdown.markdown(topic.content), tags=allowed_tags)
+        content = bleach.clean(markdown.markdown(topic.content), tags=allowed_tags, attributes=allowed_attributes)
         return render_template('topics/topic-view.html', title=topic.title, topic=topic, content=content)
     abort(404, description=f"Topic '{title}' does not exists. Please go to <a href='{url_for('bp_education.topics_list')}'>topics list</a> to view available topics.")
 
@@ -210,7 +215,8 @@ def new_topic(code):
 @login_required
 def edit_topic(title):
     topic = Topic.query.filter_by(title=title).first_or_404()
-
+    images = ImageUpload.query.filter_by(topic_id=topic.id)
+    print(images)
     form = Edit_Topic()
 
     if form.validate_on_submit():
@@ -231,7 +237,7 @@ def edit_topic(title):
         form.tags.data = " ".join([tag.name for tag in topic.tags])
         form.content.data = topic.content
 
-    return render_template('topics/edit-topic.html', title='Edit topic', form=form, topic=topic)
+    return render_template('topics/edit-topic.html', title='Edit topic', form=form, topic=topic, images=images)
 
 @bp_education.route("/topic/<string:title>/delete", methods=['GET', 'POST'])
 @register_breadcrumb(bp_education, '.topic.delete', '', dynamic_list_constructor=topic_delete_breadcrumb)
@@ -248,10 +254,11 @@ def delete_topic(title):
 
 @bp_education.route("/topics/preview", methods=['POST'])
 @bp_education.route("/topic/<string:title>/preview", methods=['POST'])
+@login_required
 def preview(title):
     mkd = request.json['markdown']
     title = f"<h1>{request.json['title']}</h1>"
-    html = title + bleach.clean(markdown.markdown(mkd), tags=allowed_tags)
+    html = title + bleach.clean(markdown.markdown(mkd), tags=allowed_tags, attributes=allowed_attributes)
     return {"html": html}
 
 @bp_education.route("/tags")
@@ -286,6 +293,50 @@ def file_upload():
     if form.validate_on_submit():
         file_up = form.file_up.data
         print(type(file_up))
-        print(file_up)
+        print(file_up.__dir__())
+        print(file_up.content_type)
+        print('image' in file_up.content_type)
         file_up.save(os.path.join(app.config['FILE_UPLOAD'], secure_filename(file_up.filename)))
     return render_template('image-upload.html', form=form)
+
+@bp_education.route("/topic/<string:title>/image-upload", methods=['POST'])
+@login_required
+def image_upload_topic(title):
+    topic = Topic.query.filter_by(title=title).first_or_404()
+    file_up = request.files['image']
+
+    # Check to see if the file is an image
+    if 'image' not in file_up.content_type:
+        return {
+            "status" : False,
+            "message" : "File is not an image, allowed extensions are .png, .jpg, .jpeg and .gif"
+        }
+
+    # Check to see if topic directory exists
+    if not os.path.exists(os.path.join(app.config['FILE_UPLOAD'], str(topic.id))):
+        os.makedirs(os.path.join(app.config['FILE_UPLOAD'], str(topic.id)))
+
+    if os.path.exists(os.path.join(app.config['FILE_UPLOAD'], str(topic.id), secure_filename(file_up.filename))):
+        return {
+            "status" : False,
+            "message" : "File name already in use, please check the uploaded images below to see if it has been already uploaded."
+        }
+
+    # Save the image
+    file_up.save(os.path.join(app.config['FILE_UPLOAD'], str(topic.id), secure_filename(file_up.filename)))
+
+    # Add details to the db for the image
+    image = ImageUpload(
+        user_id = current_user.id,
+        topic_id = topic.id,
+        filename = secure_filename(file_up.filename)
+    )
+    db.session.add(image)
+    db.session.commit()
+
+    return {
+        "status" : True,
+        "message" : "Image uploaded successfully",
+        "name" : secure_filename(file_up.filename),
+        "path" : url_for('static',filename=f'upload/{topic.id}/{secure_filename(file_up.filename)}')
+    }
