@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <link rel=stylesheet type=text/css href="{{ url_for('static',filename='style.css') }}">
+    <link rel=stylesheet type=text/css href="{{ url_for('static',filename='nav.css') }}">
+
+    {% if current_user.is_authenticated %}
+        {% if current_user.dark_mode == 1 %}
+        <link rel=stylesheet type=text/css href="{{ url_for('static',filename='light.css') }}">
+        {% elif current_user.dark_mode == 2 %}
+        <link rel=stylesheet type=text/css href="{{ url_for('static',filename='dark.css') }}">
+        {% else %}
+        <link rel=stylesheet type=text/css href="{{ url_for('static',filename='colours.css') }}">
+        {% endif %}
+    {% else %}
+        <link rel=stylesheet type=text/css id='theme' href="{{ url_for('static',filename='colours.css') }}">
+        <script src="{{ url_for('static',filename='theme.js') }}"></script>
+    {% endif %}
+    {% block head %}
+    {% endblock %}
+
+    <title>{{ title }} - Digital portfolio - D1323632</title>
+</head>
+<body>
+
+{% block layout %}
+{% endblock %}
+
+</body>
+</html>
