@@ -3,7 +3,7 @@ import markdown
 import bleach
 from datetime import datetime
 
-from flask import Blueprint, render_template, url_for, redirect, request, abort
+from flask import Blueprint, render_template, url_for, redirect, request, abort, flash
 from flask_login import login_required, current_user
 from flask_breadcrumbs import register_breadcrumb
 from werkzeug.utils import secure_filename
@@ -211,8 +211,11 @@ def new_topic(code):
             db.session.add(topic)
             db.session.commit()
             if form.upload.data:
-                print(form.image.data)
-                save_image(form.image.data, topic.id)
+                upload_status = save_image(form.image.data, topic.id)
+                if not upload_status['status']:
+                    flash(upload_status['message'], 'error')
+                else:
+                    flash(upload_status['message'], 'info')
                 return redirect(url_for('bp_education.edit_topic', title=topic.title))
             return redirect(url_for('bp_education.view_topic', title=topic.title))
         form.title.errors = ["This title has been used, please enter a different title"]
