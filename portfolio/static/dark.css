@@ -14,7 +14,7 @@ a {
     --text-hov-color: #000000;
 }
 
-input {
+input, .image-preview {
     --inp-bg-color: #333333;
     --inp-border-color: aliceblue;
     --inp-text-color: #FFFFFF;
@@ -42,6 +42,6 @@ input:hover {
 }
 
 .info {
-    --alert-bg-color: #006e00;
-    --alert-text-color: #FFFFFF;
+    --info-bg-color: #006e00;
+    --info-text-color: #FFFFFF;
 }
