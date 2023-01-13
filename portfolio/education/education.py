@@ -169,6 +169,8 @@ def topics_list():
 def view_topic(title):
     topic = Topic.query.filter_by(title=title).first()
     if topic:
+        if topic.draft and not current_user.is_authenticated:
+            abort(401)
         content = bleach.clean(markdown.markdown(topic.content), tags=allowed_tags, attributes=allowed_attributes)
         return render_template('topics/topic-view.html', title=topic.title, topic=topic, content=content)
     abort(404, description=f"Topic '{title}' does not exists. Please go to <a href='{url_for('bp_education.topics_list')}'>topics list</a> to view available topics.")
@@ -204,6 +206,8 @@ def new_topic(code):
                 author_id = current_user.id,
                 module = module
             )
+            if form.draft.data:
+                topic.draft = True
             db.session.add(topic)
             db.session.commit()
             return redirect(url_for('bp_education.view_topic', title=topic.title))
@@ -229,6 +233,10 @@ def edit_topic(title):
             topic.content = form.content.data
             topic.tags = create_tag_list(form.tags.data)
             topic.last_updated = datetime.utcnow()
+            if form.draft.data:
+                topic.draft = True
+            else:
+                topic.draft = False
             db.session.commit()
             return redirect(url_for('bp_education.view_topic', title=topic.title))
         form.title.errors = ["This title has been used, please enter a different title"]
@@ -252,10 +260,10 @@ def delete_topic(title):
 
     return render_template('topics/delete-topic.html', title='Delete topic', form=form, topic=topic)
 
-@bp_education.route("/topics/preview", methods=['POST'])
+@bp_education.route("/module/<string:code>/preview", methods=['POST'])
 @bp_education.route("/topic/<string:title>/preview", methods=['POST'])
 @login_required
-def preview(title):
+def preview(title=None, code=None):
     mkd = request.json['markdown']
     title = f"<h1>{request.json['title']}</h1>"
     html = title + bleach.clean(markdown.markdown(mkd), tags=allowed_tags, attributes=allowed_attributes)
