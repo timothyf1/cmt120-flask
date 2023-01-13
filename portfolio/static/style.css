@@ -106,6 +106,14 @@ form {
     min-height: 20rem;
 }
 
+.checkbox {
+    flex-direction: row;
+}
+
+form > p {
+    padding-left: 1rem;
+}
+
 .alert, .error {
     background-color: var(--alert-bg-color);
     color: var(--alert-text-color);

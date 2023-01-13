@@ -88,3 +88,13 @@ class ImageUpload(db.Model):
     topic_id = db.Column(db.Integer, db.ForeignKey('topic.id'), nullable=False)
     filename = db.Column(db.String(100), nullable=False, unique=True)
     upload_date = db.Column(db.DateTime, default=datetime.utcnow)
+
+class Experience(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(50), nullable=False)
+    employer = db.Column(db.String(50), nullable=False)
+    location = db.Column(db.String(50), nullable=False)
+    start = db.Column(db.DateTime, nullable=False)
+    end = db.Column(db.DateTime)
+    current = db.Column(db.Boolean, nullable=False)
+    description = db.Column(db.Text)

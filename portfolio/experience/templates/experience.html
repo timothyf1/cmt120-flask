@@ -1,0 +1,18 @@
+{% extends "content.html" %}
+{% block content %}
+<div class="heading right-link">
+    <h1>Experience</h1>
+    {% if current_user.is_authenticated %}
+    <a href="{{ url_for('bp_experience.new_experience') }}" class="button">New Course</a>
+    {% endif %}
+</div>
+
+<p>Below is my working experience</p>
+
+{% for job in experiences %}
+<h2>{{ job.title }}</h2>
+<p>From {{ job.start.strftime('%B %Y') }}{% if not job.current %} to {{ job.end.strftime('%B %Y') }}{% endif %}</p>
+<p>At {{ job.employer }} in {{ job.location }}</p>
+{% endfor %}
+
+{% endblock content %}
