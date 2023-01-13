@@ -42,13 +42,15 @@ class New_Topic(FlaskForm):
     title = StringField('Title', validators=[DataRequired(), Length(max=100)])
     content = TextAreaField('Content', validators=[DataRequired()])
     tags = StringField('Tags', validators=[Regexp('^([0-9a-zA-Z-]+ ?)*$', message='Tags can only contain letters, numbers or - and must be sepreated by a space.')])
-    submit = SubmitField('Add Topic')
+    submit = SubmitField('Publish Topic')
+    draft = SubmitField('Save as draft')
 
 class Edit_Topic(FlaskForm):
     title = StringField('Title', validators=[DataRequired(), Length(max=100)])
     content = TextAreaField('Content', validators=[DataRequired()])
     tags = StringField('Tags', validators=[Regexp('^([0-9a-zA-Z-]+ ?)*$', message='Tags can only contain letters, numbers or - and must be sepreated by a space.')])
-    submit = SubmitField('Edit Topic')
+    submit = SubmitField('Publish Edit')
+    draft = SubmitField('Save as draft')
 
 class Delete_Topic(FlaskForm):
     confirm = BooleanField('The action of deleting a topic is non reversible. Please tick this box to confirm', validators=[DataRequired()])

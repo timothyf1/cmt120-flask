@@ -6,7 +6,7 @@
 
 {% block content %}
 <div class="heading right-link">
-    <h1>{{ topic.title }}</h1>
+    <h1>{% if topic.draft %}Draft - {% endif %}{{ topic.title }}</h1>
     {% if current_user.is_authenticated %}
     <a href="{{ url_for('bp_education.edit_topic', title=topic.title) }}" class="button">Edit Topic</a>
     {% endif %}
