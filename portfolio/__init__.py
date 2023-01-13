@@ -8,7 +8,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ['SECRET_KEY']
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URI']
 app.config['FILE_UPLOAD'] = os.path.join(os.path.dirname(__file__), "static", "upload")
-app.config['ALLOWED_TAGS'] = ['a', 'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ol', 'ul', 'li', 'code', 'strong', 'blockquote', 'em', 'img']
+app.config['ALLOWED_TAGS'] = ['a', 'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ol', 'ul', 'li', 'code', 'strong', 'blockquote', 'em', 'img', 'pre']
 app.config['ALLOWED_ATTRIBUTES'] = {'a': ['href', 'title'],
                                     'abbr': ['title'],
                                     'acronym': ['title'],

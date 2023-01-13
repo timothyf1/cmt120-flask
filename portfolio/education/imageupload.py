@@ -1,8 +1,9 @@
 import os
 
-from flask import redirect, render_template, url_for
+from flask import redirect, render_template, request, url_for
 from flask_breadcrumbs import register_breadcrumb
-from flask_login import login_required
+from flask_login import current_user, login_required
+from werkzeug.utils import secure_filename
 
 from .. import app, db
 from ..models import Topic, ImageUpload
