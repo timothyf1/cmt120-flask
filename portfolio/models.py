@@ -80,3 +80,10 @@ class Tag(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(15), unique=True, nullable=False)
     topics = db.relationship('Topic', secondary=tag_assignment, back_populates='tags')
+
+class ImageUpload(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    topic_id = db.Column(db.Integer, db.ForeignKey('topic.id'), nullable=False)
+    filename = db.Column(db.String(100), nullable=False, unique=True)
+    upload_date = db.Column(db.DateTime, default=datetime.utcnow)

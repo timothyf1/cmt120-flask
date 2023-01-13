@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, BooleanField, IntegerField, TextAreaField
+from wtforms import StringField, SubmitField, BooleanField, IntegerField, TextAreaField, FileField
 from wtforms.validators import DataRequired, Length, Regexp
 
 class New_Course(FlaskForm):
@@ -57,3 +57,7 @@ class Delete_Topic(FlaskForm):
 class Delete_Tag(FlaskForm):
     confirm = BooleanField('The action of deleting a tag is non reversible. Please tick this box to confirm', validators=[DataRequired()])
     submit = SubmitField('Delete')
+
+class Image_Upload(FlaskForm):
+    file_up = FileField('File')
+    submit = SubmitField('Upload')
