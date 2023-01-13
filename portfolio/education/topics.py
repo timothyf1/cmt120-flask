@@ -82,7 +82,6 @@ def new_topic(code):
 def edit_topic(title):
     topic = Topic.query.filter_by(title=title).first_or_404()
     images = ImageUpload.query.filter_by(topic_id=topic.id)
-    print(images)
     form = Edit_Topic()
 
     if form.validate_on_submit():

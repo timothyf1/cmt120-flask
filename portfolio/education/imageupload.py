@@ -17,10 +17,6 @@ def file_upload():
     form = Image_Upload()
     if form.validate_on_submit():
         file_up = form.file_up.data
-        print(type(file_up))
-        print(file_up.__dir__())
-        print(file_up.content_type)
-        print('image' in file_up.content_type)
         file_up.save(os.path.join(app.config['FILE_UPLOAD'], secure_filename(file_up.filename)))
     return render_template('image-upload.html', form=form)
 
