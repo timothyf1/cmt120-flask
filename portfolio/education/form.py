@@ -45,6 +45,9 @@ class New_Topic(FlaskForm):
     submit = SubmitField('Publish Topic')
     draft = SubmitField('Save as draft')
 
+    image = FileField('Upload Image')
+    upload = SubmitField('Upload image')
+
 class Edit_Topic(FlaskForm):
     title = StringField('Title', validators=[DataRequired(), Length(max=100)])
     content = TextAreaField('Content', validators=[DataRequired()])

@@ -206,10 +206,14 @@ def new_topic(code):
                 author_id = current_user.id,
                 module = module
             )
-            if form.draft.data:
+            if not form.submit.data:
                 topic.draft = True
             db.session.add(topic)
             db.session.commit()
+            if form.upload.data:
+                print(form.image.data)
+                save_image(form.image.data, topic.id)
+                return redirect(url_for('bp_education.edit_topic', title=topic.title))
             return redirect(url_for('bp_education.view_topic', title=topic.title))
         form.title.errors = ["This title has been used, please enter a different title"]
     return render_template('topics/new-topic.html', title='New topic', form=form, module=module)
