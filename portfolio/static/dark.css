@@ -30,6 +30,10 @@ input[type=button] {
     --sub-text-color: #FFFFFF;
 }
 
+input[disabled] {
+    --dis-text-color: #444444;
+}
+
 input:hover {
     --inp-hover-border-color: #ffff77;
     --sub-hover-bg-color: aliceblue;

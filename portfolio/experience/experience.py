@@ -5,7 +5,7 @@ from flask_login import login_required
 from .. import db
 from ..models import Experience
 
-from .form import Experience as Experience_form
+from .form import Edit_Experience, Delete_Experience
 
 bp_experience = Blueprint('bp_experience', __name__, template_folder='templates', static_folder='static')
 
@@ -19,7 +19,7 @@ def experience():
 @register_breadcrumb(bp_experience, '.new', 'New Experience')
 @login_required
 def new_experience():
-    form = Experience_form()
+    form = Edit_Experience()
     if form.validate_on_submit():
         experience = Experience(
             title = form.title.data,
@@ -33,13 +33,13 @@ def new_experience():
         db.session.add(experience)
         db.session.commit()
         return redirect(url_for('bp_experience.experience'))
-    return render_template('new-experience.html', form=form)
+    return render_template('edit-experience.html', form=form, new=True)
 
 @bp_experience.route("/<string:title>/edit", methods=['GET', 'POST'])
 @register_breadcrumb(bp_experience, '.edit', 'Edit Experience')
 @login_required
 def edit_experience(title):
-    form = Experience_form()
+    form = Edit_Experience()
     experience = Experience.query.filter_by(title=title).first_or_404()
     if form.validate_on_submit():
         experience.title = form.title.data
@@ -59,4 +59,17 @@ def edit_experience(title):
         form.end.data = experience.end
         form.current.data = experience.current
         form.description.data = experience.description
-    return render_template('new-experience.html', form=form)
+    return render_template('edit-experience.html', form=form, new=False, experience=experience)
+
+@bp_experience.route("/<string:title>/delete", methods=['GET', 'POST'])
+@register_breadcrumb(bp_experience, '.delete', 'Delete Experience')
+@login_required
+def delete_experience(title):
+    form = Delete_Experience()
+    experience = Experience.query.filter_by(title=title).first_or_404()
+
+    if form.validate_on_submit():
+        db.session.delete(experience)
+        db.session.commit()
+        return redirect(url_for('bp_experience.experience'))
+    return render_template('delete-experience.html', form=form, experience=experience)

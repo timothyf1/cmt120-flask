@@ -3,14 +3,19 @@
 <div class="heading right-link">
     <h1>Experience</h1>
     {% if current_user.is_authenticated %}
-    <a href="{{ url_for('bp_experience.new_experience') }}" class="button">New Course</a>
+    <a href="{{ url_for('bp_experience.new_experience') }}" class="button">New Experience</a>
     {% endif %}
 </div>
 
 <p>Below is my working experience</p>
 
 {% for job in experiences %}
-<h2>{{ job.title }}</h2>
+<div class="heading-exp right-link">
+    <h2>{{ job.title }}</h2>
+    {% if current_user.is_authenticated %}
+    <a href="{{ url_for('bp_experience.edit_experience', title=job.title) }}" class="button">Edit Experience</a>
+    {% endif %}
+</div>
 <p>From {{ job.start.strftime('%B %Y') }}{% if not job.current %} to {{ job.end.strftime('%B %Y') }}{% endif %}</p>
 <p>At {{ job.employer }} in {{ job.location }}</p>
 {% endfor %}

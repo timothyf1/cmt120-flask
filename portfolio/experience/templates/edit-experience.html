@@ -1,7 +1,14 @@
 {% extends "content.html" %}
 
 {% block content %}
+{% if new %}
 <h1>Add Experience</h1>
+{% else %}
+<div class="heading right-link">
+    <h1>Edit {{ experience.title }}</h1>
+    <a href="{{ url_for('bp_experience.delete_experience', title=experience.title) }}" class="button">Delete Experience</a>
+</div>
+{% endif %}
 
 <form method="POST" action="">
     {{ form.csrf_token }}
@@ -98,4 +105,7 @@
         {{ form.submit }}
     </div>
 </form>
+
+<script src="{{ url_for('bp_experience.static',filename='js/exp-form.js') }}"></script>
+
 {% endblock content %}

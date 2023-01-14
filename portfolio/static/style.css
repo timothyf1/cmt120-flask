@@ -96,6 +96,10 @@ form {
     color: var(--text-hov-color);
 }
 
+.form-element > input[disabled] {
+    color: var(--dis-text-color);
+}
+
 .form-element > textarea {
     background-color: var(--background-color);
     color: var(--text-color);
@@ -153,4 +157,8 @@ form > p {
 .right-link > a.button:hover {
     background-color: var(--bg-hov-color);
     color: var(--text-hov-color);
+}
+
+.heading-exp > h2 {
+    margin-top: 0.25rem;
 }
