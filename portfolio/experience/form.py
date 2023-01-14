@@ -18,5 +18,5 @@ class Edit_Experience(FlaskForm):
     submit = SubmitField('Add Experience')
 
 class Delete_Experience(FlaskForm):
-    confirm = BooleanField('The action of deleting experience is non reversible. Please tick this box to confirm', validators=[DataRequired()])
+    confirm = BooleanField('The action of deleting experience is non reversible. Please tick this box to confirm: ', validators=[DataRequired()])
     submit = SubmitField('Delete')
