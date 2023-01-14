@@ -20,14 +20,15 @@ input, .image-preview {
     --inp-text-color: #FFFFFF;
 }
 
-input[type=submit] {
+input[type=submit], input[type=button] {
     --sub-bg-color: #555555;
     --sub-text-color: #FFFFFF;
 }
 
-input[type=button] {
-    --sub-bg-color: #555555;
-    --sub-text-color: #FFFFFF;
+input[type=checkbox], input[type=radio] {
+    --check-box-checked: #ffff77;
+    /* Change bg colour of unchecked box */
+    filter: invert(70%);
 }
 
 input[disabled] {

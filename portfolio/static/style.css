@@ -114,6 +114,27 @@ form {
     flex-direction: row;
 }
 
+.form-element > input[type=checkbox], input[type=radio] {
+    width: 1.2rem;
+    height: 1.2rem;
+    border-width: 1px;
+    margin-top: 0;
+}
+
+.form-element > input[type=checkbox]:checked, input[type=radio]:checked {
+    accent-color: var(--check-box-checked);
+    filter: none;
+}
+
+.form-element > ul {
+    list-style-type: none;
+    padding-left: 1rem;
+}
+
+.form-element > ul > li {
+    margin-bottom: 0.5rem;
+}
+
 form > p {
     padding-left: 1rem;
 }
