@@ -24,11 +24,13 @@ Breadcrumbs(app=app)
 from . import errors
 from .home.home import bp_home
 from .education.education import bp_education
+from .experience.experience import bp_experience
 from .auth.auth import bp_auth
 from .profile.profile import bp_profile
 
 app.register_blueprint(bp_home)
 app.register_blueprint(bp_education, url_prefix='/education')
+app.register_blueprint(bp_experience, url_prefix='/experience')
 app.register_blueprint(bp_auth, url_prefix='/auth')
 app.register_blueprint(bp_profile, url_prefix='/profile')
 

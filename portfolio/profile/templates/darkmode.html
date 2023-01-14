@@ -8,17 +8,18 @@ Dark Mode Setting
 <form method="POST" action="">
     {{ form.csrf_token }}
 
-    {{ form.pref.label }}
-    {{ form.pref }}
+    <div class="form-element">
+        {{ form.pref.label }}
+        {{ form.pref }}
 
-    {% if form.pref.errors %}
-    <div class="alert">
-    {% for error in form.pref.errors %}
-        {{ error }}
-    {% endfor %}
+        {% if form.pref.errors %}
+        <div class="alert">
+        {% for error in form.pref.errors %}
+            {{ error }}
+        {% endfor %}
+        </div>
+        {% endif %}
     </div>
-    {% endif %}
-
     {{ form.submit }}
 </form>
 {% endblock profileform %}
