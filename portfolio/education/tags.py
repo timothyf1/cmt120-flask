@@ -7,7 +7,7 @@ from ..models import Topic, Tag
 
 from .breadcrumbs import *
 from .education import bp_education
-from .form import Delete_Tag
+from .form import Delete
 
 @bp_education.route("/tags")
 @register_breadcrumb(bp_education, '.topics.tags', 'Tags')
@@ -27,9 +27,9 @@ def tag_topics(tag):
 @register_breadcrumb(bp_education, '.topics.tags.tag.delete', '', dynamic_list_constructor=tag_delete_breadcrumb)
 def delete_tag(tag):
     tag = Tag.query.filter_by(name=tag).first_or_404()
-    form = Delete_Tag()
+    form = Delete()
     if form.validate_on_submit():
         db.session.delete(tag)
         db.session.commit()
         return redirect(url_for('bp_education.tag_list'))
-    return render_template('tags/delete-tag.html', title=f'Delete {tag.name}', form=form, tag=tag)
+    return render_template('delete.html', title=f'Delete {tag.name}', form=form, tag=tag)

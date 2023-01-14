@@ -7,7 +7,7 @@ from ..models import Course
 
 from .breadcrumbs import *
 from .education import bp_education
-from .form import Edit_Course, Delete_Course
+from .form import Edit_Course, Delete
 
 @bp_education.route("/courses")
 @register_breadcrumb(bp_education, '.', 'Education')
@@ -67,10 +67,10 @@ def edit_course(name):
 @login_required
 def delete_course(name):
     course = Course.query.filter_by(name=name).first_or_404()
-    form = Delete_Course()
+    form = Delete()
     if form.validate_on_submit():
         db.session.delete(course)
         db.session.commit()
         return redirect(url_for('bp_education.course_list'))
 
-    return render_template('courses/delete-course.html', title='Edit a course', form=form, course=course)
+    return render_template('delete.html', title='Edit a course', form=form, course=course)

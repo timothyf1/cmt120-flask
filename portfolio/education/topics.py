@@ -11,7 +11,7 @@ from ..models import Module, Topic, Tag, ImageUpload
 
 from .breadcrumbs import *
 from .education import bp_education
-from .form import New_Topic, Edit_Topic, Delete_Topic
+from .form import New_Topic, Edit_Topic, Delete
 from .imageupload import save_image
 
 def create_tag_list(tags_string):
@@ -113,13 +113,13 @@ def edit_topic(title):
 @login_required
 def delete_topic(title):
     topic = Topic.query.filter_by(title=title).first_or_404()
-    form = Delete_Topic()
+    form = Delete()
     if form.validate_on_submit():
         db.session.delete(topic)
         db.session.commit()
         return redirect(url_for('bp_education.topics_list'))
 
-    return render_template('topics/delete-topic.html', title='Delete topic', form=form, topic=topic)
+    return render_template('delete.html', title='Delete topic', form=form, topic=topic)
 
 @bp_education.route("/module/<string:code>/preview", methods=['POST'])
 @bp_education.route("/topic/<string:title>/preview", methods=['POST'])

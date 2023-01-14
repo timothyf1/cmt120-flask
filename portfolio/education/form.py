@@ -10,20 +10,12 @@ class Edit_Course(FlaskForm):
     description = StringField('Description', validators=[DataRequired()])
     submit = SubmitField('Apply Changes')
 
-class Delete_Course(FlaskForm):
-    confirm = BooleanField('The action of deleting a course is non reversible. Please tick this box to confirm', validators=[DataRequired()])
-    submit = SubmitField('Delete')
-
 class Edit_Module(FlaskForm):
     name = StringField('Module Name', validators=[DataRequired(), Length(max=100)])
     code = StringField('Module Code', validators=[DataRequired(), Length(max=20)])
     year = IntegerField('Year', validators=[DataRequired()])
     description = StringField('Description', validators=[DataRequired()])
     submit = SubmitField('Apply Changes')
-
-class Delete_Module(FlaskForm):
-    confirm = BooleanField('The action of deleting a module is non reversible. Please tick this box to confirm', validators=[DataRequired()])
-    submit = SubmitField('Delete')
 
 class New_Topic(FlaskForm):
     title = StringField('Title', validators=[DataRequired(), Length(max=100)])
@@ -42,12 +34,8 @@ class Edit_Topic(FlaskForm):
     submit = SubmitField('Publish Edit')
     draft = SubmitField('Save as draft')
 
-class Delete_Topic(FlaskForm):
-    confirm = BooleanField('The action of deleting a topic is non reversible. Please tick this box to confirm', validators=[DataRequired()])
-    submit = SubmitField('Delete')
-
-class Delete_Tag(FlaskForm):
-    confirm = BooleanField('The action of deleting a tag is non reversible. Please tick this box to confirm', validators=[DataRequired()])
+class Delete(FlaskForm):
+    confirm = BooleanField('The action of deletion is non reversible. Please tick this box to confirm', validators=[DataRequired()])
     submit = SubmitField('Delete')
 
 class Image_Upload(FlaskForm):
