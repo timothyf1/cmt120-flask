@@ -7,7 +7,7 @@ from ..models import Course
 
 from .breadcrumbs import *
 from .education import bp_education
-from .form import New_Course, Edit_Course, Delete_Course
+from .form import Edit_Course, Delete_Course
 
 @bp_education.route("/courses")
 @register_breadcrumb(bp_education, '.', 'Education')
@@ -27,7 +27,7 @@ def course_page(name):
 @register_breadcrumb(bp_education, '.new', 'New Course')
 @login_required
 def new_course():
-    form = New_Course()
+    form = Edit_Course()
     if form.validate_on_submit():
         course = Course(
             name = form.name.data,
@@ -39,7 +39,7 @@ def new_course():
         db.session.commit()
         return redirect(url_for('bp_education.course_page', name=course.name))
 
-    return render_template('courses/new-course.html', title='Add a course', form=form)
+    return render_template('courses/edit-course.html', title='Add a course', form=form, new=True)
 
 @bp_education.route("/course/<string:name>/edit", methods=['GET', 'POST'])
 @register_breadcrumb(bp_education, '.course.edit', '', dynamic_list_constructor=course_edit_breadcrumb)
