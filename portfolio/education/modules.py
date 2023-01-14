@@ -7,7 +7,7 @@ from ..models import Course, Module
 
 from .breadcrumbs import *
 from .education import bp_education
-from .form import New_Module, Edit_Module, Delete_Module
+from .form import Edit_Module, Delete_Module
 
 @bp_education.route("/modules")
 @register_breadcrumb(bp_education, '.modules', 'Modules')
@@ -28,7 +28,7 @@ def module_page(code):
 @login_required
 def new_module(name):
     course = Course.query.filter_by(name=name).first_or_404()
-    form = New_Module()
+    form = Edit_Module()
     if form.validate_on_submit():
         module = Module(
             name = form.name.data,
@@ -41,7 +41,7 @@ def new_module(name):
         db.session.add(module)
         db.session.commit()
         return redirect(url_for('bp_education.module_page', code=module.code))
-    return render_template('modules/new-module.html', title='Add a module', form=form, course=course)
+    return render_template('modules/edit-module.html', title='Add a module', form=form, course=course, new=True)
 
 @bp_education.route("/module/<string:code>/edit-module", methods=['GET', 'POST'])
 @register_breadcrumb(bp_education, '.module.edit', 'Edit Module', dynamic_list_constructor=module_edit_breadcrumb)
