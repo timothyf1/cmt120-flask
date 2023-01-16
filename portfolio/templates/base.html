@@ -10,11 +10,23 @@
 
     {% if current_user.is_authenticated %}
         {% if current_user.dark_mode == 1 %}
-        <link rel=stylesheet type=text/css href="{{ url_for('static',filename='css/light.css') }}">
+            {% if current_user.accessibility %}
+            <link rel=stylesheet type=text/css href="{{ url_for('static',filename='css/light-access.css') }}">
+            {% else %}
+            <link rel=stylesheet type=text/css href="{{ url_for('static',filename='css/light.css') }}">
+            {% endif %}
         {% elif current_user.dark_mode == 2 %}
-        <link rel=stylesheet type=text/css href="{{ url_for('static',filename='css/dark.css') }}">
+            {% if current_user.accessibility %}
+            <link rel=stylesheet type=text/css href="{{ url_for('static',filename='css/dark-access.css') }}">
+            {% else %}
+            <link rel=stylesheet type=text/css href="{{ url_for('static',filename='css/dark.css') }}">
+            {% endif %}
         {% else %}
-        <link rel=stylesheet type=text/css href="{{ url_for('static',filename='css/system.css') }}">
+            {% if current_user.accessibility %}
+            <link rel=stylesheet type=text/css href="{{ url_for('static',filename='css/system-access.css') }}">
+            {% else %}
+            <link rel=stylesheet type=text/css href="{{ url_for('static',filename='css/system.css') }}">
+            {% endif %}
         {% endif %}
     {% else %}
         <link rel=stylesheet type=text/css id='theme' href="{{ url_for('static',filename='css/system.css') }}">
