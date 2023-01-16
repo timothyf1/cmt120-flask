@@ -2,13 +2,13 @@ function setCSSColourFile(darkmode) {
     let cssThemeTag = document.getElementById('theme');
     switch (darkmode) {
         case '0':
-            cssThemeTag.href = cssThemeTag.href.replace(/(colours)|(light)|(dark)/g, "colours");
+            cssThemeTag.href = cssThemeTag.href.replace(/(system)|(light)|(dark)/g, "system");
             break;
         case '1':
-            cssThemeTag.href = cssThemeTag.href.replace(/(colours)|(light)|(dark)/g, "light");
+            cssThemeTag.href = cssThemeTag.href.replace(/(system)|(light)|(dark)/g, "light");
             break;
         case '2':
-            cssThemeTag.href = cssThemeTag.href.replace(/(colours)|(light)|(dark)/g, "dark");
+            cssThemeTag.href = cssThemeTag.href.replace(/(system)|(light)|(dark)/g, "dark");
             break;
     }
 }

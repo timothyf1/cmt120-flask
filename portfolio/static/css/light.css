@@ -21,9 +21,9 @@ body {
 }
 
 div {
-    --content-bg-color: aliceblue;
     --alert-text-color: #6e0000;
     --info-text-color: #006e00;
+    --content-bg-color: var(--content-background);
     --info-text-color: var(--text-color);
     --alert-text-color: var(--text-color);
 }

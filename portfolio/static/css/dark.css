@@ -1,6 +1,6 @@
 body {
     --background-color: #333333;
-    --text-color: #FFFFFF;
+    --text-color: #EEEEEE;
 
     --accent-color: #ffff77;
     --content-background: #111111;
@@ -10,7 +10,8 @@ body {
     --hov-background-color: #f0f8ff;
     --hov-text-color: #000000;
 
-    --inp-bg-color: #333333;
+    --inp-background-color: #333333;
+    --inp-border: #666666;
     --button-bg-color: #555555;
 
     --info-bg-color: #006e00;
@@ -33,8 +34,8 @@ a {
 }
 
 input, .image-preview {
-    --inp-bg-color: var(--inp-bg-color);
-    --inp-border-color: var(--hov-background-color);
+    --inp-bg-color: var(--inp-background-color);
+    --inp-border-color: var(--inp-border);
     --inp-text-color: var(--text-color);
 }
 
