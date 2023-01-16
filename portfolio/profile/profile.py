@@ -20,12 +20,12 @@ def change_password():
         form.current_password.errors = ['Password Incorrect']
     return render_template('changepassword.html', title='Change Password', form=form)
 
-@bp_profile.route('/darkmode', methods=['GET', 'POST'])
+@bp_profile.route('/display-settings', methods=['GET', 'POST'])
 @login_required
 def dark_mode_setting():
-    form = Dark_mode()
+    form = Display_Settings()
     if form.validate_on_submit():
-        current_user.dark_mode = form.pref.data
+        current_user.dark_mode = form.dark.data
         db.session.commit()
         return redirect(url_for('bp_profile.user_profile'))
 
@@ -33,11 +33,11 @@ def dark_mode_setting():
     # This code was adapted from Stack Overflow post by jeinarsson 2015-01-15
     # accessed on 2023-01-05
     # https://stackoverflow.com/a/34820107/
-    form.pref.default = current_user.dark_mode
+    form.dark.default = current_user.dark_mode
     form.process()
     # end of referenced code
 
-    return render_template('darkmode.html', title='Change Dark Mode Setting', form=form)
+    return render_template('display-settings.html', title='Change Display Settings', form=form)
 
 @bp_profile.route('/')
 @register_breadcrumb(bp_profile, '.', 'Profile')

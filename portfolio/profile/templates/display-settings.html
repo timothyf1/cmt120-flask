@@ -1,7 +1,7 @@
 {% extends "profileform.html" %}
 
 {% block heading %}
-Dark Mode Setting
+Display Settings
 {% endblock heading %}
 
 {% block profileform %}
@@ -9,12 +9,12 @@ Dark Mode Setting
     {{ form.csrf_token }}
 
     <div class="form-element">
-        {{ form.pref.label }}
-        {{ form.pref }}
+        {{ form.dark.label }}
+        {{ form.dark }}
 
-        {% if form.pref.errors %}
+        {% if form.dark.errors %}
         <div class="alert">
-        {% for error in form.pref.errors %}
+        {% for error in form.dark.errors %}
             {{ error }}
         {% endfor %}
         </div>
