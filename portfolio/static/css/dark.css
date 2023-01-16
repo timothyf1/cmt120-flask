@@ -15,6 +15,8 @@ body {
 
     --info-bg-color: #006e00;
     --alert-bg-color: #6e0000;
+
+    --border-weight: 1px;
 }
 
 div {
@@ -53,6 +55,6 @@ input[disabled] {
 
 input:hover {
     --inp-hover-border-color: var(--accent-color);
-    --sub-hover-bg-color: var(--hov-background-color);
+    --sub-hover-bg-color: var(--accent-color);
     --text-hov-color: var(--hov-text-color);
 }

@@ -10,11 +10,14 @@ body {
     --hov-background-color: #f0f8ff;
     --hov-text-color: #ffffff;
 
-    --inp-bg-color: #d3d3d3;
+    --inp-background-color: #fffff0;
+    --inp-border: #666666;
     --button-bg-color: #BBBBBB;
 
     --info-bg-color: #d1ffd1;
     --alert-bg-color: #ffd1d1;
+
+    --border-weight: 1px;
 }
 
 div {
@@ -33,8 +36,8 @@ a {
 }
 
 input, .image-preview {
-    --inp-bg-color: var(--inp-bg-color);
-    --inp-border-color: var(--hov-background-color);
+    --inp-bg-color: var(--inp-background-color);
+    --inp-border-color: var(--inp-border);
     --inp-text-color: var(--text-color);
 }
 
@@ -55,7 +58,7 @@ input[disabled] {
 
 input:hover {
     --inp-hover-border-color: var(--accent-color);
-    --sub-hover-bg-color: var(--hov-background-color);
+    --sub-hover-bg-color: var(--accent-color);
     --text-hov-color: var(--hov-text-color);
 }
 
