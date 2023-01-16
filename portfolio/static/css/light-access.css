@@ -1,23 +1,26 @@
-body {
-    --background-color: #d3d3d3;
-    --text-color: #222222;
+@import url(access.css);
 
-    --accent-color: #4444ff;
-    --content-background: #f0f8ff;
+body {
+    --background-color: #eeeeee;
+    --text-color: #000000;
+
+    --accent-color: #2222AA;
+    --content-background: #ffffff;
+    --border-color: #111199;
 
     --disabled-color: #444444;
 
     --hov-background-color: #f0f8ff;
     --hov-text-color: #ffffff;
 
-    --inp-background-color: #fffff0;
-    --inp-border: #666666;
-    --button-bg-color: #BBBBBB;
+    --inp-background-color: #fffff5;
+    --inp-border: #222222;
+    --button-bg-color: #DDDDDD;
 
     --info-bg-color: #d1ffd1;
     --alert-bg-color: #ffd1d1;
 
-    --border-weight: 1px;
+    --border-weight: 0.1rem;
 }
 
 div {

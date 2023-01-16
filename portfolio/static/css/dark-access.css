@@ -1,23 +1,26 @@
-body {
-    --background-color: #d3d3d3;
-    --text-color: #222222;
+@import url(access.css);
 
-    --accent-color: #4444ff;
-    --content-background: #f0f8ff;
+body {
+    --background-color: #222222;
+    --text-color: #FFFFFF;
+
+    --accent-color: #ffff77;
+    --content-background: #000000;
+    --border-color: #cccc77;
 
     --disabled-color: #444444;
 
     --hov-background-color: #f0f8ff;
-    --hov-text-color: #ffffff;
+    --hov-text-color: #000000;
 
-    --inp-background-color: #fffff0;
-    --inp-border: #666666;
-    --button-bg-color: #BBBBBB;
+    --inp-background-color: #222222;
+    --inp-border: #DDDDDD;
+    --button-bg-color: #444444;
 
-    --info-bg-color: #d1ffd1;
-    --alert-bg-color: #ffd1d1;
+    --info-bg-color: #006e00;
+    --alert-bg-color: #6e0000;
 
-    --border-weight: 1px;
+    --border-weight: 0.1rem;
 }
 
 div {
@@ -47,7 +50,7 @@ input[type=submit], input[type=button] {
 input[type=checkbox], input[type=radio] {
     --check-box-checked: var(--accent-color);
     /* Change bg colour of unchecked box */
-    filter: invert(4%) sepia(100%);
+    filter: invert(70%);
 }
 
 input[disabled] {
@@ -59,5 +62,3 @@ input:hover {
     --sub-hover-bg-color: var(--accent-color);
     --text-hov-color: var(--hov-text-color);
 }
-
-

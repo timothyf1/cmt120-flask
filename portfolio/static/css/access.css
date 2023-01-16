@@ -1,0 +1,19 @@
+* {
+    line-height: 1.5;
+}
+
+header {
+    border: solid var(--border-color);
+}
+
+a {
+    text-decoration: underline;
+}
+
+/* input {
+    --border-weight: 1rem;
+} */
+
+.content {
+    border: solid var(--border-color);
+}
