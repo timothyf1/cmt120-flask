@@ -18,6 +18,7 @@ class User(UserMixin, db.Model):
 
     # User Settings
     dark_mode = db.Column(db.Integer, default=0)
+    accessibility = db.Column(db.Boolean, default=0)
 
     def set_password(self, password):
         self.password = generate_password_hash(password)

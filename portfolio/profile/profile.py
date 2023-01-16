@@ -4,7 +4,7 @@ from flask_login import login_required, current_user
 
 from .. import db
 from ..models import User
-from .forms import Change_password, Dark_mode
+from .forms import Change_password, Display_Settings
 
 bp_profile = Blueprint('bp_profile', __name__, template_folder='templates', static_folder='static')
 
@@ -25,17 +25,20 @@ def change_password():
 def dark_mode_setting():
     form = Display_Settings()
     if form.validate_on_submit():
+        current_user.accessibility = form.accessibility.data
         current_user.dark_mode = form.dark.data
         db.session.commit()
         return redirect(url_for('bp_profile.user_profile'))
 
-    # Change radio button default dynamically
-    # This code was adapted from Stack Overflow post by jeinarsson 2015-01-15
-    # accessed on 2023-01-05
-    # https://stackoverflow.com/a/34820107/
-    form.dark.default = current_user.dark_mode
-    form.process()
-    # end of referenced code
+    else:
+        form.accessibility.default = current_user.accessibility
+        # Change radio button default dynamically
+        # This code was adapted from Stack Overflow post by jeinarsson 2015-01-15
+        # accessed on 2023-01-05
+        # https://stackoverflow.com/a/34820107/
+        form.dark.default = current_user.dark_mode
+        # end of referenced code
+        form.process()
 
     return render_template('display-settings.html', title='Change Display Settings', form=form)
 
