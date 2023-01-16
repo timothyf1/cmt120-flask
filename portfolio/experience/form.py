@@ -15,7 +15,7 @@ class Edit_Experience(FlaskForm):
     end = DateField('End Date', validators=[check_start_before_end])
     current = BooleanField('Current Job')
     description = StringField('Description')
-    submit = SubmitField('Add Experience')
+    submit = SubmitField('Save')
 
 class Delete_Experience(FlaskForm):
     confirm = BooleanField('The action of deleting experience is non reversible. Please tick this box to confirm: ', validators=[DataRequired()])
