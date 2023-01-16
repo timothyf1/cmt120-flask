@@ -10,10 +10,6 @@ a {
     text-decoration: underline;
 }
 
-/* input {
-    --border-weight: 1rem;
-} */
-
 .content {
     border: solid var(--border-color);
 }

@@ -24,7 +24,7 @@ p > img {
 }
 
 .image-preview {
-    background-color: var(--inp-bg-color);
+    background-color: var(--inp-background-color);
     border-radius: 1rem;
     border: 1px solid var(--inp-border-color);
     padding-left: 1rem;

@@ -1,7 +1,7 @@
 .profile-form {
     margin-left: auto;
     margin-right: auto;
-    background-color: var(--content-bg-color);
+    background-color: var(--content-background);
     max-width: 1000px;
     box-sizing: border-box;
     padding: 1rem;
@@ -23,8 +23,8 @@ form > input {
     padding: 0.5rem;
     padding-left: 1rem;
     padding-right: 1rem;
-    background-color: var(--inp-bg-color);
-    color: var(--inp-text-color);
+    background-color: var(--inp-background-color);
+    color: var(--text-color);
     border: var(--border-weight) solid var(--inp-border-color);
     border-radius: 1rem;
     font: Helvetica;
@@ -32,18 +32,18 @@ form > input {
 }
 
 form > input:hover {
-    border: var(--border-weight) solid var(--inp-hover-border-color);
+    border: var(--border-weight) solid var(--accent-color);
 }
 
 form > input[type=submit] {
-    background-color: var(--sub-bg-color);
-    color: var(--sub-text-color);
+    background-color: var(--button-bg-color);
+    color: var(--text-color);
     cursor:pointer;
 }
 
 form > input[type=submit]:hover {
-    background-color: var(--sub-hover-bg-color);
-    color: var(--text-hov-color);
+    background-color: var(--accent-color);
+    color: var(--hov-text-color);
 }
 
 .alert {

@@ -21,43 +21,11 @@ body {
 }
 
 div {
-    --content-bg-color: var(--content-background);
     --info-text-color: var(--text-color);
     --alert-text-color: var(--text-color);
 }
 
-a {
-    --link-color: var(--accent-color);
-    --bg-color: var(--button-bg-color);
-    --bg-hov-color: var(--accent-color);
-    --text-hov-color: var(--hov-text-color);
-}
-
-input, .image-preview {
-    --inp-bg-color: var(--inp-background-color);
-    --inp-border-color: var(--inp-border);
-    --inp-text-color: var(--text-color);
-}
-
-input[type=submit], input[type=button] {
-    --sub-bg-color: var(--button-bg-color);
-    --sub-text-color: var(--text-color);
-}
-
 input[type=checkbox], input[type=radio] {
-    --check-box-checked: var(--accent-color);
     /* Change bg colour of unchecked box */
     filter: invert(4%) sepia(100%);
 }
-
-input[disabled] {
-    --dis-text-color: var(--disabled-color);
-}
-
-input:hover {
-    --inp-hover-border-color: var(--accent-color);
-    --sub-hover-bg-color: var(--accent-color);
-    --text-hov-color: var(--hov-text-color);
-}
-
-

@@ -11,7 +11,7 @@ body {
 }
 
 .content {
-    background-color: var(--content-bg-color);
+    background-color: var(--content-background);
     max-width: 1000px;
     box-sizing: border-box;
     margin-left: auto;
@@ -26,7 +26,7 @@ h1 {
 }
 
 a {
-    color: var(--link-color);
+    color: var(--accent-color);
     text-decoration: none;
 }
 
@@ -64,8 +64,8 @@ form {
     padding: 0.5rem;
     padding-left: 1rem;
     padding-right: 1rem;
-    background-color: var(--inp-bg-color);
-    color: var(--inp-text-color);
+    background-color: var(--inp-background-color);
+    color: var(--text-color);
     border: var(--border-weight) solid var(--inp-border-color);
     border-radius: 1rem;
     font: Helvetica;
@@ -73,35 +73,35 @@ form {
 }
 
 .form-element > input:hover {
-    border: var(--border-weight) solid var(--inp-hover-border-color);
+    border: var(--border-weight) solid var(--accent-color);
 }
 
 .form-element > input[type=submit] {
-    background-color: var(--sub-bg-color);
-    color: var(--sub-text-color);
+    background-color: var(--button-bg-color);
+    color: var(--text-color);
     /* font-weight: bold; */
     cursor:pointer;
 }
 
 .form-element > input[type=submit]:hover {
-    background-color: var(--sub-hover-bg-color);
-    color: var(--text-hov-color);
+    background-color: var(--accent-color);
+    color: var(--hov-text-color);
 }
 
 .form-element > input[type=button] {
-    background-color: var(--sub-bg-color);
-    color: var(--sub-text-color);
+    background-color: var(--button-bg-color);
+    color: var(--text-color);
     /* font-weight: bold; */
     cursor:pointer;
 }
 
 .form-element > input[type=button]:hover {
-    background-color: var(--sub-hover-bg-color);
-    color: var(--text-hov-color);
+    background-color: var(--accent-color);
+    color: var(--hov-text-color);
 }
 
 .form-element > input[disabled] {
-    color: var(--dis-text-color);
+    color: var(--disabled-color);
 }
 
 .form-element > textarea {
@@ -126,7 +126,7 @@ form {
 }
 
 .form-element > input[type=checkbox]:checked, input[type=radio]:checked {
-    accent-color: var(--check-box-checked);
+    accent-color: var(--accent-color);
     filter: none;
 }
 
@@ -171,7 +171,7 @@ form > p {
 
 .right-link > a.button {
     margin-left: 1rem;
-    background-color: var(--bg-color);
+    background-color: var(--button-bg-color);
     color: var(--text-color);
     padding: 0.5rem;
     height: fit-content;
@@ -181,8 +181,8 @@ form > p {
 }
 
 .right-link > a.button:hover {
-    background-color: var(--bg-hov-color);
-    color: var(--text-hov-color);
+    background-color: var(--accent-color);
+    color: var(--hov-text-color);
 }
 
 .heading-exp > h2 {
