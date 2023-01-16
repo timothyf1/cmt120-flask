@@ -2,7 +2,7 @@ import markdown
 import bleach
 from datetime import datetime
 
-from flask import redirect, render_template, request, url_for
+from flask import abort, redirect, render_template, request, url_for
 from flask_breadcrumbs import register_breadcrumb
 from flask_login import current_user, login_required
 
