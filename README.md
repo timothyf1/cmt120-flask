@@ -4,7 +4,7 @@ Username - d1323632
 
 Openshift - [https://d1323632-cmt120-cw2.apps.openshift.cs.cf.ac.uk/](https://d1323632-cmt120-cw2.apps.openshift.cs.cf.ac.uk/)
 
-## Creating the website
+## Creating the portfolio
 
 ### Environment variables
 
@@ -32,10 +32,14 @@ For the topic pages it is possible to upload pictures to be used within these pa
 
 Even though this folder can be changed in the app config it **MUST** however be located in the `static` folder. If this is moved outside the `static` Flask will be unable to serve the images.
 
-## Website Structure
+## Portfolio Structure
 
-The portfolio is structured into two main areas: Education and Expeience
+The portfolio is structured into two main areas: Education and Expeience. In addition there are also authentication, profile and home sections. Each of the sections have been given their own blueprint in flask.
 
 ### Education
 
+The main section of the portfolio. Within this section courses can be added. Each course can have multiple modules. Within each module there are topics which are articles.
+
 ### Expeience
+
+This is a page for entering previours working expeience.
