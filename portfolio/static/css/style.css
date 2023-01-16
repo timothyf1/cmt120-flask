@@ -27,8 +27,12 @@ h1 {
 
 a {
     color: var(--link-color);
+    text-decoration: none;
 }
 
+a:hover {
+    text-decoration: underline;
+}
 
 form {
     display: flex;
@@ -62,14 +66,14 @@ form {
     padding-right: 1rem;
     background-color: var(--inp-bg-color);
     color: var(--inp-text-color);
-    border: 1px solid var(--inp-border-color);
+    border: var(--border-weight) solid var(--inp-border-color);
     border-radius: 1rem;
     font: Helvetica;
     font-size: large;
 }
 
 .form-element > input:hover {
-    border: 1px solid var(--inp-hover-border-color);
+    border: var(--border-weight) solid var(--inp-hover-border-color);
 }
 
 .form-element > input[type=submit] {
@@ -173,6 +177,7 @@ form > p {
     height: fit-content;
     border-radius: .5rem;
     text-decoration: none;
+    border: var(--border-weight) solid var(--border-color);
 }
 
 .right-link > a.button:hover {

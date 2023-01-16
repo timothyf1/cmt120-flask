@@ -1,0 +1,64 @@
+@import url(access.css);
+
+body {
+    --background-color: #222222;
+    --text-color: #FFFFFF;
+
+    --accent-color: #ffff77;
+    --content-background: #000000;
+    --border-color: #cccc77;
+
+    --disabled-color: #444444;
+
+    --hov-background-color: #f0f8ff;
+    --hov-text-color: #000000;
+
+    --inp-background-color: #222222;
+    --inp-border: #DDDDDD;
+    --button-bg-color: #444444;
+
+    --info-bg-color: #006e00;
+    --alert-bg-color: #6e0000;
+
+    --border-weight: 0.1rem;
+}
+
+div {
+    --content-bg-color: var(--content-background);
+    --info-text-color: var(--text-color);
+    --alert-text-color: var(--text-color);
+}
+
+a {
+    --link-color: var(--accent-color);
+    --bg-color: var(--button-bg-color);
+    --bg-hov-color: var(--accent-color);
+    --text-hov-color: var(--hov-text-color);
+}
+
+input, .image-preview {
+    --inp-bg-color: var(--inp-background-color);
+    --inp-border-color: var(--inp-border);
+    --inp-text-color: var(--text-color);
+}
+
+input[type=submit], input[type=button] {
+    --sub-bg-color: var(--button-bg-color);
+    --sub-text-color: var(--text-color);
+}
+
+input[type=checkbox], input[type=radio] {
+    --check-box-checked: var(--accent-color);
+    /* Change bg colour of unchecked box */
+    filter: invert(70%);
+}
+
+input[disabled] {
+    --dis-text-color: var(--disabled-color);
+}
+
+input:hover {
+    --inp-hover-border-color: var(--accent-color);
+    --sub-hover-bg-color: var(--accent-color);
+    --text-hov-color: var(--hov-text-color);
+}

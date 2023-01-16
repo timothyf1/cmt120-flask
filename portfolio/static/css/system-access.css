@@ -1,0 +1,10 @@
+@import url("light-access.css");
+
+/*
+Import a file depending on media query
+This code was adapted from Stack Overflow post by Drew Altukhov 2013-09-05
+accessed on 2022-12-31
+https://stackoverflow.com/a/18636027/
+*/
+@import url("dark-access.css") (prefers-color-scheme: dark)
+/* end of referenced code */

@@ -25,14 +25,14 @@ form > input {
     padding-right: 1rem;
     background-color: var(--inp-bg-color);
     color: var(--inp-text-color);
-    border: 1px solid var(--inp-border-color);
+    border: var(--border-weight) solid var(--inp-border-color);
     border-radius: 1rem;
     font: Helvetica;
     font-size: large;
 }
 
 form > input:hover {
-    border: 1px solid var(--inp-hover-border-color);
+    border: var(--border-weight) solid var(--inp-hover-border-color);
 }
 
 form > input[type=submit] {
