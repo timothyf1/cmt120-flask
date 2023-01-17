@@ -13,10 +13,10 @@ Display Settings
         <input checked id="dark-2" name="dark" type="radio" onchange="setDarkMode(2)"> <label for="dark-2">Dark</label>
     </fieldset>
 
-    <fieldset id="darkmode">
+    <div class="form-element checkbox">
         <label for="accessibility">Accessibility mode</label>
         <input checked id="accessibility" name="accessibility" type="checkbox" onclick="setAccessMode()">
-    </fieldset>
+    </div>
 </form>
 
 <script src="{{ url_for('bp_profile.static',filename='js/set-theme.js') }}"></script>

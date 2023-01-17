@@ -53,3 +53,7 @@ form > input[type=submit]:hover {
     margin-bottom: 1rem;
     border-radius: 1rem;
 }
+
+fieldset {
+    border: none;
+}

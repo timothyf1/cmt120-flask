@@ -4,6 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <link rel=stylesheet type=text/css href="{{ url_for('static',filename='css/style.css') }}">
+    <link rel=stylesheet type=text/css href="{{ url_for('static',filename='css/nav.css') }}">
+
     {% if current_user.is_authenticated %}
         {% if current_user.dark_mode == 1 %}
             {% if current_user.accessibility %}
@@ -31,9 +34,6 @@
         <link rel=stylesheet id="theme" type=text/css href="{{ url_for('static',filename='css/system.css') }}">
         <script src="{{ url_for('static',filename='js/theme.js') }}"></script>
     {% endif %}
-
-    <link rel=stylesheet type=text/css href="{{ url_for('static',filename='css/style.css') }}">
-    <link rel=stylesheet type=text/css href="{{ url_for('static',filename='css/nav.css') }}">
 
     {% block head %}
     {% endblock %}
