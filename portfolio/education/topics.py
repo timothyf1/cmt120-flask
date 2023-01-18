@@ -1,4 +1,5 @@
 import markdown
+from markdown.extensions.tables import TableExtension
 import bleach
 from datetime import datetime
 
@@ -45,7 +46,7 @@ def view_topic(title):
         if topic.draft and not current_user.is_authenticated:
             abort(401)
 
-        content = bleach.clean(markdown.markdown(topic.content), tags=app.config['ALLOWED_TAGS'], attributes=app.config['ALLOWED_ATTRIBUTES'])
+        content = bleach.clean(markdown.markdown(topic.content, extensions=['tables', 'fenced_code']), tags=app.config['ALLOWED_TAGS'], attributes=app.config['ALLOWED_ATTRIBUTES'])
         return render_template('topics/topic-view.html', title=topic.title, topic=topic, content=content)
 
     abort(404, description=f"Topic '{title}' does not exists. Please go to <a href='{url_for('bp_education.topics_list')}'>topics list</a> to view available topics.")
@@ -131,5 +132,5 @@ def delete_topic(title):
 def preview(title=None, code=None):
     mkd = request.json['markdown']
     title = f"<h1>{request.json['title']}</h1>"
-    html = title + bleach.clean(markdown.markdown(mkd), tags=app.config['ALLOWED_TAGS'], attributes=app.config['ALLOWED_ATTRIBUTES'])
+    html = title + bleach.clean(markdown.markdown(mkd, extensions=['tables', 'fenced_code']), tags=app.config['ALLOWED_TAGS'], attributes=app.config['ALLOWED_ATTRIBUTES'])
     return {"html": html}
