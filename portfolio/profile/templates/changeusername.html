@@ -1,0 +1,34 @@
+{% extends "profileform.html" %}
+
+{% block heading %}
+Change Password
+{% endblock heading %}
+
+{% block profileform %}
+<form method="POST" action="">
+    {{ form.csrf_token }}
+    {{ form.current_username }}
+
+    {{ form.username.label }}
+    {{ form.username }}
+    {% if form.username.errors %}
+    <div class="alert">
+    {% for error in form.username.errors %}
+        {{ error }}
+    {% endfor %}
+    </div>
+    {% endif %}
+
+    {{ form.password.label }}
+    {{ form.password }}
+    {% if form.password.errors %}
+    <div class="alert">
+    {% for error in form.password.errors %}
+        {{ error }}
+    {% endfor %}
+    </div>
+    {% endif %}
+
+    {{ form.submit }}
+</form>
+{% endblock profileform %}
