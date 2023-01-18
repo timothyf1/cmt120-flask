@@ -9,6 +9,7 @@ from .forms import Change_password, Change_Username, Display_Settings
 bp_profile = Blueprint('bp_profile', __name__, template_folder='templates', static_folder='static')
 
 @bp_profile.route('/change-password', methods=['GET', 'POST'])
+@register_breadcrumb(bp_profile, '.change-pass', 'Change Password')
 @login_required
 def change_password():
     form = Change_password()
@@ -21,6 +22,7 @@ def change_password():
     return render_template('changepassword.html', title='Change Password', form=form)
 
 @bp_profile.route('/change-username', methods=['GET', 'POST'])
+@register_breadcrumb(bp_profile, '.change-user', 'Change Username')
 @login_required
 def change_username():
     form = Change_Username()
@@ -36,6 +38,7 @@ def change_username():
     return render_template('changeusername.html', title='Change Username', form=form)
 
 @bp_profile.route('/display-settings', methods=['GET', 'POST'])
+@register_breadcrumb(bp_profile, '.display', 'Display Settings')
 @login_required
 def dark_mode_setting():
     form = Display_Settings()
