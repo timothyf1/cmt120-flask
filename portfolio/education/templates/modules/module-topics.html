@@ -10,7 +10,7 @@
 </div>
 
 <p>{{ module.description }}</p>
-
+{% if module.topics | selectattr("draft", "equalto", 0) | list | count > 0 or (current_user.is_authenticated and module.topics | list | count > 0) %}
 <p>Below are a list of topics that were covered in this module:</p>
 <ul>
     {% for topic in module.topics %}
@@ -19,4 +19,7 @@
     {% endif %}
     {% endfor %}
 </ul>
+{% else %}
+<p>There are currently no topics to view for this module.</p>
+{% endif %}
 {% endblock content %}
