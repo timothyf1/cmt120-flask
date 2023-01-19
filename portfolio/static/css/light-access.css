@@ -4,6 +4,7 @@ body {
     --background-color: #eeeeee;
     --text-color: #000000;
 
+    --focus-bg-color : yellow;
     --accent-color: #2222AA;
     --content-background: #ffffff;
     --border-color: #111199;
