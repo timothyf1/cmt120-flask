@@ -8,26 +8,32 @@ Login
 <form method="POST" action="">
     {{ form.csrf_token }}
 
-    {{ form.username.label }}
-    {{ form.username }}
-    {% if form.username.errors %}
-    <div class="alert">
-    {% for error in form.username.errors %}
-        {{ error }}
-    {% endfor %}
+    <div class="form-element">
+        {{ form.username.label }}
+        {{ form.username }}
+        {% if form.username.errors %}
+        <div class="alert">
+        {% for error in form.username.errors %}
+            {{ error }}
+        {% endfor %}
+        </div>
+        {% endif %}
     </div>
-    {% endif %}
 
-    {{ form.password.label }}
-    {{ form.password }}
-    {% if form.password.errors %}
-    <div class="alert">
-    {% for error in form.password.errors %}
-        {{ error }}
-    {% endfor %}
+    <div class="form-element">
+        {{ form.password.label }}
+        {{ form.password }}
+        {% if form.password.errors %}
+        <div class="alert">
+        {% for error in form.password.errors %}
+            {{ error }}
+        {% endfor %}
+        </div>
+        {% endif %}
     </div>
-    {% endif %}
 
-    {{ form.submit }}
+    <div class="form-element">
+        {{ form.submit }}
+    </div>
 </form>
 {% endblock authform %}
