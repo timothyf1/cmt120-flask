@@ -1,6 +1,13 @@
 {% extends "content.html" %}
+
+{% block head %}
+<link rel=stylesheet type=text/css href="{{ url_for('bp_profile.static',filename='css/profile.css') }}">
+{% endblock head %}
+
 {% block content %}
-<h1>{{ current_user.username }} profile</h1>
+<div class="heading">
+    <h1>{{ current_user.username }} profile</h1>
+</div>
 
 <p>Hello and welcome to your profile, from here you will be able to change your user settings</p>
 

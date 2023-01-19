@@ -6,7 +6,9 @@
 
 {% block layout %}
 <div class="auth-form">
-    <h1>{% block heading %}{% endblock %}</h1>
+    <div class="heading">
+        <h1>{% block heading %}{% endblock %}</h1>
+    </div>
 
     {% for message in get_flashed_messages() %}
     <div class="alert">

@@ -5,7 +5,9 @@
 {% endblock head %}
 
 {% block content %}
-<h1>New topic for {{ module.name }}</h1>
+<div class="heading">
+    <h1>New topic for {{ module.name }}</h1>
+</div>
 
 <form method="POST" action="" enctype="multipart/form-data">
     {{ form.csrf_token }}
