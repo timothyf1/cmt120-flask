@@ -1,0 +1,56 @@
+{% extends "content.html" %}
+
+{% block head %}
+<link rel=stylesheet type=text/css href="{{ url_for('bp_education.static',filename='css/topic-img.css') }}">
+{% endblock head %}
+
+{% block content %}
+<div class="heading right-link">
+    <h1>Edit {{ page.title }}</h1>
+</div>
+
+<form method="POST" action="">
+    {{ form.csrf_token }}
+    {{ form.current_title }}
+
+    <div class="form-element">
+        {{ form.title.label }}
+        {{ form.title }}
+        {% if form.title.errors %}
+        <div class="alert">
+        {% for error in form.title.errors %}
+            {{ error }}
+        {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="form-element">
+        {{ form.content.label }}
+        <p>The content box accepts the use of markdown to style the page.</p>
+        {{ form.content }}
+        {% if form.content.errors %}
+        <div class="alert">
+        {% for error in form.content.errors %}
+            {{ error }}
+        {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="form-element">
+        {{ form.submit }}
+    </div>
+
+    <div class="form-element">
+        <input type="button" id="preview" value="Preview">
+    </div>
+</form>
+
+<script src="{{ url_for('bp_home.static',filename='js/preview.js') }}"></script>
+
+{% endblock content %}
+
+{% block preview %}
+<div id="preview-area"></div>
+{% endblock preview %}

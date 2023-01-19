@@ -99,3 +99,11 @@ class Experience(db.Model):
     end = db.Column(db.DateTime)
     current = db.Column(db.Boolean, nullable=False)
     description = db.Column(db.Text)
+
+class PageText(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    page_name = db.Column(db.String(100), nullable=False, unique=True)
+    title = db.Column(db.String(100), nullable=False)
+    content = db.Column(db.Text)
+    last_updated = db.Column(db.DateTime, default=datetime.utcnow)
