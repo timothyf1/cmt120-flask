@@ -21,6 +21,11 @@ body {
     border-radius: 1rem;
 }
 
+.breadcrumb {
+    padding-top: 0.7rem;
+    padding-bottom: 0.7rem;
+}
+
 h1 {
     margin-top: 0;
 }
