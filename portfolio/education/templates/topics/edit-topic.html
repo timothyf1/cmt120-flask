@@ -53,8 +53,12 @@
 
     <div class="form-element">
         <p>Uploaded Images</p>
-        <p>Click on an image to insert the markdown code at the current selected location.</p>
-        <ul class="image-preview">
+        {% if images | list | count == 0 %}
+        <p id="img-text">There are currently no uploaded images for this post.</p>
+        {% else %}
+        <p id="img-text">Click on an image to insert the markdown code at the current selected location.</p>
+        {% endif %}
+        <ul class="image-preview {% if images | list | count == 0 %}hidden{% endif %}">
             {% for image in images %}
             <li><img class="uploadedimage" src="{{ url_for('static',filename='upload/')}}{{ topic.id }}/{{image.filename}}"></li>
             {% endfor %}

@@ -16,7 +16,7 @@ function addContentAtCursorFunc( elem, newContent ) {
 // end of referenced code
 
 let imagePreview = document.getElementsByClassName('image-preview')[0];
-
+let IMGText = document.getElementById('img-text');
 let content = document.getElementById('content');
 
 let btnUpload = document.getElementById('upload');
@@ -48,6 +48,8 @@ btnUpload.addEventListener('click', () => {
             })
             newli.append(newimg)
             imagePreview.append(newli)
+            imagePreview.classList.remove('hidden')
+            IMGText.innerText = "Click on an image to insert the markdown code at the current selected location."
             messageDIV.classList.add('info')
             messageDIV.classList.remove('error')
             messageDIV.classList.remove('hidden')

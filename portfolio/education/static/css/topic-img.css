@@ -26,8 +26,9 @@ p > img {
 .image-preview {
     background-color: var(--inp-background-color);
     border-radius: 1rem;
-    border: 1px solid var(--inp-border-color);
+    border: var(--border-weight) solid var(--inp-border);
     padding-left: 1rem;
+    overflow-x: scroll;
 }
 
 .hidden {
