@@ -3,7 +3,7 @@ from markdown.extensions.tables import TableExtension
 import bleach
 from datetime import datetime
 
-from flask import abort, redirect, render_template, request, url_for
+from flask import abort, flash, redirect, render_template, request, url_for
 from flask_breadcrumbs import register_breadcrumb
 from flask_login import current_user, login_required
 

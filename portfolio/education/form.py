@@ -53,7 +53,3 @@ class New_Topic(Edit_Topic):
 class Delete(FlaskForm):
     confirm = BooleanField('The action of deletion is non reversible. Please tick this box to confirm', validators=[DataRequired()])
     submit = SubmitField('Delete')
-
-class Image_Upload(FlaskForm):
-    file_up = FileField('File')
-    submit = SubmitField('Upload')

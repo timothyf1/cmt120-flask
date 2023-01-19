@@ -1,6 +1,6 @@
 import os
 
-from flask import redirect, render_template, request, url_for
+from flask import request, url_for
 from flask_breadcrumbs import register_breadcrumb
 from flask_login import current_user, login_required
 from werkzeug.utils import secure_filename
@@ -9,16 +9,6 @@ from .. import app, db
 from ..models import Topic, ImageUpload
 
 from .education import bp_education
-from .form import Image_Upload
-
-@bp_education.route("/file-upload", methods=['GET', 'POST'])
-@login_required
-def file_upload():
-    form = Image_Upload()
-    if form.validate_on_submit():
-        file_up = form.file_up.data
-        file_up.save(os.path.join(app.config['FILE_UPLOAD'], secure_filename(file_up.filename)))
-    return render_template('image-upload.html', form=form)
 
 def save_image(image, topic_id):
     # Check to see if the file is an image
