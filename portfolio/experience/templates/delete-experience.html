@@ -1,12 +1,12 @@
 {% extends "content.html" %}
 
 {% block content %}
-<h1>Delete {{ course.name }}</h1>
+<h1>Delete {{ experience.title }}</h1>
 
 <form method="POST" action="">
     {{ form.csrf_token }}
 
-    <div class="form-element">
+    <div class="form-element checkbox">
         {{ form.confirm.label }}
         {{ form.confirm }}
     </div>

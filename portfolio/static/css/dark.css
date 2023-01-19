@@ -1,0 +1,31 @@
+body {
+    --background-color: #333333;
+    --text-color: #EEEECC;
+
+    --accent-color: #ffff44;
+    --content-background: #131313;
+
+    --disabled-color: #444444;
+
+    --hov-background-color: #f0f8ff;
+    --hov-text-color: #000000;
+
+    --inp-background-color: #333333;
+    --inp-border-color: #666666;
+    --button-bg-color: #555555;
+
+    --info-bg-color: #006e00;
+    --alert-bg-color: #6e0000;
+
+    --border-weight: 1px;
+}
+
+div {
+    --info-text-color: var(--text-color);
+    --alert-text-color: var(--text-color);
+}
+
+input[type=checkbox], input[type=radio] {
+    /* Change bg colour of unchecked box */
+    filter: invert(70%);
+}

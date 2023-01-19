@@ -2,7 +2,7 @@ let header = document.getElementsByTagName("header")[0];
 let headerStyle = getComputedStyle(header);
 let resetHeight = headerStyle.marginTop.replace(/[^0-9.]/g, '');
 let stickyHeight = header.offsetTop;
-let message = document.getElementsByClassName("messages")[0];
+let breadcrumbs = document.getElementsByClassName("breadcrumb")[0];
 
 // JS function to add and remove class
 // This code was adapted from w3schools - How TO - Sticky/Affix Navbar
@@ -11,11 +11,11 @@ let message = document.getElementsByClassName("messages")[0];
 window.onscroll = () => {
     if (window.pageYOffset > stickyHeight) {
         header.classList.add("sticky");
-        message.classList.add("sticky-pad");
+        breadcrumbs.classList.add("sticky-pad");
     }
     if (window.pageYOffset <= resetHeight) {
         header.classList.remove("sticky");
-        message.classList.remove("sticky-pad");
+        breadcrumbs.classList.remove("sticky-pad");
     }
 }
 /* end of referenced code */

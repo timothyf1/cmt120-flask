@@ -11,7 +11,7 @@ body {
 }
 
 .content {
-    background-color: var(--content-bg-color);
+    background-color: var(--content-background);
     max-width: 1000px;
     box-sizing: border-box;
     margin-left: auto;
@@ -26,9 +26,13 @@ h1 {
 }
 
 a {
-    color: var(--link-color);
+    color: var(--accent-color);
+    text-decoration: none;
 }
 
+a:hover {
+    text-decoration: underline;
+}
 
 form {
     display: flex;
@@ -60,40 +64,44 @@ form {
     padding: 0.5rem;
     padding-left: 1rem;
     padding-right: 1rem;
-    background-color: var(--inp-bg-color);
-    color: var(--inp-text-color);
-    border: 1px solid var(--inp-border-color);
+    background-color: var(--inp-background-color);
+    color: var(--text-color);
+    border: var(--border-weight) solid var(--inp-border);
     border-radius: 1rem;
     font: Helvetica;
     font-size: large;
 }
 
 .form-element > input:hover {
-    border: 1px solid var(--inp-hover-border-color);
+    border: var(--border-weight) solid var(--accent-color);
 }
 
 .form-element > input[type=submit] {
-    background-color: var(--sub-bg-color);
-    color: var(--sub-text-color);
+    background-color: var(--button-bg-color);
+    color: var(--text-color);
     /* font-weight: bold; */
     cursor:pointer;
 }
 
 .form-element > input[type=submit]:hover {
-    background-color: var(--sub-hover-bg-color);
-    color: var(--text-hov-color);
+    background-color: var(--accent-color);
+    color: var(--hov-text-color);
 }
 
 .form-element > input[type=button] {
-    background-color: var(--sub-bg-color);
-    color: var(--sub-text-color);
+    background-color: var(--button-bg-color);
+    color: var(--text-color);
     /* font-weight: bold; */
     cursor:pointer;
 }
 
 .form-element > input[type=button]:hover {
-    background-color: var(--sub-hover-bg-color);
-    color: var(--text-hov-color);
+    background-color: var(--accent-color);
+    color: var(--hov-text-color);
+}
+
+.form-element > input[disabled] {
+    color: var(--disabled-color);
 }
 
 .form-element > textarea {
@@ -104,6 +112,35 @@ form {
     border-radius: 1rem;
     margin-bottom: 1rem;
     min-height: 20rem;
+}
+
+.checkbox {
+    flex-direction: row;
+}
+
+.form-element > input[type=checkbox], input[type=radio] {
+    width: 1.2rem;
+    height: 1.2rem;
+    border-width: 1px;
+    margin-top: 0;
+}
+
+.form-element > input[type=checkbox]:checked, input[type=radio]:checked {
+    accent-color: var(--accent-color);
+    filter: none;
+}
+
+.form-element > ul {
+    list-style-type: none;
+    padding-left: 1rem;
+}
+
+.form-element > ul > li {
+    margin-bottom: 0.5rem;
+}
+
+form > p {
+    padding-left: 1rem;
 }
 
 .alert, .error {
@@ -134,15 +171,20 @@ form {
 
 .right-link > a.button {
     margin-left: 1rem;
-    background-color: var(--bg-color);
+    background-color: var(--button-bg-color);
     color: var(--text-color);
     padding: 0.5rem;
     height: fit-content;
     border-radius: .5rem;
     text-decoration: none;
+    border: var(--border-weight) solid var(--border-color);
 }
 
 .right-link > a.button:hover {
-    background-color: var(--bg-hov-color);
-    color: var(--text-hov-color);
+    background-color: var(--accent-color);
+    color: var(--hov-text-color);
+}
+
+.heading-exp > h2 {
+    margin-top: 0.25rem;
 }

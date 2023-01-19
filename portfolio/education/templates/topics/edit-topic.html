@@ -1,5 +1,9 @@
 {% extends "content.html" %}
 
+{% block head %}
+<link rel=stylesheet type=text/css href="{{ url_for('bp_education.static',filename='css/topic-img.css') }}">
+{% endblock head %}
+
 {% block content %}
 <div class="heading right-link">
     <h1>Edit {{ topic.title }}</h1>
@@ -8,6 +12,7 @@
 
 <form method="POST" action="">
     {{ form.csrf_token }}
+    {{ form.current_title }}
 
     <div class="form-element">
         {{ form.title.label }}
@@ -33,8 +38,32 @@
         {% endif %}
     </div>
 
+    <div class="form-row">
+        <div class="form-element">
+            <label for="Upload Image">Upload Image</label>
+            <input type="file" id="imageupload" name="Upload Image">
+        </div>
+        <div class="form-element">
+            <input type="button" id="upload" value="Upload">
+        </div>
+    </div>
+    <div class="hidden" id="upload-message-div">
+        <p id="upload-message-p"></p>
+    </div>
+
+    <div class="form-element">
+        <p>Uploaded Images</p>
+        <p>Click on an image to insert the markdown code at the current selected location.</p>
+        <ul class="image-preview">
+            {% for image in images %}
+            <li><img class="uploadedimage" src="{{ url_for('static',filename='upload/')}}{{ topic.id }}/{{image.filename}}"></li>
+            {% endfor %}
+        </ul>
+    </div>
+
     <div class="form-element">
         {{ form.content.label }}
+        <p>The content box accepts the use of markdown to style the page.</p>
         {{ form.content }}
         {% if form.content.errors %}
         <div class="alert">
@@ -43,17 +72,25 @@
         {% endfor %}
         </div>
         {% endif %}
-        </div>
+    </div>
 
+    <div class="form-row">
         <div class="form-element">
             {{ form.submit }}
         </div>
 
         <div class="form-element">
+            {{ form.draft }}
+        </div>
+
+        <div class="form-element">
             <input type="button" id="preview" value="Preview">
         </div>
-    </form>
-    <script src="{{ url_for('bp_education.static',filename='topics/preview.js') }}"></script>
+    </div>
+</form>
+
+<script src="{{ url_for('bp_education.static',filename='topics/preview.js') }}"></script>
+<script src="{{ url_for('bp_education.static',filename='topics/image-upload.js') }}"></script>
 
 {% endblock content %}
 

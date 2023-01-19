@@ -1,0 +1,38 @@
+{% extends "profileform.html" %}
+
+{% block heading %}
+Display Settings
+{% endblock heading %}
+
+{% block profileform %}
+<form method="POST" action="">
+    {{ form.csrf_token }}
+
+    <div class="form-element">
+        {{ form.dark.label }}
+        {{ form.dark }}
+
+        {% if form.dark.errors %}
+        <div class="alert">
+        {% for error in form.dark.errors %}
+            {{ error }}
+        {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="form-element checkbox">
+        {{ form.accessibility.label }}
+        {{ form.accessibility }}
+
+        {% if form.accessibility.errors %}
+        <div class="alert">
+        {% for error in form.accessibility.errors %}
+            {{ error }}
+        {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+    {{ form.submit }}
+</form>
+{% endblock profileform %}

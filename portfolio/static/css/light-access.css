@@ -1,0 +1,34 @@
+@import url(access.css);
+
+body {
+    --background-color: #eeeeee;
+    --text-color: #000000;
+
+    --accent-color: #2222AA;
+    --content-background: #ffffff;
+    --border-color: #111199;
+
+    --disabled-color: #444444;
+
+    --hov-background-color: #f0f8ff;
+    --hov-text-color: #ffffff;
+
+    --inp-background-color: #fffff5;
+    --inp-border: #222222;
+    --button-bg-color: #DDDDDD;
+
+    --info-bg-color: #d1ffd1;
+    --alert-bg-color: #ffd1d1;
+
+    --border-weight: 0.1rem;
+}
+
+div {
+    --info-text-color: var(--text-color);
+    --alert-text-color: var(--text-color);
+}
+
+input[type=checkbox], input[type=radio] {
+    /* Change bg colour of unchecked box */
+    filter: invert(4%) sepia(100%);
+}

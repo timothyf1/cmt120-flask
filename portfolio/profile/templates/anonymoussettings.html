@@ -12,7 +12,12 @@ Display Settings
         <input checked id="dark-1" name="dark" type="radio" onchange="setDarkMode(1)"> <label for="dark-1">Light</label>
         <input checked id="dark-2" name="dark" type="radio" onchange="setDarkMode(2)"> <label for="dark-2">Dark</label>
     </fieldset>
+
+    <div class="form-element checkbox">
+        <label for="accessibility">Accessibility mode</label>
+        <input checked id="accessibility" name="accessibility" type="checkbox" onclick="setAccessMode()">
+    </div>
 </form>
 
-<script src="{{ url_for('bp_profile.static',filename='set-darkmode.js') }}"></script>
+<script src="{{ url_for('bp_profile.static',filename='js/set-theme.js') }}"></script>
 {% endblock profileform %}

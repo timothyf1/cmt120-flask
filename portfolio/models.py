@@ -9,6 +9,7 @@ class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), nullable=False, unique=True)
     password = db.Column(db.String(128), nullable=False)
+    default_password = db.Column(db.Boolean, default=False)
 
     created_on = db.Column(db.DateTime, default=datetime.utcnow)
     last_login = db.Column(db.DateTime)
@@ -17,6 +18,7 @@ class User(UserMixin, db.Model):
 
     # User Settings
     dark_mode = db.Column(db.Integer, default=0)
+    accessibility = db.Column(db.Boolean, default=0)
 
     def set_password(self, password):
         self.password = generate_password_hash(password)
@@ -34,7 +36,7 @@ class Course(db.Model):
     year = db.Column(db.Integer, nullable=False)
     description = db.Column(db.Text, nullable=False)
 
-    modules = db.relationship('Module', back_populates='course')
+    modules = db.relationship('Module', order_by="Module.year.desc()", back_populates='course')
 
     def __repr__(self):
         return f"Course('{self.id}', '{self.name}', '{self.description}')"
@@ -48,7 +50,7 @@ class Module(db.Model):
     description = db.Column(db.Text)
 
     course = db.relationship('Course', back_populates='modules')
-    topics = db.relationship('Topic', back_populates='module')
+    topics = db.relationship('Topic', order_by="Topic.date.desc()", back_populates='module')
 
     def __repr__(self):
         return f"Module('{self.id}', '{self.name}', '{self.description}')"
@@ -68,9 +70,10 @@ class Topic(db.Model):
     date = db.Column(db.DateTime, default=datetime.utcnow)
     last_updated = db.Column(db.DateTime, default=datetime.utcnow)
     content = db.Column(db.Text)
+    draft = db.Column(db.Boolean, default=False)
 
     module = db.relationship('Module', back_populates='topics')
-    tags = db.relationship('Tag', secondary=tag_assignment, back_populates='topics')
+    tags = db.relationship('Tag', secondary=tag_assignment, order_by="Tag.name", back_populates='topics')
 
     def __repr__(self):
         return f"topic('{self.id}', '{self.title}')"
@@ -79,3 +82,20 @@ class Tag(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(15), unique=True, nullable=False)
     topics = db.relationship('Topic', secondary=tag_assignment, back_populates='tags')
+
+class ImageUpload(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    topic_id = db.Column(db.Integer, db.ForeignKey('topic.id'), nullable=False)
+    filename = db.Column(db.String(100), nullable=False, unique=True)
+    upload_date = db.Column(db.DateTime, default=datetime.utcnow)
+
+class Experience(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(50), nullable=False)
+    employer = db.Column(db.String(50), nullable=False)
+    location = db.Column(db.String(50), nullable=False)
+    start = db.Column(db.DateTime, nullable=False)
+    end = db.Column(db.DateTime)
+    current = db.Column(db.Boolean, nullable=False)
+    description = db.Column(db.Text)

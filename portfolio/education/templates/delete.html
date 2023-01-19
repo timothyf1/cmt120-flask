@@ -1,12 +1,20 @@
 {% extends "content.html" %}
 
 {% block content %}
+{% if course %}
+<h1>Delete {{ course.name }}</h1>
+{% elif module %}
+<h1>Delete {{ module.name }}</h1>
+{% elif topic %}
 <h1>Delete {{ topic.title }}</h1>
+{% elif tag %}
+<h1>Delete {{ tag.name }}</h1>
+{% endif %}
 
 <form method="POST" action="">
     {{ form.csrf_token }}
 
-    <div class="form-element">
+    <div class="form-element checkbox">
         {{ form.confirm.label }}
         {{ form.confirm }}
     </div>

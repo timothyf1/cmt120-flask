@@ -1,0 +1,111 @@
+{% extends "content.html" %}
+
+{% block content %}
+{% if new %}
+<h1>Add Experience</h1>
+{% else %}
+<div class="heading right-link">
+    <h1>Edit {{ experience.title }}</h1>
+    <a href="{{ url_for('bp_experience.delete_experience', title=experience.title) }}" class="button">Delete Experience</a>
+</div>
+{% endif %}
+
+<form method="POST" action="">
+    {{ form.csrf_token }}
+
+    <div class="form-element">
+        {{ form.title.label }}
+        {{ form.title }}
+        {% if form.title.errors %}
+        <div class="alert">
+        {% for error in form.title.errors %}
+            {{ error }}
+        {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="form-row">
+        <div class="form-element">
+        {{ form.employer.label }}
+        {{ form.employer }}
+        {% if form.employer.errors %}
+        <div class="alert">
+        {% for error in form.employer.errors %}
+            {{ error }}
+        {% endfor %}
+        </div>
+        {% endif %}
+        </div>
+
+        <div class="form-element">
+        {{ form.location.label }}
+        {{ form.location }}
+        {% if form.location.errors %}
+        <div class="alert">
+        {% for error in form.location.errors %}
+            {{ error }}
+        {% endfor %}
+        </div>
+        {% endif %}
+        </div>
+    </div>
+
+    <div class="form-element checkbox">
+        {{ form.current.label }}
+        {{ form.current }}
+        {% if form.current.errors %}
+        <div class="alert">
+        {% for error in form.current.errors %}
+            {{ error }}
+        {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="form-row">
+        <div class="form-element">
+        {{ form.start.label }}
+        {{ form.start }}
+        {% if form.start.errors %}
+        <div class="alert">
+        {% for error in form.start.errors %}
+            {{ error }}
+        {% endfor %}
+        </div>
+        {% endif %}
+        </div>
+
+        <div class="form-element">
+        {{ form.end.label }}
+        {{ form.end }}
+        {% if form.end.errors %}
+        <div class="alert">
+        {% for error in form.end.errors %}
+            {{ error }}
+        {% endfor %}
+        </div>
+        {% endif %}
+        </div>
+    </div>
+
+    <div class="form-element">
+    {{ form.description.label }}
+    {{ form.description }}
+    {% if form.description.errors %}
+    <div class="alert">
+    {% for error in form.description.errors %}
+        {{ error }}
+    {% endfor %}
+    </div>
+    {% endif %}
+    </div>
+
+    <div class="form-element">
+        {{ form.submit }}
+    </div>
+</form>
+
+<script src="{{ url_for('bp_experience.static',filename='js/exp-form.js') }}"></script>
+
+{% endblock content %}

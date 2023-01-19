@@ -1,13 +1,18 @@
 {% extends "content.html" %}
 
 {% block content %}
+{% if new %}
+<h1>New module for {{ course.name }}</h1>
+{% else %}
 <div class="heading right-link">
     <h1>Edit {{ module.name }}</h1>
     <a href="{{ url_for('bp_education.delete_module', code=module.code) }}" class="button">Delete Module</a>
 </div>
+{% endif %}
 
 <form method="POST" action="">
     {{ form.csrf_token }}
+    {{ form.current_code }}
 
     <div class="form-element">
         {{ form.name.label }}

@@ -1,12 +1,13 @@
-{% extends "auth.html" %}
+{% extends "profileform.html" %}
 
 {% block heading %}
-Register
+Change Password
 {% endblock heading %}
 
-{% block authform %}
+{% block profileform %}
 <form method="POST" action="">
     {{ form.csrf_token }}
+    {{ form.current_username }}
 
     {{ form.username.label }}
     {{ form.username }}
@@ -28,17 +29,6 @@ Register
     </div>
     {% endif %}
 
-    {{ form.confirm_password.label }}
-    {{ form.confirm_password }}
-    {% if form.confirm_password.errors %}
-    <div class="alert">
-    {% for error in form.confirm_password.errors %}
-        {{ error }}
-    {% endfor %}
-    </div>
-    {% endif %}
-
     {{ form.submit }}
 </form>
-
-{% endblock authform %}
+{% endblock profileform %}
