@@ -53,6 +53,7 @@ btnUpload.addEventListener('click', () => {
             messageDIV.classList.add('info')
             messageDIV.classList.remove('error')
             messageDIV.classList.remove('hidden')
+            file.value = null;
         } else {
             messageDIV.classList.add('error')
             messageDIV.classList.remove('info')
