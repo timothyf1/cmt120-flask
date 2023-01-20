@@ -68,4 +68,4 @@ def user_profile():
 
 @bp_profile.route('/settings')
 def anonymous_settings():
-    return render_template('anonymoussettings.html', title='Profile')
+    return render_template('anonymoussettings.html', title='Display Settings')

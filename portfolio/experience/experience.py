@@ -33,7 +33,7 @@ def new_experience():
         db.session.add(experience)
         db.session.commit()
         return redirect(url_for('bp_experience.experience'))
-    return render_template('edit-experience.html', form=form, new=True)
+    return render_template('edit-experience.html', title="New experience", form=form, new=True)
 
 @bp_experience.route("/<string:title>/edit", methods=['GET', 'POST'])
 @register_breadcrumb(bp_experience, '.edit', 'Edit Experience')
@@ -59,7 +59,7 @@ def edit_experience(title):
         form.end.data = experience.end
         form.current.data = experience.current
         form.description.data = experience.description
-    return render_template('edit-experience.html', form=form, new=False, experience=experience)
+    return render_template('edit-experience.html', title=f"Edit {experience.title}", form=form, new=False, experience=experience)
 
 @bp_experience.route("/<string:title>/delete", methods=['GET', 'POST'])
 @register_breadcrumb(bp_experience, '.delete', 'Delete Experience')
@@ -72,4 +72,4 @@ def delete_experience(title):
         db.session.delete(experience)
         db.session.commit()
         return redirect(url_for('bp_experience.experience'))
-    return render_template('delete-experience.html', form=form, experience=experience)
+    return render_template('delete-experience.html', title=f"Delete {experience.title}", form=form, experience=experience)
