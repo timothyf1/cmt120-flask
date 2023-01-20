@@ -14,7 +14,7 @@ from .form import Edit_Module, Delete
 @register_breadcrumb(bp_education, '.modules', 'Modules')
 def module_list():
     modules = Module.query.order_by(Module.year.desc()).all()
-    return render_template('modules/module-list.html',title='Modules', modules=modules)
+    return render_template('modules/module-full-list.html',title='Modules', modules=modules)
 
 
 @bp_education.route("/module/<string:code>")

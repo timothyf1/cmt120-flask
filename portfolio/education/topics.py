@@ -34,7 +34,7 @@ def create_tag_list(tags_string):
 @register_breadcrumb(bp_education, '.topics', 'Topic')
 def topics_list():
     topics = Topic.query.order_by(Topic.date).all()
-    return render_template('topics/topic-list.html',title='Topics', topics=topics)
+    return render_template('topics/topic-full-list.html',title='Topics', topics=topics)
 
 
 @bp_education.route("/topic/<string:title>")

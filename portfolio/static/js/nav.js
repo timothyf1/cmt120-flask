@@ -28,8 +28,8 @@ let menuActive = false;
 menuButton.addEventListener('click', () => {
     if (menuActive) {
         menuActive = false;
-        navDiv.classList.remove("active")
-        userDiv.classList.remove("active")
+        navDiv.classList.remove("active");
+        userDiv.classList.remove("active");
     } else {
         menuActive = true;
         navDiv.classList.add("active");
