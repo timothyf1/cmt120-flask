@@ -12,7 +12,7 @@ bp_experience = Blueprint('bp_experience', __name__, template_folder='templates'
 @bp_experience.route("/")
 @register_breadcrumb(bp_experience, '.', 'Experience')
 def experience():
-    experiences = Experience.query.all()
+    experiences = Experience.query.order_by(Experience.start.desc()).all()
     return render_template('experience.html', title='Experience', experiences=experiences)
 
 @bp_experience.route("/new-experience", methods=['GET', 'POST'])
