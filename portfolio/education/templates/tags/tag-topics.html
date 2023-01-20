@@ -7,7 +7,15 @@
     {% endif %}
 </div>
 
+<!--
+    Jinja code to count how many items in a object has an attribute
+    This code was adapted from Stack Overflow post by Marc8 2018-12-7
+    accessed on 2023-01-17
+    https://stackoverflow.com/a/53671429/
+ -->
 {% if tag.topics | selectattr("draft", "equalto", 0) | list | count > 0 or (current_user.is_authenticated and tag.topics | list | count > 0) %}
+<!-- end of referenced code -->
+
 <p>Below are a list of topics that were covered in this module:</p>
 <ul>
     {% for topic in tag.topics %}

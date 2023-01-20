@@ -37,8 +37,12 @@ app.register_blueprint(bp_experience, url_prefix='/experience')
 app.register_blueprint(bp_auth, url_prefix='/auth')
 app.register_blueprint(bp_profile, url_prefix='/profile')
 
+# Code to set default breadcrumb
+# This code was taken from github comment by jirikuncar on 2016-09-05
 # https://github.com/inveniosoftware/flask-breadcrumbs/issues/33#issuecomment-244692682
+# accessed on 2023-01-09
 default_breadcrumb_root(bp_home, '.')
+# end of referenced code
 
 from .models import User
 
