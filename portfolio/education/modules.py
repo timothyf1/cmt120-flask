@@ -1,4 +1,4 @@
-from flask import abort, redirect, render_template, url_for
+from flask import abort, flash, redirect, render_template, url_for
 from flask_breadcrumbs import register_breadcrumb
 from flask_login import login_required
 
@@ -44,6 +44,7 @@ def new_module(name):
         )
         db.session.add(module)
         db.session.commit()
+        flash(f"{module.name} created successfully", category="info")
         return redirect(url_for('bp_education.module_page', code=module.code))
 
     return render_template('modules/edit-module.html', title='Add a module', form=form, course=course, new=True)
@@ -63,6 +64,7 @@ def edit_module(code):
         module.year = form.year.data,
         module.description = form.description.data,
         db.session.commit()
+        flash(f"{module.name} updated successfully", category="info")
         return redirect(url_for('bp_education.module_page', code=module.code))
 
     if request.method == 'GET':
@@ -85,6 +87,7 @@ def delete_module(code):
     if form.validate_on_submit():
         db.session.delete(module)
         db.session.commit()
+        flash(f"{module.name} deleted successfully", category="info")
         return redirect(url_for('bp_education.module_list'))
 
     return render_template('delete.html', title='Delete a module', form=form, module=module)

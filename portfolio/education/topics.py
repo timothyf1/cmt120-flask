@@ -87,6 +87,7 @@ def new_topic(code):
                 flash(upload_status['message'], 'info')
             return redirect(url_for('bp_education.edit_topic', title=topic.title))
 
+        flash(f"{topic.title} created successfully", category="info")
         return redirect(url_for('bp_education.view_topic', title=topic.title))
 
     return render_template('topics/new-topic.html', title='New topic', form=form, module=module)
@@ -107,6 +108,7 @@ def edit_topic(title):
         topic.last_updated = datetime.utcnow()
         topic.draft = False if form.submit.data else True
         db.session.commit()
+        flash(f"{topic.title} updated successfully", category="info")
         return redirect(url_for('bp_education.view_topic', title=topic.title))
 
     if request.method == 'GET':
@@ -128,6 +130,7 @@ def delete_topic(title):
     if form.validate_on_submit():
         db.session.delete(topic)
         db.session.commit()
+        flash(f"{topic.title} deleted successfully", category="info")
         return redirect(url_for('bp_education.topics_list'))
 
     return render_template('delete.html', title='Delete topic', form=form, topic=topic)

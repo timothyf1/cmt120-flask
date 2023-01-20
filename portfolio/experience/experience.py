@@ -1,4 +1,4 @@
-from flask import Blueprint, redirect, render_template, url_for
+from flask import Blueprint, flash, redirect, render_template, url_for
 from flask_breadcrumbs import register_breadcrumb
 from flask_login import login_required
 
@@ -32,6 +32,7 @@ def new_experience():
         )
         db.session.add(experience)
         db.session.commit()
+        flash(f"New experience {form.title.data} added successfully", category="info")
         return redirect(url_for('bp_experience.experience'))
     return render_template('edit-experience.html', title="New experience", form=form, new=True)
 
@@ -50,6 +51,7 @@ def edit_experience(title):
         experience.current = form.current.data
         experience.description = form.description.data
         db.session.commit()
+        flash(f"{experience.title} updated successfully", category="info")
         return redirect(url_for('bp_experience.experience'))
     else:
         form.title.data = experience.title
@@ -71,5 +73,6 @@ def delete_experience(title):
     if form.validate_on_submit():
         db.session.delete(experience)
         db.session.commit()
+        flash(f"{experience.title} deleted successfully", category="info")
         return redirect(url_for('bp_experience.experience'))
     return render_template('delete-experience.html', title=f"Delete {experience.title}", form=form, experience=experience)

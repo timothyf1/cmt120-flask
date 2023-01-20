@@ -1,4 +1,4 @@
-from flask import abort, redirect, render_template, url_for
+from flask import abort, flash, redirect, render_template, url_for
 from flask_breadcrumbs import register_breadcrumb
 from flask_login import login_required
 
@@ -42,6 +42,7 @@ def new_course():
             )
         db.session.add(course)
         db.session.commit()
+        flash(f"{course.name} created successfully", category="info")
         return redirect(url_for('bp_education.course_page', name=course.name))
 
     return render_template('courses/edit-course.html', title='Add a course', form=form, new=True)
@@ -60,6 +61,7 @@ def edit_course(name):
         course.year = form.year.data
         course.description = form.description.data
         db.session.commit()
+        flash(f"{course.name} updated successfully", category="info")
         return redirect(url_for('bp_education.course_page', name=course.name))
 
     if request.method == 'GET':
@@ -82,6 +84,7 @@ def delete_course(name):
     if form.validate_on_submit():
         db.session.delete(course)
         db.session.commit()
+        flash(f"{course.name} deleted successfully", category="info")
         return redirect(url_for('bp_education.course_list'))
 
     return render_template('delete.html', title='Edit a course', form=form, course=course)

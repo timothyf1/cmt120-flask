@@ -2,7 +2,7 @@ import markdown
 from markdown.extensions.tables import TableExtension
 import bleach
 
-from flask import Blueprint, redirect, render_template, request, url_for
+from flask import Blueprint, flash, redirect, render_template, request, url_for
 from flask_breadcrumbs import register_breadcrumb
 from flask_login import login_required
 
@@ -40,6 +40,7 @@ def edit_home():
         page.title = form.title.data
         page.content = form.content.data
         db.session.commit()
+        flash("Home page updated successfully", category="info")
         return redirect(url_for('bp_home.home'))
     else:
         form.title.data = page.title
