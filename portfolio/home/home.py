@@ -17,7 +17,15 @@ bp_home = Blueprint('bp_home', __name__, template_folder='templates', static_fol
 @register_breadcrumb(bp_home, '.', 'Home')
 def home():
     page = PageText.query.filter_by(page_name='home').first()
-    content = bleach.clean(markdown.markdown(page.content, extensions=['tables', 'fenced_code']), tags=app.config['ALLOWED_TAGS'], attributes=app.config['ALLOWED_ATTRIBUTES'])
+    content = bleach.clean(
+        markdown.markdown(
+            page.content,
+            extensions=app.config['MARKDOWN_EXTENSIONS']
+        ),
+        tags=app.config['ALLOWED_TAGS'],
+        attributes=app.config['ALLOWED_ATTRIBUTES']
+    )
+
     return render_template('home.html',title='Home', heading=page.title, content=content)
 
 
@@ -44,6 +52,13 @@ def edit_home():
 @login_required
 def preview():
     mkd = request.json['markdown']
-    title = f"<h1>{request.json['title']}</h1>"
-    html = title + bleach.clean(markdown.markdown(mkd, extensions=['tables', 'fenced_code']), tags=app.config['ALLOWED_TAGS'], attributes=app.config['ALLOWED_ATTRIBUTES'])
+    title = f"<div class='heading'><h1>{request.json['title']}</h1></div>"
+    html = title + bleach.clean(
+        markdown.markdown(
+            mkd,
+            extensions=app.config['MARKDOWN_EXTENSIONS']
+            ),
+        tags=app.config['ALLOWED_TAGS'],
+        attributes=app.config['ALLOWED_ATTRIBUTES']
+    )
     return {"html": html}

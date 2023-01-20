@@ -16,6 +16,7 @@ app.config['ALLOWED_ATTRIBUTES'] = {'a': ['href', 'title'],
                                     'img': ['alt', 'src'],
                                     'code': ['class']}
 app.config['ALLOWED_IMG_EXTENSIONS'] = ('.png', '.jpg', '.jpeg', '.gif')
+app.config['MARKDOWN_EXTENSIONS'] = ['tables', 'fenced_code']
 
 db = SQLAlchemy(app)
 login_manager = LoginManager()

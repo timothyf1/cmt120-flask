@@ -3,7 +3,7 @@ from portfolio import app
 
 @app.errorhandler(400)
 def bad_request(error):
-    return render_template('errors/400.html', title="400"), 400
+    return render_template('errors/400.html', title="400", error=error), 400
 
 @app.errorhandler(401)
 def bad_request(error):
@@ -15,4 +15,4 @@ def page_not_found(error):
 
 @app.errorhandler(405)
 def method_not_allowed(error):
-    return render_template('errors/405.html', title="405"), 405
+    return render_template('errors/405.html', title="405", error=error), 405
