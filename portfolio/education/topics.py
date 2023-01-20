@@ -151,3 +151,11 @@ def preview(title=None, code=None):
         attributes=app.config['ALLOWED_ATTRIBUTES']
     )
     return {"html": html}
+
+
+@bp_education.route('/viewdrafts')
+@login_required
+@register_breadcrumb(bp_education, '.drafts', 'Drafts')
+def view_drafts():
+    drafts = Topic.query.filter_by(draft=True)
+    return render_template('topics/drafts.html', title="View drafts", drafts=drafts)

@@ -3,7 +3,8 @@
 <div class="heading right-link">
     <h1>Education</h1>
     {% if current_user.is_authenticated %}
-    <a href="{{ url_for('bp_education.new_course') }}" class="button">New Course</a>
+    <a class="button" href="{{ url_for('bp_education.view_drafts') }}">View drafts</a>
+    <a class="button" href="{{ url_for('bp_education.new_course') }}">New Course</a>
     {% endif %}
 </div>
 <p>This area here is where I'm going to describe what skills I have learnt within my education.</p>
