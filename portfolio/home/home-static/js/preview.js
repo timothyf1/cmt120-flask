@@ -16,10 +16,10 @@ btnPreview.addEventListener('click', function(){
         })
     })
     .then(function(response) {
-        return response.json()
+        return response.json();
     })
     .then(function(html) {
         previewDiv.innerHTML = `<div class="content">${html.html} </div>`;
         previewDiv.scrollIntoView({behavior: "smooth"});
-    })
+    });
 })
