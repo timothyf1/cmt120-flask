@@ -186,6 +186,14 @@ form > p {
     border-radius: .5rem;
     text-decoration: none;
     border: var(--border-weight) solid var(--border-color);
+    /*
+    CSS to prevent word wrapping
+    Taken from css-tricks post by Sara Cope updated on 2022-09-28
+    accessed on 2023-01-23
+    https://css-tricks.com/almanac/properties/w/whitespace/
+    */
+    white-space: nowrap;
+    /* end of referenced code */
 }
 
 .right-link > a.button:hover {
