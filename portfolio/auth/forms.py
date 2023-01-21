@@ -8,6 +8,18 @@ class Login_form(FlaskForm):
     submit = SubmitField('Log In')
 
 class New_password(FlaskForm):
-    password = PasswordField('Password', validators=[DataRequired(message="Please enter a password")])
-    confirm_password = PasswordField('Confirm Password', validators=[DataRequired(message="Please enter a password")])
+    password = PasswordField(
+        'Password',
+        validators=[
+            DataRequired(message="Please enter a password"),
+            Length(min=8, message="Passwords must be atleast 8 characters")
+        ]
+    )
+    confirm_password = PasswordField(
+        'Confirm Password',
+        validators=[
+            DataRequired(message="Please enter a password"),
+            EqualTo('password', message="Passwords do not match")
+        ]
+    )
     submit = SubmitField('Log In')
