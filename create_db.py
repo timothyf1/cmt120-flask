@@ -60,20 +60,20 @@ if __name__ == "__main__":
             title="Example topic 1",
             content="""## Hello 1
 
-            Here is a paragraph """,
+Here is a paragraph """,
             tags=create_tag_list("tag1 tag4 tag7"),
             author_id=1,
             module=test_mod1
         )
         test_top2 = Topic(
-            title="""Example topic 2
-            Below is an unordered list
+            title="Hello 2?",
+            content="""Example topic 2
+Below is an unordered list
 
-            - **I am in bold**
-            - `I am inline code`
-            - *I am italic*
-            """,
-            content="## Hello 2",
+- **I am in bold**
+- `I am inline code`
+- *I am italic*
+""",
             tags=create_tag_list("tag3 tag4 tag5"),
             author_id=1,
             module=test_mod2
