@@ -10,12 +10,12 @@ Openshift - [https://d1323632-cmt120-cw2.apps.openshift.cs.cf.ac.uk/](https://d1
 
 The following environment variables are used and **MUST** be configured.
 
-- SECRET_KEY
-- SQLALCHEMY_DATABASE_URI
+- SECRET_KEY - The secret key used by flask for session signing cookies.
+- SQLALCHEMY_DATABASE_URI - The database connection URI, for example `mysql+pymysql://username:password@host/db_name`
 
 ### Creating the db
 
-Run the python script `create_db.py` will create the database structure and add some sample data to the database.
+Run the python script `create_db.py` will create the database structure. Then create the admin account and add some sample data to the database.
 
 ### Default login
 
@@ -43,3 +43,20 @@ The main section of the portfolio. Within this section courses can be added. Eac
 ### Expeience
 
 This is a page for entering previours working expeience.
+
+## Packages used
+
+Below is a list of packages used with a link to the documentation. There are other packages installed which are dependencies of those listed below.
+
+- [bleach](https://bleach.readthedocs.io/)
+- [Flask](https://flask.palletsprojects.com/)
+- [Flask-Breadcrumbs](https://flask-breadcrumbs.readthedocs.io/)
+- [Flask-Login](https://flask-login.readthedocs.io/)
+- [Flask-SQLAlchemy](https://flask-sqlalchemy.palletsprojects.com/)
+- [Flask-WTF](https://flask-wtf.readthedocs.io/)
+- [Gunicorn](https://docs.gunicorn.org/)
+- [Markdown](https://python-markdown.github.io/)
+- [MarkupSafe](https://markupsafe.palletsprojects.com/)
+- [PyMySQL](https://pymysql.readthedocs.io/)
+- [Werkzeug](https://werkzeug.palletsprojects.com/)
+- [WTForms](https://wtforms.readthedocs.io/)
