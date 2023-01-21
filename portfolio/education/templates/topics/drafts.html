@@ -4,10 +4,14 @@
     <h1>Draft List</h1>
 </div>
 
+{% if topics | selectattr("draft", "equalto", 1) | list | count > 0 %}
 <p>This page lists all of the draft topics.</p>
 
 {% with topics = drafts %}
     {% include "topics/topics-list.html" %}
 {% endwith %}
 
+{% else %}
+<p>There are currently no draft topics.</p>
+{% endif %}
 {% endblock content %}
