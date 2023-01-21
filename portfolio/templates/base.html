@@ -11,28 +11,42 @@
         {% if current_user.dark_mode == 1 %}
             {% if current_user.accessibility %}
             <link rel=stylesheet type=text/css href="{{ url_for('static',filename='css/light-access.css') }}">
-            <link rel=stylesheet type=text/css href="{{ url_for('static',filename='css/access.css') }}">
             {% else %}
             <link rel=stylesheet type=text/css href="{{ url_for('static',filename='css/light.css') }}">
             {% endif %}
         {% elif current_user.dark_mode == 2 %}
             {% if current_user.accessibility %}
             <link rel=stylesheet type=text/css href="{{ url_for('static',filename='css/dark-access.css') }}">
-            <link rel=stylesheet type=text/css href="{{ url_for('static',filename='css/access.css') }}">
             {% else %}
             <link rel=stylesheet type=text/css href="{{ url_for('static',filename='css/dark.css') }}">
             {% endif %}
         {% else %}
             {% if current_user.accessibility %}
             <link rel=stylesheet type=text/css href="{{ url_for('static',filename='css/system-access.css') }}">
-            <link rel=stylesheet type=text/css href="{{ url_for('static',filename='css/access.css') }}">
             {% else %}
             <link rel=stylesheet type=text/css href="{{ url_for('static',filename='css/system.css') }}">
             {% endif %}
         {% endif %}
     {% else %}
-        <link rel=stylesheet id="theme" type=text/css href="{{ url_for('static',filename='css/system.css') }}">
-        <script src="{{ url_for('static',filename='js/theme.js') }}"></script>
+        {% if request.cookies.darkmode == '1' %}
+            {% if request.cookies.access == '1' %}
+                <link rel=stylesheet type=text/css id="theme" href="{{ url_for('static',filename='css/light-access.css') }}">
+            {% else %}
+                <link rel=stylesheet type=text/css id="theme" href="{{ url_for('static',filename='css/light.css') }}">
+            {% endif %}
+        {% elif request.cookies.darkmode == '2' %}
+            {% if request.cookies.access == '1' %}
+                <link rel=stylesheet type=text/css id="theme" href="{{ url_for('static',filename='css/dark-access.css') }}">
+            {% else %}
+                <link rel=stylesheet type=text/css id="theme" href="{{ url_for('static',filename='css/dark.css') }}">
+            {% endif %}
+        {% else %}
+            {% if request.cookies.access == '1' %}
+                <link rel=stylesheet type=text/css id="theme" href="{{ url_for('static',filename='css/system-access.css') }}">
+            {% else %}
+                <link rel=stylesheet type=text/css id="theme" href="{{ url_for('static',filename='css/system.css') }}">
+            {% endif %}
+        {% endif %}
     {% endif %}
 
     {% block head %}
