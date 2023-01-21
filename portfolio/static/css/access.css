@@ -17,3 +17,13 @@ a:hover {
 .content {
     border: solid var(--border-color);
 }
+
+a.button:focus {
+    background-color: var(--focus-bg-color);
+}
+
+:focus {
+    /* border-color: orange; */
+    background-color: var(--focus-bg-color);
+    color: var(--text-color);
+}

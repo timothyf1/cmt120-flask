@@ -1,4 +1,6 @@
 header {
+    position: sticky;
+    top: 0px;
     background-color: var(--content-background);
     max-width: 1000px;
     box-sizing: border-box;
@@ -6,14 +8,8 @@ header {
     border-radius: 1rem;
 }
 
-.sticky {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    left: 50%;
-    transform: translateX(-50%);
+.sticky-border-radius {
     border-radius: 0 0 1rem 1rem;
-    margin-top: 0;
 }
 
 .nav-bar {

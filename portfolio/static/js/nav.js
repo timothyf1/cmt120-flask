@@ -10,12 +10,10 @@ let breadcrumbs = document.getElementsByClassName("breadcrumb")[0];
 // https://www.w3schools.com/HOWTO/howto_js_navbar_sticky.asp
 window.onscroll = () => {
     if (window.pageYOffset > stickyHeight) {
-        header.classList.add("sticky");
-        breadcrumbs.classList.add("sticky-pad");
+        header.classList.add("sticky-border-radius");
     }
     if (window.pageYOffset <= resetHeight) {
-        header.classList.remove("sticky");
-        breadcrumbs.classList.remove("sticky-pad");
+        header.classList.remove("sticky-border-radius");
     }
 }
 /* end of referenced code */

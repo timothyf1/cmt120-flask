@@ -6,16 +6,6 @@ body {
     color: var(--text-color);
 }
 
-:focus {
-    /* border-color: orange; */
-    background-color: var(--focus-bg-color);
-    color: var(--text-color);
-}
-
-.sticky-pad {
-    margin-top: 5rem;
-}
-
 .content {
     background-color: var(--content-background);
     max-width: 1000px;
