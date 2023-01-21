@@ -9,7 +9,7 @@
 </div>
 <p>{{ course.description }}</p>
 
-{% if modules | list | count > 0 %}
+{% if course.modules | list | count > 0 %}
 <p>During this course I have taken the following modules:</p>
 
 {% with modules = course.modules %}
