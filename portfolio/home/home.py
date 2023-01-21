@@ -1,6 +1,7 @@
-import markdown
+from bleach import clean
+from markdown import markdown
 from markdown.extensions.tables import TableExtension
-import bleach
+from markupsafe import Markup
 
 from flask import Blueprint, flash, redirect, render_template, request, url_for
 from flask_breadcrumbs import register_breadcrumb
@@ -17,16 +18,21 @@ bp_home = Blueprint('bp_home', __name__, template_folder='templates', static_fol
 @register_breadcrumb(bp_home, '.', 'Home')
 def home():
     page = PageText.query.filter_by(page_name='home').first()
-    content = bleach.clean(
-        markdown.markdown(
-            page.content,
-            extensions=app.config['MARKDOWN_EXTENSIONS']
-        ),
-        tags=app.config['ALLOWED_TAGS'],
-        attributes=app.config['ALLOWED_ATTRIBUTES']
+
+    # Convert Markdown to HTML
+    raw_html = markdown(
+        page.content,
+        extensions=app.config['MARKDOWN_EXTENSIONS']
     )
 
-    return render_template('home.html',title='Home', heading=page.title, content=content)
+    # Clean the HTML to escape unapproved tags
+    sanitized_html = Markup(clean(
+        raw_html,
+        tags=app.config['ALLOWED_TAGS'],
+        attributes=app.config['ALLOWED_ATTRIBUTES']
+    ))
+
+    return render_template('home.html',title='Home', heading=page.title, content=sanitized_html)
 
 
 @bp_home.route("/edit", methods=['GET', 'POST'])
@@ -52,14 +58,21 @@ def edit_home():
 @bp_home.route("/preview", methods=['POST'])
 @login_required
 def preview():
+    # Read markdown and title from request
     mkd = request.json['markdown']
     title = f"<div class='heading'><h1>{request.json['title']}</h1></div>"
-    html = title + bleach.clean(
-        markdown.markdown(
-            mkd,
-            extensions=app.config['MARKDOWN_EXTENSIONS']
-            ),
+
+    # Convert Markdown to HTML
+    raw_html = markdown(
+        mkd,
+        extensions=app.config['MARKDOWN_EXTENSIONS']
+    )
+
+    # Clean the HTML to escape unapproved tags
+    sanitized_html = Markup(clean(
+        raw_html,
         tags=app.config['ALLOWED_TAGS'],
         attributes=app.config['ALLOWED_ATTRIBUTES']
-    )
-    return {"html": html}
+    ))
+
+    return {"html": sanitized_html}

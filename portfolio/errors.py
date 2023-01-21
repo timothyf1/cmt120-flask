@@ -1,3 +1,4 @@
+from markupsafe import Markup
 from flask import render_template
 from portfolio import app
 
@@ -11,7 +12,7 @@ def bad_request(error):
 
 @app.errorhandler(404)
 def page_not_found(error):
-    return render_template('errors/404.html', title="404", error=error), 404
+    return render_template('errors/404.html', title="404", error=Markup(error)), 404
 
 @app.errorhandler(405)
 def method_not_allowed(error):

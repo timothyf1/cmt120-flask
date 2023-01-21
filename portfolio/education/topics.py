@@ -1,7 +1,8 @@
-import markdown
-from markdown.extensions.tables import TableExtension
-import bleach
+from bleach import clean
 from datetime import datetime
+from markdown import markdown
+from markdown.extensions.tables import TableExtension
+from markupsafe import Markup
 
 from flask import abort, flash, redirect, render_template, request, url_for
 from flask_breadcrumbs import register_breadcrumb
@@ -46,15 +47,20 @@ def view_topic(title):
         if topic.draft and not current_user.is_authenticated:
             abort(401, description=f"The topic {topic.title} is not yet available to view.")
 
-        content = bleach.clean(
-            markdown.markdown(
-                topic.content, extensions=app.config['MARKDOWN_EXTENSIONS']
-            ),
-            tags=app.config['ALLOWED_TAGS'],
-            attributes=app.config['ALLOWED_ATTRIBUTES']
+        # Convert Markdown to HTML
+        raw_html = markdown(
+            topic.content,
+            extensions=app.config['MARKDOWN_EXTENSIONS']
         )
 
-        return render_template('topics/topic-view.html', title=topic.title, topic=topic, content=content)
+        # Clean the HTML to escape unapproved tags
+        sanitized_html = Markup(clean(
+            raw_html,
+            tags=app.config['ALLOWED_TAGS'],
+            attributes=app.config['ALLOWED_ATTRIBUTES']
+        ))
+
+        return render_template('topics/topic-view.html', title=topic.title, topic=topic, content=sanitized_html)
 
     abort(404, description=f"Topic '{title}' does not exists. Please go to <a href='{url_for('bp_education.topics_list')}'>topics list</a> to view available topics.")
 
@@ -140,17 +146,24 @@ def delete_topic(title):
 @bp_education.route("/topic/<string:title>/preview", methods=['POST'])
 @login_required
 def preview(title=None, code=None):
+    # Read markdown and title from request
     mkd = request.json['markdown']
     title = f"<div class='heading'><h1>{request.json['title']}</h1></div>"
-    html = title + bleach.clean(
-        markdown.markdown(
-            mkd,
-            extensions=app.config['MARKDOWN_EXTENSIONS']
-            ),
+
+    # Convert Markdown to HTML
+    raw_html = markdown(
+        mkd,
+        extensions=app.config['MARKDOWN_EXTENSIONS']
+    )
+
+    # Clean the HTML to escape unapproved tags
+    sanitized_html = Markup(clean(
+        raw_html,
         tags=app.config['ALLOWED_TAGS'],
         attributes=app.config['ALLOWED_ATTRIBUTES']
-    )
-    return {"html": html}
+    ))
+
+    return {"html": sanitized_html}
 
 
 @bp_education.route('/viewdrafts')
