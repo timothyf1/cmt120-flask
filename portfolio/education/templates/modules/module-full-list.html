@@ -4,8 +4,11 @@
     <h1>Module List</h1>
 </div>
 
+{% if modules | list | count > 0 %}
 <p>This page lists all the modules I have completed across all the different courses.</p>
-
 {% include "modules/modules-list.html" %}
+{% else %}
+<p>There are current no modules listed.</p>
+{% endif %}
 
 {% endblock content %}

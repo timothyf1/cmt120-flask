@@ -7,6 +7,7 @@
     {% endif %}
 </div>
 
+{% if experiences | list | count > 0 %}
 <p>Below is my working experience</p>
 
 {% for job in experiences %}
@@ -19,5 +20,9 @@
 <p>From {{ job.start.strftime('%B %Y') }}{% if not job.current %} to {{ job.end.strftime('%B %Y') }}{% endif %}</p>
 <p>At {{ job.employer }} in {{ job.location }}</p>
 {% endfor %}
+
+{% else %}
+<p>There is currently no experience to view.</p>
+{% endif %}
 
 {% endblock content %}

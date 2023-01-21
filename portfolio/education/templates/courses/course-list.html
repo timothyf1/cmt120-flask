@@ -9,10 +9,15 @@
 </div>
 <p>This area here is where I'm going to describe what skills I have learnt within my education.</p>
 
+{% if courses | list | count > 0 %}
 <p>Below is a list of course I have completed. There are also seaprate pages listing all the <a href="{{ url_for('bp_education.module_list') }}">modules</a> I have completed, along with another listing all the <a href="{{ url_for('bp_education.topics_list') }}">topics</a> covered within the modules.</p>
 <ul>
     {% for course in courses %}
     <li><a href="{{ url_for('bp_education.course_page', name=course.name) }}">{{ course.name }}</a> completed in {{ course.year }} at {{ course.location }}</li>
     {% endfor %}
 </ul>
+{% else %}
+<p>There are currently no courses listed.</p>
+{% endif %}
+
 {% endblock content %}

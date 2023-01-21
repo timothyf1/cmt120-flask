@@ -8,10 +8,15 @@
     {% endif %}
 </div>
 <p>{{ course.description }}</p>
+
+{% if modules | list | count > 0 %}
 <p>During this course I have taken the following modules:</p>
 
 {% with modules = course.modules %}
     {% include "modules/modules-list.html" %}
 {% endwith %}
+{% else %}
+<p>There are currently no modules for this course.</p>
+{% endif%}
 
 {% endblock content %}
