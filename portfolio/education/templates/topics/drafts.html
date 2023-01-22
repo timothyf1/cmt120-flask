@@ -4,7 +4,7 @@
     <h1>Draft List</h1>
 </div>
 
-{% if topics | selectattr("draft", "equalto", 1) | list | count > 0 %}
+{% if drafts | list | count > 0 %}
 <p>This page lists all of the draft topics.</p>
 
 {% with topics = drafts %}

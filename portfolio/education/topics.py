@@ -170,5 +170,6 @@ def preview(title=None, code=None):
 @login_required
 @register_breadcrumb(bp_education, '.drafts', 'Drafts')
 def view_drafts():
-    drafts = Topic.query.filter_by(draft=True)
+    drafts = Topic.query.filter_by(draft=True).all()
+    print(drafts)
     return render_template('topics/drafts.html', title="View drafts", drafts=drafts)
