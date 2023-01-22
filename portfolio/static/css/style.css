@@ -74,7 +74,7 @@ form {
     padding-right: 1rem;
     background-color: var(--inp-background-color);
     color: var(--text-color);
-    border: var(--border-weight) solid var(--inp-border);
+    border: var(--border-weight) solid var(--inp-border-color);
     border-radius: 1rem;
     font: Helvetica;
     font-size: large;

@@ -31,7 +31,7 @@ p > img {
 .image-preview {
     background-color: var(--inp-background-color);
     border-radius: 1rem;
-    border: var(--border-weight) solid var(--inp-border);
+    border: var(--border-weight) solid var(--inp-border-color);
     padding-left: 1rem;
     overflow-x: scroll;
 }
