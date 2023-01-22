@@ -36,7 +36,12 @@ class Course(db.Model):
     year = db.Column(db.Integer, nullable=False)
     description = db.Column(db.Text, nullable=False)
 
-    modules = db.relationship('Module', order_by="Module.year.desc()", back_populates='course')
+    modules = db.relationship(
+        'Module',
+        order_by="Module.year.desc()",
+        back_populates='course',
+        cascade="all, delete-orphan"
+    )
 
     def __repr__(self):
         return f"Course('{self.id}', '{self.name}', '{self.description}')"
@@ -49,8 +54,17 @@ class Module(db.Model):
     code = db.Column(db.String(20), nullable=False, unique=True)
     description = db.Column(db.Text)
 
-    course = db.relationship('Course', back_populates='modules')
-    topics = db.relationship('Topic', order_by="Topic.date.desc()", back_populates='module')
+    course = db.relationship(
+        'Course',
+        back_populates='modules',
+        single_parent=True
+    )
+    topics = db.relationship(
+        'Topic',
+        order_by="Topic.date.desc()",
+        back_populates='module',
+        cascade="all, delete-orphan"
+    )
 
     def __repr__(self):
         return f"Module('{self.id}', '{self.name}', '{self.description}')"
@@ -72,8 +86,22 @@ class Topic(db.Model):
     content = db.Column(db.Text)
     draft = db.Column(db.Boolean, default=False)
 
-    module = db.relationship('Module', back_populates='topics')
-    tags = db.relationship('Tag', secondary=tag_assignment, order_by="Tag.name", back_populates='topics')
+    module = db.relationship(
+        'Module',
+        back_populates='topics',
+        single_parent=True
+    )
+    tags = db.relationship(
+        'Tag',
+        secondary=tag_assignment,
+        order_by="Tag.name",
+        back_populates='topics'
+    )
+    images = db.relationship(
+        'ImageUpload',
+        back_populates='topic',
+        cascade="all, delete-orphan"
+    )
 
     def __repr__(self):
         return f"topic('{self.id}', '{self.title}')"
@@ -81,14 +109,25 @@ class Topic(db.Model):
 class Tag(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(15), unique=True, nullable=False)
-    topics = db.relationship('Topic', secondary=tag_assignment, back_populates='tags')
+
+    topics = db.relationship(
+        'Topic',
+        secondary=tag_assignment,
+        back_populates='tags'
+    )
 
 class ImageUpload(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     topic_id = db.Column(db.Integer, db.ForeignKey('topic.id'), nullable=False)
-    filename = db.Column(db.String(100), nullable=False, unique=True)
+    filename = db.Column(db.String(100), nullable=False)
     upload_date = db.Column(db.DateTime, default=datetime.utcnow)
+
+    topic = db.relationship(
+        'Topic',
+        back_populates='images',
+        single_parent=True
+    )
 
 class Experience(db.Model):
     id = db.Column(db.Integer, primary_key=True)

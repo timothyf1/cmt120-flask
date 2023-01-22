@@ -104,7 +104,6 @@ def new_topic(code):
 @login_required
 def edit_topic(title):
     topic = Topic.query.filter_by(title=title).first_or_404()
-    images = ImageUpload.query.filter_by(topic_id=topic.id)
     form = Edit_Topic()
 
     if form.validate_on_submit():
@@ -123,7 +122,7 @@ def edit_topic(title):
         form.tags.data = " ".join([tag.name for tag in topic.tags])
         form.content.data = topic.content
 
-    return render_template('topics/edit-topic.html', title='Edit topic', form=form, topic=topic, images=images)
+    return render_template('topics/edit-topic.html', title='Edit topic', form=form, topic=topic)
 
 
 @bp_education.route("/topic/<string:title>/delete", methods=['GET', 'POST'])
