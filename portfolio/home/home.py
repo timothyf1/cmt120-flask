@@ -69,10 +69,10 @@ def preview():
     )
 
     # Clean the HTML to escape unapproved tags
-    sanitized_html = Markup(clean(
+    sanitized_html = title + clean(
         raw_html,
         tags=app.config['ALLOWED_TAGS'],
         attributes=app.config['ALLOWED_ATTRIBUTES']
-    ))
+    )
 
     return {"html": sanitized_html}
