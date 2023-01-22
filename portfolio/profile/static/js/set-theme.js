@@ -26,7 +26,6 @@ function setCSSAccessMode(access) {
 }
 
 function setDarkMode(value) {
-    localStorage.setItem('darkmode', value);
     document.cookie = `darkmode=${value};path=/;SameSite=Strict`
     setCSSColourDarkMode(`${value}`);
 }
@@ -34,14 +33,23 @@ function setDarkMode(value) {
 function setAccessMode() {
     let accessCheckBox = document.getElementById("accessibility")
     if (accessCheckBox.checked) {
-        localStorage.setItem('access', '1');
         document.cookie = "access=1;path=/;SameSite=Strict"
         setCSSAccessMode('1')
     } else {
-        localStorage.setItem('access', '0')
         document.cookie = "access=0;path=/;SameSite=Strict"
         setCSSAccessMode('0')
     }
+}
+
+function readDisplaySettings() {
+    let dict = {}
+    let cookies = document.cookie.split(";")
+    console.log(cookies)
+    cookies.forEach((element) => {
+        let split = element.split("=");
+        dict[split[0].slice(1)] = split[1];
+    })
+    return dict
 }
 
 function setCurrentSettings() {
