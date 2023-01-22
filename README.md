@@ -44,9 +44,11 @@ The main section of the portfolio. Within this section courses can be added. Eac
 
 This is a page for entering previours working expeience.
 
-## Packages used
+## References
 
-Below is a list of packages used with a link to the documentation. There are other packages installed which are dependencies of those listed below.
+### Packages used
+
+Below is a list of packages used with a link to the documentation which I have used. There are other packages installed which are dependencies of those listed below.
 
 - [bleach](https://bleach.readthedocs.io/)
 - [Flask](https://flask.palletsprojects.com/)
@@ -60,3 +62,36 @@ Below is a list of packages used with a link to the documentation. There are oth
 - [PyMySQL](https://pymysql.readthedocs.io/)
 - [Werkzeug](https://werkzeug.palletsprojects.com/)
 - [WTForms](https://wtforms.readthedocs.io/)
+
+### Other references
+
+Below is a list 3rd party references I have used when writing the code.
+
+- Code to set default breadcrumb.
+  Github comment by jirikuncar on 2016-09-05
+  [https://github.com/inveniosoftware/flask-breadcrumbs/issues/33#issuecomment-244692682](https://github.com/inveniosoftware/flask-breadcrumbs/issues/33#issuecomment-244692682)
+  Accessed on 2023-01-09
+- Function to insert text into a textfield at the current location
+  Stack Overflow post by GMKHussain 2021-01-19
+  [https://stackoverflow.com/a/65793635](https://stackoverflow.com/a/65793635)
+  Accessed on 2023-01-12
+- Jinja code to count how many items in a object has an attribute
+  Stack Overflow post by Marc8 2018-12-7
+  [https://stackoverflow.com/a/53671429/](https://stackoverflow.com/a/53671429/)
+  Accessed on 2023-01-17
+- Change radio button default dynamically
+  Stack Overflow post by jeinarsson 2015-01-15
+  [https://stackoverflow.com/a/34820107/](https://stackoverflow.com/a/34820107/)
+  Accessed on 2023-01-05
+- CSS to prevent word wrapping
+  css-tricks post by Sara Cope updated on 2022-09-28
+  [https://css-tricks.com/almanac/properties/w/whitespace/](https://css-tricks.com/almanac/properties/w/whitespace/)
+  Accessed on 2023-01-23
+- Import a file depending on media query
+  Stack Overflow post by Drew Altukhov 2013-09-05
+  [https://stackoverflow.com/a/18636027/](https://stackoverflow.com/a/18636027/)
+  Accessed on 2022-12-31
+- JS function to add and remove class
+  w3schools - How TO - Sticky/Affix Navbar
+  [https://www.w3schools.com/HOWTO/howto_js_navbar_sticky.asp](https://www.w3schools.com/HOWTO/howto_js_navbar_sticky.asp)
+  Accessed on 2023-01-05
